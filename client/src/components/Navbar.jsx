@@ -7,9 +7,7 @@ import  LOGO_BIRK  from "../assets/images/BSA_Birk.png";
 
 export const navbarHeight = '50px';
 export const yellow = '#fdcf19';
-const layoutChange = '1000px';
-
-
+export const layoutChange = '1000px';
 const StyledBurger = styled.div`
   z-index: 7;
   @media (max-width: ${layoutChange}) {
@@ -61,8 +59,6 @@ const StyledBurger = styled.div`
   }
   
 `
-
-
 const Burger = () => {
     const [open, setOpen] = useState(false)
     return (
@@ -84,28 +80,48 @@ const Burger = () => {
         </>
     )
 }
-
 const Container = styled.div`
   background-color: ${yellow};
   width: 100vw;
   height: ${navbarHeight};
   font-weight: bold;
   display: flex;
+  justify-content: center;
   padding: 0.5rem 0;
-  position: fixed;
+  top: 0;
+  left: 0;
+  position: fixed !important;
   z-index: 5;
+  @media (max-width: ${layoutChange}) {
+    &:nth-child(2) {
+    }
+    @media (max-width: 620px) {
+    .birk {
+          display: none;
+      }
+    }
+  }
 `
 const Logos = styled.div`
   max-width: 20%;
   display: flex;
   cursor: pointer;
+  position: fixed;
+  height: calc(${navbarHeight}*.85);
+  top: 0;
+  left: 0;
 `
 const SearchContainer = styled.div`
     border: 0.5px solid black;
-    min-width: 50%;
+    min-width: 30%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 200px;
+  @media (max-width: ${layoutChange}) {
+    margin-left: 100px;
+    width: 40%;
+  }
 `
 const Input = styled.input`
   border: none;
@@ -141,7 +157,6 @@ const MenuItem = styled.div`
   padding: 0 1rem;
   cursor: pointer;
 `
-
 const RightMenu = styled.div`
   display: none;
   cursor: pointer;
@@ -149,16 +164,15 @@ const RightMenu = styled.div`
     display: flex;
   }
 `
-
 const Navbar = () => {
     return (
         <Container>
             <Logos>
-                <img src={LOGO_BIRK} alt="BSA"></img>
-                <img src={LOGO_BSA} alt="O"></img>
+                <img src={LOGO_BIRK} alt="BSA" className="birk"/>
+                <img src={LOGO_BSA} alt="O" className="bsa-logo"/>
             </Logos>
             <SearchContainer>
-                <Input style={{fontSize:"1.3rem", padding:"0 1rem"}}/>
+                <Input style={{fontSize:"1.3rem", padding:"0 0.25rem"}}/>
                 <Search/>
             </SearchContainer>
             <Burger/>
