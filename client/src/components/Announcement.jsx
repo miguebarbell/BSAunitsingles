@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { navbarHeight } from "./Navbar";
+import { navbarHeight, layoutChange } from "./Navbar";
+
+
 export const announcementHeight = '1.2rem';
 
 
@@ -13,6 +15,10 @@ const Container = styled.div`
   height: ${announcementHeight};
   z-index: 4;
   position: absolute;
+  font-size: 1rem;
+  @media (max-width: ${layoutChange}) {
+    font-size: 0.75rem;
+  }
 `
 const Announcement = () => {
     return (
