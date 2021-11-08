@@ -32,7 +32,7 @@ const Products = () => {
                 <Name>Popular Products</Name>
             <Container>
             {popularProducts.map(item => (
-                <Product item={item} ket={item.id}/>
+                <Product item={item} key={item.id}/>
             ))}
             </Container>
             </div>
