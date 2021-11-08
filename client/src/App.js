@@ -4,13 +4,15 @@ import Success from "./components/Success"
 import Cart from "./pages/Cart"
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
+import Product from "./pages/Product";
 
 const YELLOW = '#fdcf19';
 
 function App() {
   return (
+      <Product/>
       // <ProductList/>
-      <Home/>
+      // <Home/>
       // <Router>
       //   <Switch>
       //     <Route path="/pay">
