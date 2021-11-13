@@ -156,10 +156,38 @@ const Menu = styled.div`
 const MenuItem = styled.div`
   padding: 0 1rem;
   cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+  color: red;
+  // outline: solid red 1px;
+  &:before {
+  content: '>';
+  // position: absolute;
+  // transform: translateX(-100%);
+  }
+  &:after {
+  content: '<';
+  }
+  }
 `
 const RightMenu = styled.div`
   display: none;
   cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+  color: red;
+  // outline: solid red 1px;
+  &:before {
+  content: '>';
+  // position: absolute;
+  // transform: translateX(-100%);
+  }
+  &:after {
+  content: '<';
+  // position: absolute;
+  // transform: translateX(100%);
+  }
+  }
   @media (max-width: ${layoutChange}) {
     display: flex;
   }
