@@ -1,11 +1,19 @@
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar, {yellow,  navbarHeight} from "../components/Navbar";
-import C15 from "../assets/images/C15.jpg";
+import wrapperbg from "../assets/images/C15.jpg";
 
-const changeLayout = "760px"
+export const changeLayout = "760px"
 
-const Container = styled.div`
+export const Button = styled.button`
+color: black;
+font-weight: bold;
+background-color: ${yellow};
+padding: 0.25rem 0.5rem;
+border-radius: 5px;
+`
+
+export const Container = styled.div`
 position: absolute;
 top: ${navbarHeight};
 height: calc(100vh - ${navbarHeight});
@@ -14,11 +22,11 @@ justify-content: space-between;
 align-items: center;
 flex-direction: column;
 width: 100vw;
-background: rgba(0, 0, 0, .5) url(${props => props.bg})center no-repeat;
+background: rgba(255, 255, 255, .5) url(${props => props.bg})center no-repeat;
 background-size: cover;
 `;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -38,23 +46,25 @@ max-width: 500px;
 }
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
 text-align: center;
 // text-justify: inter-word;
 @media (max-width: ${changeLayout}) {
 font-size: 1.5rem;
 }`;
 
-const Form = styled.form`
+export const Form = styled.form`
 display: flex;
-flex-direction: column;
+// flex-direction: column;
+justify-content: space-between;
 align-items: center;
+flex-wrap: wrap;
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
 margin: 0.25rem;
 padding: 0.25rem;
-width: 80%;
+width: 45%;
 border-radius: 5px;
 `;
 const Agreement = styled.span`
@@ -62,7 +72,7 @@ text-align: justify;
 text-justify: inter-word;
 `;
 
-const FooterWrapper = styled.div`
+export const FooterWrapper = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: space-between;
@@ -71,7 +81,7 @@ justify-content: space-between;
 
 const Register = () => {
     return (
-        <Container bg={C15}>
+        <Container bg={wrapperbg}>
             <Navbar/>
             <div style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <Wrapper>
@@ -80,15 +90,16 @@ const Register = () => {
                     CREATE AN ACCOUNT
                 </Title>
                 <Form>
-                    <Input placeholder="name"/>
-                    <Input placeholder="last name"/>
-                    <Input placeholder="username"/>
-                    <Input placeholder="email"/>
-                    <Input placeholder="password"/>
-                    <Input placeholder="confirm password"/>
+                    <Input type="text" placeholder="name" required/>
+                    <Input type="text" placeholder="last name" required/>
+                    <Input type="text" placeholder="username" required/>
+                    <Input type="email" placeholder="email" required/>
+                    <Input type="password" placeholder="password" required/>
+                    <Input type="password" placeholder="confirm password" required/>
                     <Agreement>
                         By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
                     </Agreement>
+                    <Button type="submit">Create</Button>
                 </Form>
             </Wrapper>
             </div>

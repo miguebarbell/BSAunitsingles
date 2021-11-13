@@ -136,6 +136,7 @@ const Input = styled.input`
 const Menu = styled.div`
   display: flex;
   align-items: center;
+  // justify-content: flex-end;
   padding: 1rem;
   @media (max-width: ${layoutChange}) {
     display: ${({open}) => open ? 'flex' : 'none'};
@@ -160,14 +161,14 @@ const MenuItem = styled.div`
   &:hover {
   color: red;
   // outline: solid red 1px;
-  &:before {
-  content: '>';
+  // &:before {
+  // content: '>';
   // position: absolute;
   // transform: translateX(-100%);
-  }
-  &:after {
-  content: '<';
-  }
+  // }
+  // &:after {
+  // content: '<';
+  // }
   }
 `
 const RightMenu = styled.div`
@@ -177,16 +178,16 @@ const RightMenu = styled.div`
   &:hover {
   color: red;
   // outline: solid red 1px;
-  &:before {
-  content: '>';
+  // &:before {
+  // content: '>';
   // position: absolute;
   // transform: translateX(-100%);
-  }
-  &:after {
-  content: '<';
+  // }
+  // &:after {
+  // content: '<';
   // position: absolute;
   // transform: translateX(100%);
-  }
+  // }
   }
   @media (max-width: ${layoutChange}) {
     display: flex;
