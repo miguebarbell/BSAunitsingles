@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import Navbar, {yellow,  navbarHeight} from "../components/Navbar";
 import C15 from "../assets/images/C15.jpg";
 
+const changeLayout = "760px"
 
 const Container = styled.div`
 position: absolute;
@@ -23,34 +24,56 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 width: 60%;
-// height: 100%;
+max-width: 900px;
 background: rgba(255, 255, 255, .65);
 border-radius: 10px;
 padding: 2rem;
 backdrop-filter: blur(45px);
-transform: translateY(50%);
+* {
+    margin: 1rem 0;
+}
+@media (max-width: ${changeLayout}) {
+width: 90%;
+max-width: 500px;
+}
 `;
 
-const Title = styled.h1``;
+const Title = styled.h1`
+text-align: center;
+// text-justify: inter-word;
+@media (max-width: ${changeLayout}) {
+font-size: 1.5rem;
+}`;
 
 const Form = styled.form`
 display: flex;
 flex-direction: column;
+align-items: center;
 `;
 
 const Input = styled.input`
 margin: 0.25rem;
 padding: 0.25rem;
+width: 80%;
+border-radius: 5px;
 `;
-const Agreement = styled.span``;
+const Agreement = styled.span`
+text-align: justify;
+text-justify: inter-word;
+`;
 
 const FooterWrapper = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+// height: 100%;
 `;
 
 const Register = () => {
     return (
         <Container bg={C15}>
             <Navbar/>
+            <div style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <Wrapper>
 
                 <Title>
@@ -68,7 +91,9 @@ const Register = () => {
                     </Agreement>
                 </Form>
             </Wrapper>
+            </div>
             <FooterWrapper>
+                <div></div>
                 <Footer/>
             </FooterWrapper>
         </Container>
