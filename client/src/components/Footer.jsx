@@ -12,9 +12,12 @@ const Container = styled.div`
 `
 
 const Left = styled.div`
-  flex: 2;
+  flex: 2.3;
   display: flex;
   flex-direction: column;
+  text-align: justify;
+  text-justify: inter-word;
+  margin-right: 1rem;
   
 `
 const Logo = styled.h1`
