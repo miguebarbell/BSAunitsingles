@@ -6,6 +6,7 @@ import wrapperbg from "../assets/images/C15.jpg";
 export const changeLayout = "760px"
 
 export const Button = styled.button`
+grid-area: button;
 color: black;
 font-weight: bold;
 background-color: ${yellow};
@@ -54,29 +55,49 @@ font-size: 1.5rem;
 }`;
 
 export const Form = styled.form`
-display: flex;
+display: grid;
+grid-template-columns: 30% 70%;
+grid-template-rows: 7;
+grid-gap: 0 1.25rem;
+
+grid-template-areas: 
+"fnamelabel fnameinput" 
+"lnamelabel lnameinput" 
+"emaillabel emailinput" 
+"passlabel passinput" 
+"rpasslabel rpassinput" 
+"agreement agreement" 
+"button button" ;
+// display: flex;
 // flex-direction: column;
-justify-content: space-between;
-align-items: center;
-flex-wrap: wrap;
+// justify-content: space-between;
+// align-items: center;
+// flex-wrap: wrap;
 `;
 
 export const Input = styled.input`
 margin: 0.25rem;
 padding: 0.25rem;
-width: 45%;
 border-radius: 5px;
+height: 2rem;
+// &::before {
+//     content: "click";
+// };
 `;
 const Agreement = styled.span`
+grid-area: agreement;
 text-align: justify;
 text-justify: inter-word;
 `;
+
+export const Label = styled.label`
+text-align: right;
+`
 
 export const FooterWrapper = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: space-between;
-// height: 100%;
 `;
 
 const Register = () => {
@@ -90,12 +111,17 @@ const Register = () => {
                     CREATE AN ACCOUNT
                 </Title>
                 <Form>
-                    <Input type="text" placeholder="name" required/>
-                    <Input type="text" placeholder="last name" required/>
-                    <Input type="text" placeholder="username" required/>
-                    <Input type="email" placeholder="email" required/>
-                    <Input type="password" placeholder="password" required/>
-                    <Input type="password" placeholder="confirm password" required/>
+                    <Label style={{gridArea: "fnamelabel"}} for="name">First Name</Label>
+                    <Input style={{gridArea: "fnameinput"}} id="name" type="text" placeholder="Brent" required/>
+                    <Label style={{gridArea: "lnamelabel"}} for="lastname">Last name</Label>
+                    <Input style={{gridArea: "lnameinput"}} id="lastname" type="text" placeholder="Lenahan" required/>
+                    <Label style={{gridArea: "emaillabel"}} for="email">Email</Label>
+                    <Input style={{gridArea: "emailinput"}} id="email" type="email" placeholder="brent@bsa.uk" required/>
+                    {/*make a seudo element saying the specifications for the password*/}
+                    <Label style={{gridArea: "passlabel"}} for="password">Password</Label>
+                    <Input style={{gridArea: "passinput"}} id="password" type="password" placeholder="password" required/>
+                    <Label style={{gridArea: "rpasslabel"}} for="password">RE-Password</Label>
+                    <Input style={{gridArea: "rpassinput"}} type="password" placeholder="password" required/>
                     <Agreement>
                         By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
                     </Agreement>
