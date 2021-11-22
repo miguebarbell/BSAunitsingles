@@ -73,7 +73,7 @@ const Burger = () => {
             <RightMenu>Contact</RightMenu>
             <MenuItem>Register</MenuItem>
             <MenuItem>Login</MenuItem>
-            <MenuItem><Badge color="primary" badgeContent={4}>
+            <MenuItem><Badge color="secondary" badgeContent={4}>
                 <ShoppingCartOutlined/>Cart
             </Badge></MenuItem>
         </Menu>
