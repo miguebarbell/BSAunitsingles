@@ -5,9 +5,11 @@ const ProductSchema = new mongoose.Schema({
     desc: {type: String, required: true},
     img: {type: String, required: true},
     categories: {type: Array},
-    size: {type: String},
-    color: {type: String},
+    sku: {type: String},
+    // color: {type: String},
     price: {type: Number, required: true},
+    inStock: {type: Boolean, default: true},
+    onHand: {type: Number, default: 1, required:true}
 
 
 }, {timestamp: true});
