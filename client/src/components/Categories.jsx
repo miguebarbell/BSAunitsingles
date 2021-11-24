@@ -11,7 +11,7 @@ const Container = styled.div`
 `
 
 export const Name = styled.h1`
-
+text-transform:capitalize;
 `
 
 const Categories = () => {
