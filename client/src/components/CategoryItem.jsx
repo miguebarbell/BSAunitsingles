@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { categories} from "../data";
+import {Link} from "react-router-dom";
 
 const itemSize = '10vw'
 export const Container = styled.div`
@@ -30,17 +30,19 @@ const Title = styled.h1`
   background-image: linear-gradient(0deg, transparent, rgba(250,250,250,0.4), white 60%);
   width: 100%;
   padding: 0.25rem;
-  
+  text-transform:capitalize;
 `
 
 
 const CategoryItem = ({item}) => {
     return (
         <Container>
-            <Title>
-                {item.category}
-            </Title>
-            <Image src={item.image}/>
+            <Link to={`/products/${item.category}`}>
+                <Title>
+                    {item.category}
+                </Title>
+                <Image src={item.image}/>
+            </Link>
         </Container>
     )
 }
