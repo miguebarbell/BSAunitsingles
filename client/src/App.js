@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import Pay from "./components/Pay"
 import Success from "./components/Success"
 import Cart from "./pages/Cart"
@@ -11,22 +11,33 @@ import Login from "./pages/Login";
 const YELLOW = '#fdcf19';
 
 function App() {
+  const user = true;
   return (
-      <Login/>
-      // <Register/>
-      // <Product/>
-      // <ProductList/>
-      // <Home/>
-      // <Router>
-      //   <Switch>
-      //     <Route path="/pay">
-      //       <Pay/>
-      //     </Route>
-      //     <Route path="/success">
-      //       <Success/>
-      //     </Route>
-      //   </Switch>
-      // </Router>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/products/:category">
+            <ProductList />
+          </Route>
+          <Route path="/product/:id">
+            <Product/>
+          </Route>
+          <Route path="/cart">
+            <Cart/>
+          </Route>
+
+          <Route path="/login">
+            {/*if user is logged, redirect to the home*/}
+            {user ? <Redirect to="/"/> : <Login/>}
+          </Route>
+          <Route path="/register">
+            {/*if user is logged, redirect to the home*/}
+            {user ? <Redirect to="/"/> : <Register/>}
+          </Route>
+        </Switch>
+      </Router>
   );
 }
 
