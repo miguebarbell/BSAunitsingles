@@ -1,8 +1,12 @@
 import styled from "styled-components"
 import Announcement, {announcementHeight} from "../components/Announcement";
 import Navbar, {navbarHeight, yellow} from "../components/Navbar";
-import Products from "../components/Products";
+// import Products from "../components/Products";
 import { Add, Remove } from "@material-ui/icons";
+import {useLocation} from "react-router-dom";
+import {useEffect, useState} from "react";
+import { publicRequest} from "../requestMethods"
+import FeaturedProducts from "../components/FeaturedProducts";
 
 const Wrapper = styled.div`
   margin-top: calc(${navbarHeight} + ${announcementHeight} + 20px);
@@ -60,46 +64,63 @@ display: flex;
 const Amount = styled.span`
   font-weight: bold;
 padding: 0 0.5rem;`
-
-
 const Container = styled.div``
 const Product = () => {
+    const location = useLocation();
+    const id = location.pathname.split('/')[2]
+    const [product, setProduct] = useState(0)
+    const [quantity, setQuantity] = useState(1)
+    // console.log('loading product id: ' + id)
+    useEffect(() => {
+        const getProduct = async ()=> {
+            try {
+                const res = await publicRequest.get(`/api/products/find/${id}`)
+                setProduct(res.data);
+                // console.log(res.data);
+            } catch (e) {
+
+            }
+        }
+        getProduct()
+    }, [id])
+    // useEffect(() => {
+    //
+    // }, [])
+
+    const handleQuantity = (type) => {
+        if (type === "-") {
+            quantity > 1 && setQuantity(quantity - 1)
+        } else {quantity <= product.onHand && setQuantity(quantity + 1)}
+    }
+    const handleAdd = () => {
+    // add to cart function
+    }
+
     return (
         <Container>
             <Announcement/>
             <Navbar/>
             <Wrapper>
                  <ImgContainer>
-                     <Image src="https://bsaunitsingles.com/itemimages/BSA/L622PREM.JPG"/>
-
+                     <Image src={product.img}/>
                  </ImgContainer>
                 <InfoContainer>
-                    <Title>AMAL CONCENTRIC CARB 622 "LEFT" 22MM</Title>
-                    <Sku>SKU: L622PREM</Sku>
-                    <Desc>AMAL CONCENTRIC CARB 622 PREMIER "LEFT" 22MM (7/8" CHOKE)<br/>
-                        ALUMINUM BODY<br/>
-                        COMES WITH #3 SLIDE AND 120 MAIN JET<br/>
-                        IF DIFFERENT SLIDE OR JET DESIRED PLEASE SPECIFY
-                        PRIMER ON LEFT SIDE - MORE CONVENIENT FOR LEFT SIDE CARB MOUNTED C15 AND B40 MOTORS
-                        FEATURES OF THE PREMIER:
-                        CAST ALUMINUM BODY - LIGHTWIEGHT
-                        PRECISION MANUFACTURED FORGED ALLOY HARD ANODISED THROTTLE SLIDE HAS A LOW FRICTION SURFACE FOR SMOOTHER OPERATION AND GREATER WEAR RESISTANCE
-                        ETHANOL RESISTANT PUNCTURE PROOF STAYUP FLOAT
-                        PRECISION ENGINEERED IDLE CIRCUT IMPROVES THE PICK UP PERFORMACE FROM IDLE
-                        AND MOST IMPORTANTLY A REMOVABLE PILOT JET TO ALLOW ACCESS TO THE IDLE CIRCUT FOR CLEANING. THIS ALONE MAKES THIS CARB WORTH THE EXTRA MONEY!
+                    <Title>{product.title}</Title>
+                    <Sku>SKU: {product.sku}</Sku>
+                    <Desc>{product.desc}
                     </Desc>
-                    <Price>$ 400.00</Price>
+                    <Price>$ {product.price}</Price>
                     <AddContainer>
                         <AmountContainer>
-                            <Remove/>
-                            <Amount>1</Amount>
-                            <Add/>
+                            <Remove onClick={() => handleQuantity("-")}/>
+                            <Amount>{quantity}</Amount>
+                            <Add onClick={() => handleQuantity("+")}/>
                         </AmountContainer>
-                        <Button>ADD TO CART</Button>
+                        <Button onClick={handleAdd}>ADD TO CART</Button>
                     </AddContainer>
                 </InfoContainer>
             </Wrapper>
-            <Products/>
+            <FeaturedProducts/>
         </Container>
     )
 }
