@@ -13,6 +13,8 @@ const Wrapper = styled.div`
   display: flex;
   padding: 1rem;
   align-items: center;
+  width: 90vw;
+  justify-content: center;
 `
 const ImgContainer = styled.div``
 const Image = styled.img`
@@ -43,23 +45,31 @@ const InfoContainer = styled.div`
 `
 const Button = styled.button`
   font-weight: bold;
-padding: 1rem;
+  padding: 1rem;
   cursor: pointer;
   border-radius: 5px;
   box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+  // width: 400px;
   &:hover {
     background-color: ${yellow};
   }
 `
 const AddContainer = styled.div`
-display: flex;
+  display: flex;
   align-items: center;
-  width: 50%;
+  width: 100%;
   justify-content: space-between;
   padding: 2rem;
+  
 `
 const AmountContainer = styled.div`
 display: flex;
+.addrem {
+    cursor: pointer;
+    &:hover {
+        color: red;
+    }
+}
 `
 const Amount = styled.span`
   font-weight: bold;
@@ -110,11 +120,12 @@ const Product = () => {
                     <Desc>{product.desc}
                     </Desc>
                     <Price>$ {product.price}</Price>
+                    {/*<Price>$ {product.price.toFixed(2)}</Price>*/}
                     <AddContainer>
                         <AmountContainer>
-                            <Remove onClick={() => handleQuantity("-")}/>
+                            <Remove onClick={() => handleQuantity("-")} className="addrem"/>
                             <Amount>{quantity}</Amount>
-                            <Add onClick={() => handleQuantity("+")}/>
+                            <Add onClick={() => handleQuantity("+")} className="addrem" />
                         </AmountContainer>
                         <Button onClick={handleAdd}>ADD TO CART</Button>
                     </AddContainer>
