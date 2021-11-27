@@ -4,6 +4,7 @@ import {Search, ShoppingCartOutlined} from "@material-ui/icons";
 import {Badge} from "@material-ui/core";
 import  LOGO_BSA  from "../assets/images/BSA.png";
 import  LOGO_BIRK  from "../assets/images/BSA_Birk.png";
+import {Link} from "react-router-dom";
 
 export const navbarHeight = '50px';
 export const yellow = '#fdcf19';
@@ -196,10 +197,12 @@ const RightMenu = styled.div`
 const Navbar = () => {
     return (
         <Container>
-            <Logos>
-                <img src={LOGO_BIRK} alt="BSA" className="birk"/>
-                <img src={LOGO_BSA} alt="O" className="bsa-logo"/>
-            </Logos>
+            <Link to="/">
+                <Logos>
+                    <img src={LOGO_BIRK} alt="BSA" className="birk"/>
+                    <img src={LOGO_BSA} alt="O" className="bsa-logo"/>
+                </Logos>
+            </Link>
             <SearchContainer>
                 <Input style={{fontSize:"1.3rem", padding:"0 0.25rem"}}/>
                 <Search/>
