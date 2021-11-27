@@ -30,13 +30,13 @@ const Desc = styled.p`
   text-justify: inter-word;
   
 `
-const Center = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-`
+// const Center = styled.div`
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: space-around;
+// `
 const Right = styled.div`
   //display: flex;
   //flex-direction: column;
@@ -50,9 +50,8 @@ const ContactItem = styled.div`
   align-items: center;
 `
 
-const Links = styled.div`
-  
-`
+// const Links = styled.div`
+//`
 const Footer = () => {
     return (
         <Container>
