@@ -63,7 +63,8 @@ const Product = ({item}) => {
             <Link to={`/product/${item._id}`}>
             <Blur className="blur">
                 <Title>{item.title}</Title>
-                <Price>$ {item.price}.00</Price>
+                {/*<Price>$ {item.price.toFixed(2)}</Price>*/}
+                <Price>$ {item.price}</Price>
             </Blur>
             </Link>
             <Image src={item.img} />
