@@ -1,19 +1,23 @@
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
-import Announcement from "../components/Announcement";
+import Navbar, { navbarHeight } from "../components/Navbar";
+import Announcement, { announcementHeight} from "../components/Announcement";
 import Footer from "../components/Footer";
-import { navbarHeight} from "../components/Navbar";
-import { announcementHeight} from "../components/Announcement";
+// import { navbarHeight } from "../components/Navbar";
+// import { announcementHeight } from "../components/Announcement";
 import Products from "../components/Products";
+import {useLocation} from "react-router-dom";
+import {useState} from "react";
 
 const Container = styled.div`
 `
-const Title = styled.h1`
-  margin-top: calc(${navbarHeight} + ${announcementHeight} + 20px);
-`
+// const Title = styled.h1`
+//   margin-top: calc(${navbarHeight} + ${announcementHeight} + 20px);
+//   text-transform:capitalize;
+// `
 const FilterContainer = styled.div`
   //margin-top: calc(${navbarHeight} + ${announcementHeight});
-  margin: 20px;
+  margin-top: calc(${navbarHeight} + ${announcementHeight} + 20px);
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
 `
@@ -31,16 +35,27 @@ padding: 5px;`
 const Option = styled.option``
 
 const ProductList = () => {
+    const title = useLocation().pathname.split("/")[2];
+
+    const [filter, setFilter] = useState({});
+    const [sort, setSort] = useState("newest");
+    const handleFilters = (e) => {
+        const value = e.target.value;
+        setFilter({
+            ...filter,
+            [e.target.name]: value.toLowerCase(),
+        });
+    }
     return (
         <Container>
             <Announcement/>
             <Navbar/>
-            <Title>Cables</Title>
             <FilterContainer>
                 <Filter>
                     <FilterText>Motorcycle Model: </FilterText>
-                <Select>
+                <Select name="model" onChange={handleFilters}>
                     <Option disabled selected> Models</Option>
+                    <Option value="all">All</Option>
                     <Option>C15 Star</Option>
                     <Option>C15T Trials</Option>
                     <Option>C15S Scrambler</Option>
@@ -73,14 +88,14 @@ const ProductList = () => {
                 </Select>
                 </Filter>
                 <Filter><FilterText>Sort: </FilterText>
-                <Select>
-                    <Option selected>Newest</Option>
-                    <Option>Price (asc)</Option>
-                    <Option>Price (desc)</Option>
+                <Select onChange={(e) => setSort(e.target.value)}>
+                    <Option value="newest" selected>Newest</Option>
+                    <Option value="asc" >Price (asc)</Option>
+                    <Option value="desc" >Price (desc)</Option>
                 </Select>
                 </Filter>
             </FilterContainer>
-            <Products/>
+            <Products cat={title} filter={filter} sort={sort}/>
             <Footer/>
         </Container>
     )
