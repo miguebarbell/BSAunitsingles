@@ -5,6 +5,7 @@ import {Badge} from "@material-ui/core";
 import  LOGO_BSA  from "../assets/images/BSA.png";
 import  LOGO_BIRK  from "../assets/images/BSA_Birk.png";
 import {Link} from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const navbarHeight = '50px';
 export const yellow = '#fdcf19';
@@ -62,6 +63,7 @@ const StyledBurger = styled.div`
 `
 const Burger = () => {
     const [open, setOpen] = useState(false)
+    const quantity = useSelector(state => state.cart.quantity)
     return (
         <>
         <StyledBurger open={open} onClick={() => setOpen(!open)}>
@@ -74,9 +76,13 @@ const Burger = () => {
             <RightMenu>Contact</RightMenu>
             <MenuItem>Register</MenuItem>
             <MenuItem>Login</MenuItem>
-            <MenuItem><Badge color="secondary" badgeContent={4}>
-                <ShoppingCartOutlined/>Cart
-            </Badge></MenuItem>
+            <Link to="/cart">
+                <MenuItem><Badge color="secondary" badgeContent={quantity}>
+                    <ShoppingCartOutlined/>Cart
+                </Badge></MenuItem>
+            </Link>
+
+
         </Menu>
         </>
     )
