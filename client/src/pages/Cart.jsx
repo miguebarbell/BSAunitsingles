@@ -1,8 +1,16 @@
-import React from 'react'
+import {useEffect, useState} from 'react'
 import styled from "styled-components";
-import Navbar, {yellow, layoutChange, navbarHeight} from "../components/Navbar";
+import Navbar, {yellow, navbarHeight} from "../components/Navbar";
+// import Navbar, {yellow, layoutChange, navbarHeight} from "../components/Navbar";
 import Footer from "../components/Footer";
 import {Add, Remove} from "@material-ui/icons";
+import {useSelector} from "react-redux";
+import StripeCheckout from "react-stripe-checkout";
+import {userRequest} from "../requestMethods";
+import { useHistory } from "react-router";
+
+// const STRIPE_KEY = process.env.REACT_APP_STRIPE_KEY;
+const STRIPE_KEY = 'pk_test_51JjmTWBN6ojyqIxPr1Xg9QGKPn7hW1EmtON0UZ1fp6BZzBY01BCTvJRAOoqeHGhsbHu1618p0wPVl3y0EBdwLVFI002Tnn3HJN'
 
 const Container = styled.div`
 margin-top: ${navbarHeight};
@@ -128,6 +136,31 @@ top: ${navbarHeight};
 
 
 const Cart = () => {
+    const cart = useSelector((state) => state.cart);
+    const [stripeToken, setStripeToken] = useState(null)
+    const history = useHistory();
+    const onToken = (token) => {
+        setStripeToken(token);
+        // console.log(stripeToken)
+    };
+    useEffect(() => {
+        const makeRequest = async () => {
+            try {
+                const res = await userRequest.post("/checkout/payment", {
+                    tokenId:stripeToken.id,
+                    // amount:cart.total*100,
+                    amount:100,
+                })
+                history.push("/success", {
+                    stripeData: res.data,
+                    products: cart,
+                })
+            } catch (e) {
+                
+            }
+        }
+        stripeToken && cart.total >= 1 && makeRequest()
+    }, [stripeToken, cart.total, history])
     return (
         <Container>
             <Navbar/>
@@ -136,32 +169,48 @@ const Cart = () => {
                     <Title>YOUR ORDER</Title>
                     <ButtonWrapper>
                         <Button>Continue Shopping</Button>
-                        <Button>Checkout</Button>
+                        <StripeCheckout
+                            name="BSA Unit Singles LLC."
+                            image="http://localhost:3000/static/media/BSA.abd2331d.png"
+                            billingAddress
+                            shippingAddress
+                            description={`Your total is $${cart.total}`}
+                            token={onToken}
+                            amount={cart.total*100}
+                            stripeKey={STRIPE_KEY}>
+                            <Button>Checkout</Button>
+                        </StripeCheckout>
+
                     </ButtonWrapper>
                 </NavCart>
                 <Info>
+                    {cart.products.map((product) => (
+
                     <Product>
                         <ProductDetail>
-                                  <Image src="https://bsaunitsingles.com/itemimages/BSA/97-3682.JPG" alt="item"/>
+                                  <Image src={product.img} alt={product.title}/>
                                   <Details>
-                                  <ProductName><b>Item:</b> Engine</ProductName>
-                                  <ProductSKU><b>SKU:</b> 23124345</ProductSKU>
+                                  <ProductName><b>Item:</b> {product.title}</ProductName>
+                                  <ProductSKU><b>SKU:</b> {product.sku}</ProductSKU>
                                   </Details>
                                   </ProductDetail>
                         <PriceDetail>
-                            <ProductQty><b>Qty:</b> <Add/> <Amount>4</Amount> <Remove/></ProductQty>
-                            <span><b>200usd</b></span>
+                            <ProductQty><b>Quantity:</b> <Add/> <Amount>{product.quantity}</Amount> <Remove/></ProductQty>
+                            <span><b>Unit Price: ${product.price} usd</b></span>
+                            <span><b>Items Total: ${product.priceQty} usd</b></span>
                         </PriceDetail>
                     </Product>
+
+                    ))}
                 </Info>
                 <SummaryWrapper>
                     <Summary>
                         <h1><b>Order Summary</b></h1>
-                        <Subtotal><b>SubTotal: </b>$1945</Subtotal>
+                        <Subtotal><b>SubTotal: </b>${cart.total} usd</Subtotal>
                         <Shipping><b>Estimated Shipping: </b>$55</Shipping>
                     </Summary>
                     <TotalSummary>
-                        <Total><b>Total: </b>$2000</Total>
+                        <Total><b>Total: </b>${cart.total} usd</Total>
                     </TotalSummary>
                 </SummaryWrapper>
 

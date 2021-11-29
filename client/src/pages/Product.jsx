@@ -7,6 +7,8 @@ import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import { publicRequest} from "../requestMethods"
 import FeaturedProducts from "../components/FeaturedProducts";
+import {addProduct} from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 const Wrapper = styled.div`
   margin-top: calc(${navbarHeight} + ${announcementHeight} + 20px);
@@ -80,6 +82,7 @@ const Product = () => {
     const id = location.pathname.split('/')[2]
     const [product, setProduct] = useState(0)
     const [quantity, setQuantity] = useState(1)
+    const dispatch = useDispatch()
     // console.log('loading product id: ' + id)
     useEffect(() => {
         const getProduct = async ()=> {
@@ -103,8 +106,9 @@ const Product = () => {
         } else {quantity <= product.onHand && setQuantity(quantity + 1)}
     }
     const handleAdd = () => {
-    // add to cart function
-    }
+        // console.log(quantity)
+        dispatch(addProduct({...product, quantity, priceQty:product.price*quantity}));
+    };
 
     return (
         <Container>

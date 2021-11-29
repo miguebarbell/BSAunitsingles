@@ -1,14 +1,15 @@
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
-import Pay from "./components/Pay"
-import Success from "./components/Success"
+// import Pay from "./components/Pay"
+// import Success from "./components/Success"
 import Cart from "./pages/Cart"
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Success from "./pages/Success";
 
-const YELLOW = '#fdcf19';
+// const YELLOW = '#fdcf19';
 
 function App() {
   const user = true;
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/cart">
             <Cart/>
+          </Route>
+          <Route path="/success">
+            <Success/>
           </Route>
 
           <Route path="/login">
