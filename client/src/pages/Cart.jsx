@@ -7,7 +7,7 @@ import {Add, Remove} from "@material-ui/icons";
 import {useSelector} from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import {userRequest} from "../requestMethods";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 // const STRIPE_KEY = process.env.REACT_APP_STRIPE_KEY;
 const STRIPE_KEY = 'pk_test_51JjmTWBN6ojyqIxPr1Xg9QGKPn7hW1EmtON0UZ1fp6BZzBY01BCTvJRAOoqeHGhsbHu1618p0wPVl3y0EBdwLVFI002Tnn3HJN'
