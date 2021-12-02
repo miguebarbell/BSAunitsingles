@@ -85,7 +85,7 @@ const Product = () => {
     const dispatch = useDispatch()
     // console.log('loading product id: ' + id)
     useEffect(() => {
-        const getProduct = async ()=> {
+        const getProduct = async () => {
             try {
                 const res = await publicRequest.get(`/api/products/find/${id}`)
                 setProduct(res.data);
@@ -103,7 +103,7 @@ const Product = () => {
     const handleQuantity = (type) => {
         if (type === "-") {
             quantity > 1 && setQuantity(quantity - 1)
-        } else {quantity <= product.onHand && setQuantity(quantity + 1)}
+        } else { quantity <= product.onHand && setQuantity(quantity + 1) }
     }
     const handleAdd = () => {
         // console.log(quantity)
@@ -113,7 +113,7 @@ const Product = () => {
     return (
         <Container>
             <Announcement/>
-            <Navbar/>
+            {/*<Navbar/>*/}
             <Wrapper>
                  <ImgContainer>
                      <Image src={product.img}/>

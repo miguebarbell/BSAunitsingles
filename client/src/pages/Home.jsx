@@ -10,7 +10,7 @@ import FeaturedProducts from "../components/FeaturedProducts";
 const Home = () => {
     return (
         <div>
-            <Navbar/>
+            {/*<Navbar/>*/}
             <Announcement/>
             <Slider/>
             <Categories/>

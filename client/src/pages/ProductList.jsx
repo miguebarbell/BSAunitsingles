@@ -49,7 +49,7 @@ const ProductList = () => {
     return (
         <Container>
             <Announcement/>
-            <Navbar/>
+            {/*<Navbar/>*/}
             <FilterContainer>
                 <Filter>
                     <FilterText>Motorcycle Model: </FilterText>

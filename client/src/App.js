@@ -8,6 +8,7 @@ import Product from "./pages/Product";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Success from "./pages/Success";
+import Navbar from "./components/Navbar";
 
 // const YELLOW = '#fdcf19';
 
@@ -15,6 +16,7 @@ function App() {
   const user = true;
   return (
       <Router>
+        <Navbar/>
         <Switch>
           <Route exact path="/">
             <Home />
