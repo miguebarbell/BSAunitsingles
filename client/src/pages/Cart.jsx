@@ -3,10 +3,10 @@ import styled from "styled-components";
 import Navbar, {yellow, navbarHeight} from "../components/Navbar";
 // import Navbar, {yellow, layoutChange, navbarHeight} from "../components/Navbar";
 import Footer from "../components/Footer";
-import {Add, Remove} from "@material-ui/icons";
-import {useSelector} from "react-redux";
+import { Add, Remove } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
-import {userRequest} from "../requestMethods";
+import { userRequest } from "../requestMethods";
 import { useHistory } from "react-router-dom";
 
 // const STRIPE_KEY = process.env.REACT_APP_STRIPE_KEY;
@@ -136,7 +136,7 @@ top: ${navbarHeight};
 
 
 const Cart = () => {
-    const cart = useSelector((state) => state.cart);
+    const cart = useSelector(state => state.cart);
     const [stripeToken, setStripeToken] = useState(null)
     const history = useHistory();
     const onToken = (token) => {
@@ -148,17 +148,16 @@ const Cart = () => {
             try {
                 const res = await userRequest.post("/checkout/payment", {
                     tokenId:stripeToken.id,
-                    // amount:cart.total*100,
-                    amount:100,
+                    amount:cart.total*100,
+                    // amount:100,
                 })
                 history.push("/success", {
                     stripeData: res.data,
                     products: cart,
                 })
-            } catch (e) {
-                
-            }
+            } catch (e) {}
         }
+        // makeRequest();
         stripeToken && cart.total >= 1 && makeRequest()
     }, [stripeToken, cart.total, history])
     return (
@@ -175,8 +174,8 @@ const Cart = () => {
                             billingAddress
                             shippingAddress
                             description={`Your total is $${cart.total}`}
-                            token={onToken}
                             amount={cart.total*100}
+                            token={onToken}
                             stripeKey={STRIPE_KEY}>
                             <Button>Checkout</Button>
                         </StripeCheckout>
@@ -184,7 +183,7 @@ const Cart = () => {
                     </ButtonWrapper>
                 </NavCart>
                 <Info>
-                    {cart.products.map((product) => (
+                    {cart.products.map(product => (
 
                     <Product>
                         <ProductDetail>
