@@ -171,7 +171,7 @@ const Cart = () => {
                         <Button>Continue Shopping</Button>
                         <StripeCheckout
                             name="BSA Unit Singles LLC."
-                            image="http://localhost:3000/static/media/BSA.abd2331d.png"
+                            image="https://bsaunitsingles.s3.amazonaws.com/cart/BSA.jpg"
                             billingAddress
                             shippingAddress
                             description={`Your total is $${cart.total}`}
