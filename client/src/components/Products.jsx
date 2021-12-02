@@ -73,7 +73,7 @@ const Products = ({cat, filter, sort}) => {
                 <Name>{cat}</Name>
             <Container>
             {filteredProducts.map(item => (
-                <Product item={item} key={item.id}/>
+                <Product item={item} key={item._id}/>
             ))}
             </Container>
             </div>
