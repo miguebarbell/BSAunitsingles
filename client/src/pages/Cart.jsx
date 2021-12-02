@@ -162,7 +162,7 @@ const Cart = () => {
     }, [stripeToken, cart.total, history])
     return (
         <Container>
-            <Navbar/>
+            {/*<Navbar/>*/}
             <CartWrapper>
                 <NavCart>
                     <Title>YOUR ORDER</Title>
