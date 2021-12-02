@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Announcement, {announcementHeight} from "../components/Announcement";
-import Navbar, {navbarHeight, yellow} from "../components/Navbar";
+import {navbarHeight, yellow} from "../components/Navbar";
 // import Products from "../components/Products";
 import { Add, Remove } from "@material-ui/icons";
 import {useLocation} from "react-router-dom";

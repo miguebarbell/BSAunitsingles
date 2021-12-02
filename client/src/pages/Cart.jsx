@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import styled from "styled-components";
-import Navbar, {yellow, navbarHeight} from "../components/Navbar";
+import {yellow, navbarHeight} from "../components/Navbar";
 // import Navbar, {yellow, layoutChange, navbarHeight} from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";

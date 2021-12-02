@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Navbar, { navbarHeight } from "../components/Navbar";
+import { navbarHeight } from "../components/Navbar";
 import Announcement, { announcementHeight} from "../components/Announcement";
 import Footer from "../components/Footer";
 // import { navbarHeight } from "../components/Navbar";

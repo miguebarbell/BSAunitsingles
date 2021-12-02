@@ -1,6 +1,6 @@
 import {Container, Button, FooterWrapper, Form, Input, Title, Wrapper} from "./Register";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import wrapperbg from "../assets/images/C15.jpg"
 import styled from "styled-components";
 
@@ -8,7 +8,7 @@ const Link = styled.a``
 const Login = () => {
     return (
         <Container bg={wrapperbg}>
-            <Navbar/>
+            {/*<Navbar/>*/}
             <div style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <Wrapper style={{background: wrapperbg, width: '60vw', maxWidth: '400px', minWidth: '250px'}}>
                     <Title>SIGN IN</Title>

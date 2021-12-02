@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Footer from "../components/Footer";
-import Navbar, {yellow,  navbarHeight} from "../components/Navbar";
+import {yellow,  navbarHeight} from "../components/Navbar";
 import wrapperbg from "../assets/images/C15.jpg";
 
 export const changeLayout = "760px"
@@ -103,7 +103,7 @@ justify-content: space-between;
 const Register = () => {
     return (
         <Container bg={wrapperbg}>
-            <Navbar/>
+            {/*<Navbar/>*/}
             <div style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <Wrapper>
 
