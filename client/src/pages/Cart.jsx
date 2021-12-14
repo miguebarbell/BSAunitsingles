@@ -49,7 +49,7 @@ margin-top: calc(${navbarHeight} + 12vh);
 display: flex;
 flex-direction: column;
 align-items: center;
-width: 90wv;
+width: 90vw;
 `;
 const Product = styled.div`
 display: flex;
@@ -135,7 +135,8 @@ top: ${navbarHeight};
 
 
 const Cart = () => {
-    const cart = useSelector(state => state.cart);
+    // const cart = useSelector(state => state.cart);
+    const [cart, setCart] = useState(useSelector(state => state.cart))
     const [stripeToken, setStripeToken] = useState(null)
     const history = useHistory();
     const onToken = (token) => {
@@ -159,6 +160,24 @@ const Cart = () => {
         stripeToken && makeRequest()
         // stripeToken && cart.total >= 1 && makeRequest()
     }, [stripeToken, cart, history])
+    const handleQuantity = (productId, type) => {
+        // no puede ser mayor que onhand ni menor a 0, cuando sea 0 eliminar del carro
+
+        console.log(cart.products)
+        if (type === '-') {
+            if (productId.quantity > 0) {
+                productId.quantity -= 1;
+                cart.quantity -= 1;
+                setCart(cart)
+            }
+        } else if (productId.quantity < productId.onHand ) {
+            productId.quantity += 1;
+            cart.quantity += 1;
+        }
+
+    }
+
+
     return (
         <Container>
             <CartWrapper>
@@ -192,7 +211,7 @@ const Cart = () => {
                                   </Details>
                                   </ProductDetail>
                         <PriceDetail>
-                            <ProductQty><b>Quantity:</b> <Add/> <Amount>{product.quantity}</Amount> <Remove/></ProductQty>
+                            <ProductQty><b>Quantity:</b> <Add onClick={() => handleQuantity(product, '+')}/> <Amount>{product.quantity}</Amount> <Remove onClick={() => handleQuantity(product, '-')}/></ProductQty>
                             <span><b>Unit Price: ${product.price} usd</b></span>
                             <span><b>Items Total: ${product.priceQty} usd</b></span>
                         </PriceDetail>

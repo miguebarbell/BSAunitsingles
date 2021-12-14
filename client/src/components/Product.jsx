@@ -1,8 +1,6 @@
 import styled from "styled-components"
 import {Link} from "react-router-dom";
 // import { Container, Image } from "./CategoryItem"
-
-
 const Title = styled.h3`
   font-size: 1.5vh;
   // text-align-last: justify;
