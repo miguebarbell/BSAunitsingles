@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 const Container = styled.div``;
 const Success = () => {
     const location = useLocation()
+	console.log('success component')
     console.log(location);
     return (
         <Container>

@@ -40,7 +40,7 @@ const FeaturedProducts = () => {
 			}
 		}
 		getProducts();
-	})
+	}, [setProducts]);
 	return (
 		<Div>
 			<div>

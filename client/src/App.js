@@ -9,11 +9,12 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Success from "./pages/Success";
 import Navbar from "./components/Navbar";
+import {useSelector} from "react-redux";
 
 // const YELLOW = '#fdcf19';
 
 function App() {
-  const user = true;
+  const user = useSelector(state => state.user.currentUser);
   return (
       <Router>
         <Navbar/>

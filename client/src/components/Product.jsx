@@ -59,7 +59,7 @@ const Image = styled.img`
 const Product = ({item}) => {
     // console.log(item);
     return (
-        <Container style={{margin: "2rem 0"}}>
+        <Container style={{margin: "2rem 0"}} key={item._id}>
             <Link to={`/product/${item._id}`}>
             <Blur className="blur">
                 <Title>{item.title}</Title>

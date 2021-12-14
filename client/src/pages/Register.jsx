@@ -5,13 +5,19 @@ import wrapperbg from "../assets/images/C15.jpg";
 
 export const changeLayout = "760px"
 
+
+
 export const Button = styled.button`
 grid-area: button;
 color: black;
 font-weight: bold;
 background-color: ${yellow};
 padding: 0.25rem 0.5rem;
-border-radius: 5px;
+border-radius: 5px; 
+    &:disabled {
+        background-color: gray;
+        cursor: not-allowed;
+    };
 `
 
 export const Container = styled.div`
