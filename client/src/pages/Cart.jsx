@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react'
 import styled from "styled-components";
 import {yellow, navbarHeight} from "../components/Navbar";
-// import Navbar, {yellow, layoutChange, navbarHeight} from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { useSelector } from "react-redux";
@@ -146,23 +145,22 @@ const Cart = () => {
     useEffect(() => {
         const makeRequest = async () => {
             try {
-                const res = await userRequest.post("/checkout/payment", {
-                    tokenId:stripeToken.id,
-                    amount:cart.total*100,
-                    // amount:100,
+                const res = await userRequest.post("/api/checkout/payment", {
+                    tokenId: stripeToken.id,
+                    amount: cart.total*100,
                 })
                 history.push("/success", {
-                    stripeData: res.data,
-                    products: cart,
+                    data: res.data,
+                    // stripeData: res.data,
+                    // products: cart,
                 })
-            } catch (e) {}
+            } catch {}
         }
-        // makeRequest();
-        stripeToken && cart.total >= 1 && makeRequest()
-    }, [stripeToken, cart.total, history])
+        stripeToken && makeRequest()
+        // stripeToken && cart.total >= 1 && makeRequest()
+    }, [stripeToken, cart, history])
     return (
         <Container>
-            {/*<Navbar/>*/}
             <CartWrapper>
                 <NavCart>
                     <Title>YOUR ORDER</Title>
@@ -205,11 +203,11 @@ const Cart = () => {
                 <SummaryWrapper>
                     <Summary>
                         <h1><b>Order Summary</b></h1>
-                        <Subtotal><b>SubTotal: </b>${cart.total} usd</Subtotal>
+                        <Subtotal><b>SubTotal: </b>${cart.total.toFixed(2)} usd</Subtotal>
                         <Shipping><b>Estimated Shipping: </b>$55</Shipping>
                     </Summary>
                     <TotalSummary>
-                        <Total><b>Total: </b>${cart.total} usd</Total>
+                        <Total><b>Total: </b>${cart.total.toFixed(2)} usd</Total>
                     </TotalSummary>
                 </SummaryWrapper>
 
