@@ -14,7 +14,9 @@ import {useSelector} from "react-redux";
 // const YELLOW = '#fdcf19';
 
 function App() {
-  const user = useSelector(state => state.user.currentUser);
+
+  const user = useSelector((state) => state.user.currentUser);
+
   return (
       <Router>
         <Navbar/>
