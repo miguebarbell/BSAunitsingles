@@ -62,6 +62,7 @@ const StyledBurger = styled.div`
   
 `
 const Burger = () => {
+    const { currentUser } = useSelector(state => state.user);
     const [open, setOpen] = useState(false)
     const quantity = useSelector(state => state.cart.quantity)
     return (
@@ -74,8 +75,8 @@ const Burger = () => {
         <Menu open={open}>
             <RightMenu>Categories</RightMenu>
             <RightMenu>Contact</RightMenu>
-            <MenuItem>Register</MenuItem>
-            <MenuItem>Login</MenuItem>
+            <MenuItem user={currentUser}><Link to="/register">Register</Link></MenuItem>
+            <MenuItem user={currentUser}><Link to="/login">Login</Link></MenuItem>
             <Link to="/cart">
                 <MenuItem><Badge color="secondary" badgeContent={quantity}>
                     <ShoppingCartOutlined/>Cart
@@ -141,6 +142,9 @@ const Input = styled.input`
     };
 `
 const Menu = styled.div`
+    a:link {
+        color: inherit;
+    }
   display: flex;
   align-items: center;
   // justify-content: flex-end;
@@ -162,6 +166,7 @@ const Menu = styled.div`
   }
 `
 const MenuItem = styled.div`
+   display: ${props => props.user != null ? 'none' : 'block'};
   padding: 0 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -176,7 +181,17 @@ const MenuItem = styled.div`
   // &:after {
   // content: '<';
   // }
-  }
+  }            
+    //a:visited { color: black; };
+    //a:link {
+    //    color: inherit;
+    //}
+    * {
+        text-decoration: none;
+        //a:link {
+        //    color: inherit;
+        //}
+        }
 `
 const RightMenu = styled.div`
   display: none;

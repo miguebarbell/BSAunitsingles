@@ -3,9 +3,27 @@ import Footer from "../components/Footer";
 // import Navbar from "../components/Navbar";
 import wrapperbg from "../assets/images/C15.jpg"
 import styled from "styled-components";
+import {useEffect, useState} from "react";
+import {login} from "../redux/apiCalls";
+import {useDispatch, useSelector} from "react-redux";
 
-const Link = styled.a``
+const Error = styled.span`
+color: red;`;
+const Link = styled.a``;
 const Login = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+    const { isFetching, error } = useSelector(state => state.user);
+    // useEffect(() => {
+    //     state.user.error = false
+    // }, [username, password])
+    const handleClick = (e) => {
+        e.preventDefault();
+        login(dispatch, {username, password});
+    }
+
+
     return (
         <Container bg={wrapperbg}>
             {/*<Navbar/>*/}
@@ -14,10 +32,11 @@ const Login = () => {
                     <Title>SIGN IN</Title>
                     <Form style={{display: 'flex', flexDirection: 'column'}}>
                         {/*<label for="username">Username</label>*/}
-                        <Input title="type your email" id="email" type="email" placeholder="bret@bsa.uk" required/>
+                        <Input title="type your email" id="email" type="email" placeholder="bret@bsa.uk" required onChange={(e) => setUsername(e.target.value)}/>
                         {/*<label for="password">Password</label>*/}
-                        <Input title="type your password" id="password" type="password" placeholder="password" required/>
-                        <Button>Login</Button>
+                        <Input title="type your password" id="password" type="password" placeholder="password" required onChange={(e) => setPassword(e.target.value)}/>
+                        <Button onClick={handleClick} disabled={isFetching}>Login</Button>
+                        {error && <Error>Something went wrong...</Error>}
                         <Link style={{width:"100%"}}>Forgot password?</Link>
                         <Link style={{width:"100%"}}>Create a new account</Link>
                     </Form>
