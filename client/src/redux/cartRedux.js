@@ -9,9 +9,6 @@ const cartSlice = createSlice({
 	},
 	reducers: {
 		addProduct: (state, action) => {
-			// state.products = []
-			// state.quantity = 0
-			// state.total = 0
 			if (state.products.filter(el => el._id === action.payload._id).length !== 0) {
 				const index = state.products.findIndex(el => el._id === action.payload._id);
 				console.log(index)
@@ -22,33 +19,17 @@ const cartSlice = createSlice({
 			}
 			state.quantity += action.payload.quantity;
 			state.total += action.payload.priceQty;
-			// to the initial state
-
-			// state.products = []
-			// state.quantity = 0
-			// state.total = 0
 		},
 		delProduct: (state, action) => {
-			// delete the quantity
-			const index = state.products.findIndex(el => el._id === action.payload._id);
-			// state.products = state.products.filter(el => el !== action.payload)
 			if (state.products.length <= 1) {
 				state.products = []
 				state.quantity = 0;
 				state.total = 0;
 			} else {
-				console.log(index)
-				console.log(action.payload)
-				// delete state.products[index];
 				state.products = state.products.filter(el => el._id !== action.payload._id)
-				// state.products = state.products.(el => el._id !== action.payload)
 				state.quantity -= action.payload.quantity;
 				state.total -= action.payload.priceQty;
 			}
-
-			// state.products = []
-			// state.quantity = 0
-			// state.total = 0
 		},
 		moreProduct: (state, action) => {
 			const index = state.products.findIndex(el => el._id === action.payload._id);
