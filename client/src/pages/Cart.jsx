@@ -2,11 +2,12 @@ import {useEffect, useState} from 'react'
 import styled from "styled-components";
 import {yellow, navbarHeight} from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Add, Remove } from "@material-ui/icons";
+import { Add, Remove} from "@material-ui/icons";
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { userRequest } from "../requestMethods";
-import { useHistory } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 // const STRIPE_KEY = process.env.REACT_APP_STRIPE_KEY;
 const STRIPE_KEY = 'pk_test_51JjmTWBN6ojyqIxPr1Xg9QGKPn7hW1EmtON0UZ1fp6BZzBY01BCTvJRAOoqeHGhsbHu1618p0wPVl3y0EBdwLVFI002Tnn3HJN'
@@ -67,6 +68,12 @@ max-height: 300px;
 // background-color: red;
 width: 70vw;
 height: 30vh;
+    * {
+        text-decoration: none;
+        a {
+            color: inherit;
+        }
+    }
 `;
 const PriceDetail = styled.div`
 // background-color: orange;
@@ -174,7 +181,6 @@ const Cart = () => {
             productId.quantity += 1;
             cart.quantity += 1;
         }
-
     }
 
 
@@ -204,16 +210,17 @@ const Cart = () => {
 
                     <Product key={product._id}>
                         <ProductDetail>
-                                  <Image src={product.img} alt={product.title}/>
+                                  <Link to={`/product/${product._id}`}><Image src={product.img} alt={product.title}/></Link>
+                           
                                   <Details>
-                                  <ProductName><b>Item:</b> {product.title}</ProductName>
-                                  <ProductSKU><b>SKU:</b> {product.sku}</ProductSKU>
+                                  <ProductName><b>Item:</b> <Link to={`/product/${product._id}`}>{product.title}</Link></ProductName>
+                                  <ProductSKU><b>SKU:</b> <Link to={`/product/${product._id}`}>{product.sku}</Link></ProductSKU>
                                   </Details>
                                   </ProductDetail>
                         <PriceDetail>
-                            <ProductQty><b>Quantity:</b> <Add onClick={() => handleQuantity(product, '+')}/> <Amount>{product.quantity}</Amount> <Remove onClick={() => handleQuantity(product, '-')}/></ProductQty>
+                            <ProductQty><b>Quantity:</b> <Add title="more" style={{cursor: 'pointer'}} onClick={() => handleQuantity(product, '+')}/> <Amount>{product.quantity}</Amount> <Remove title='less' style={{cursor: 'pointer'}} onClick={() => handleQuantity(product, '-')}/> <DeleteOutlineIcon title="remove item" style={{color: 'red', cursor: 'pointer'}}/></ProductQty>
                             <span><b>Unit Price: ${product.price} usd</b></span>
-                            <span><b>Items Total: ${product.priceQty} usd</b></span>
+                            <span><b>Items Total: ${product.priceQty.toFixed(2)} usd</b></span>
                         </PriceDetail>
                     </Product>
 
