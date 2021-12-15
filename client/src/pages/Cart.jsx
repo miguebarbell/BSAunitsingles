@@ -4,10 +4,11 @@ import {yellow, navbarHeight} from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Add, Remove} from "@material-ui/icons";
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { userRequest } from "../requestMethods";
 import {Link, useHistory} from "react-router-dom";
+import {addProduct, delProduct, lessProduct, moreProduct} from "../redux/cartRedux";
 
 // const STRIPE_KEY = process.env.REACT_APP_STRIPE_KEY;
 const STRIPE_KEY = 'pk_test_51JjmTWBN6ojyqIxPr1Xg9QGKPn7hW1EmtON0UZ1fp6BZzBY01BCTvJRAOoqeHGhsbHu1618p0wPVl3y0EBdwLVFI002Tnn3HJN'
@@ -140,10 +141,9 @@ position: fixed;
 top: ${navbarHeight};
 `;
 
-
 const Cart = () => {
-    // const cart = useSelector(state => state.cart);
-    const [cart, setCart] = useState(useSelector(state => state.cart))
+    const dispatch = useDispatch()
+    const cart = useSelector(state => state.cart)
     const [stripeToken, setStripeToken] = useState(null)
     const history = useHistory();
     const onToken = (token) => {
@@ -168,22 +168,17 @@ const Cart = () => {
         // stripeToken && cart.total >= 1 && makeRequest()
     }, [stripeToken, cart, history])
     const handleQuantity = (productId, type) => {
-        // no puede ser mayor que onhand ni menor a 0, cuando sea 0 eliminar del carro
-
-        console.log(cart.products)
         if (type === '-') {
             if (productId.quantity > 0) {
-                productId.quantity -= 1;
-                cart.quantity -= 1;
-                setCart(cart)
+                dispatch(lessProduct({...productId}))
             }
         } else if (productId.quantity < productId.onHand ) {
-            productId.quantity += 1;
-            cart.quantity += 1;
+            dispatch(moreProduct({...productId}))
         }
     }
-
-
+    const delItem = (product) => {
+        dispatch(delProduct({...product}))
+    }
     return (
         <Container>
             <CartWrapper>
@@ -218,7 +213,12 @@ const Cart = () => {
                                   </Details>
                                   </ProductDetail>
                         <PriceDetail>
-                            <ProductQty><b>Quantity:</b> <Add title="more" style={{cursor: 'pointer'}} onClick={() => handleQuantity(product, '+')}/> <Amount>{product.quantity}</Amount> <Remove title='less' style={{cursor: 'pointer'}} onClick={() => handleQuantity(product, '-')}/> <DeleteOutlineIcon title="remove item" style={{color: 'red', cursor: 'pointer'}}/></ProductQty>
+                            <ProductQty><b>Quantity:</b>
+                                <Add title="more" style={{cursor: 'pointer'}} onClick={() => handleQuantity(product, '+')}/>
+                                <Amount>{product.quantity}</Amount>
+                                <Remove title='less' style={{cursor: 'pointer'}} onClick={() => handleQuantity(product, '-')}/>
+                                <DeleteOutlineIcon title="remove item" style={{color: 'red', cursor: 'pointer'}} onClick={() => delItem(product)} />
+                            </ProductQty>
                             <span><b>Unit Price: ${product.price} usd</b></span>
                             <span><b>Items Total: ${product.priceQty.toFixed(2)} usd</b></span>
                         </PriceDetail>

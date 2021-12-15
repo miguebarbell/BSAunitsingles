@@ -115,9 +115,9 @@ const Product = () => {
             <Announcement/>
             {/*<Navbar/>*/}
             <Wrapper>
-                 <ImgContainer>
-                     <Image src={product.img}/>
-                 </ImgContainer>
+                <ImgContainer>
+                    <Image src={product.img}/>
+                </ImgContainer>
                 <InfoContainer>
                     <Title>{product.title}</Title>
                     <Sku>SKU: {product.sku}</Sku>
