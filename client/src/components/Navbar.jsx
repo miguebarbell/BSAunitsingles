@@ -61,6 +61,16 @@ const StyledBurger = styled.div`
   }
   
 `
+const ProfileItem = styled.div`
+    display: ${props => (props.user != null && props.user.currentUser !== false) ? 'block' : 'none'};
+    transition: all 0.3s ease;
+    * {
+        text-decoration: none;
+    }
+    &:hover {
+        color: red;
+    }
+`;
 const Burger = () => {
     const { currentUser } = useSelector(state => state.user);
     const [open, setOpen] = useState(false)
@@ -77,6 +87,7 @@ const Burger = () => {
             <RightMenu>Contact</RightMenu>
             <MenuItem user={currentUser}><Link to="/register">Register</Link></MenuItem>
             <MenuItem user={currentUser}><Link to="/login">Login</Link></MenuItem>
+            <ProfileItem user={currentUser}>Hi <Link to="/profile">{currentUser.username}</Link></ProfileItem>
             <Link to="/cart">
                 <MenuItem><Badge color="secondary" badgeContent={quantity}>
                     <ShoppingCartOutlined/>Cart
@@ -166,7 +177,7 @@ const Menu = styled.div`
   }
 `
 const MenuItem = styled.div`
-   display: ${props => props.user != null ? 'none' : 'block'};
+    display: ${props => (props.user != null && props.user.currentUser !== false) ? 'none' : 'block'};
   padding: 0 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
