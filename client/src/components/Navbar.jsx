@@ -62,7 +62,7 @@ const StyledBurger = styled.div`
   
 `
 const ProfileItem = styled.div`
-    display: ${props => (props.user != null && props.user.currentUser !== false) ? 'block' : 'none'};
+    display: ${props => (props.user !== false) ? 'block' : 'none'};
     transition: all 0.3s ease;
     * {
         text-decoration: none;
@@ -89,7 +89,7 @@ const Burger = () => {
             <MenuItem user={currentUser}><Link to="/login">Login</Link></MenuItem>
             <ProfileItem user={currentUser}>Hi <Link to="/profile">{currentUser.username}</Link></ProfileItem>
             <Link to="/cart">
-                <MenuItem><Badge color="secondary" badgeContent={quantity}>
+                <MenuItem style={{display: 'block'}}><Badge color="secondary" badgeContent={quantity}>
                     <ShoppingCartOutlined/>Cart
                 </Badge></MenuItem>
             </Link>
@@ -177,7 +177,7 @@ const Menu = styled.div`
   }
 `
 const MenuItem = styled.div`
-    display: ${props => (props.user != null && props.user.currentUser !== false) ? 'none' : 'block'};
+  display: ${props => (props.user === false) ? 'block' : 'none'};
   padding: 0 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
