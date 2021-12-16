@@ -46,9 +46,14 @@ const cartSlice = createSlice({
 			state.total -= action.payload.price;
 			if (state.total < 0) state.total = 0;
 			if (state.products[index].priceQty < 0) state.products[index].priceQty = 0;
+		},
+		delCart: (state) => {
+			state.products = [];
+			state.quantity = 0;
+			state.total = 0;
 		}
 	},
 })
 
-export const { addProduct, moreProduct, lessProduct, delProduct } = cartSlice.actions;
+export const { addProduct, moreProduct, lessProduct, delProduct, delCart } = cartSlice.actions;
 export default cartSlice.reducer;
