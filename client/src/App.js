@@ -1,6 +1,4 @@
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
-// import Pay from "./components/Pay"
-// import Success from "./components/Success"
 import Cart from "./pages/Cart"
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
@@ -10,6 +8,7 @@ import Login from "./pages/Login";
 import Success from "./pages/Success";
 import Navbar from "./components/Navbar";
 import {useSelector} from "react-redux";
+import Profile from "./pages/Profile"
 
 // const YELLOW = '#fdcf19';
 
@@ -38,12 +37,13 @@ function App() {
           </Route>
 
           <Route path="/login">
-            {/*if user is logged, redirect to the home*/}
             {user ? <Redirect to="/"/> : <Login/>}
           </Route>
           <Route path="/register">
-            {/*if user is logged, redirect to the home*/}
             {user ? <Redirect to="/"/> : <Register/>}
+          </Route>
+          <Route path="/profile">
+            {user? <Profile/> : <Redirect to="/"/>}
           </Route>
         </Switch>
       </Router>
