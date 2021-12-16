@@ -2,6 +2,9 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import {yellow,  navbarHeight} from "../components/Navbar";
 import wrapperbg from "../assets/images/C15.jpg";
+import {register} from "../redux/apiCalls";
+import {useDispatch} from "react-redux";
+import {useState} from "react";
 
 export const changeLayout = "760px"
 
@@ -107,6 +110,16 @@ justify-content: space-between;
 `;
 
 const Register = () => {
+    // const registerUser = ()
+    const [name, setName] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+    const handleClick = (e) => {
+        e.preventDefault();
+        register(dispatch, {name, lastname, email, password});
+    }
     return (
         <Container bg={wrapperbg}>
             {/*<Navbar/>*/}
@@ -116,22 +129,23 @@ const Register = () => {
                 <Title>
                     CREATE AN ACCOUNT
                 </Title>
+
                 <Form>
                     <Label style={{gridArea: "fnamelabel"}} for="name">First Name</Label>
-                    <Input style={{gridArea: "fnameinput"}} id="name" type="text" placeholder="Brent" required/>
+                    <Input style={{gridArea: "fnameinput"}} onChange={(e) => setName(e.target.value)} name="name" id="name" type="text" placeholder="Brent" required/>
                     <Label style={{gridArea: "lnamelabel"}} for="lastname">Last name</Label>
-                    <Input style={{gridArea: "lnameinput"}} id="lastname" type="text" placeholder="Lenahan" required/>
+                    <Input style={{gridArea: "lnameinput"}}  onChange={(e) => setLastname(e.target.value)} name="lastName"  id="lastname" type="text" placeholder="Lenahan" required/>
                     <Label style={{gridArea: "emaillabel"}} for="email">Email</Label>
-                    <Input style={{gridArea: "emailinput"}} id="email" type="email" placeholder="brent@bsa.uk" required/>
+                    <Input style={{gridArea: "emailinput"}}  onChange={(e) => setEmail(e.target.value)} name="email" id="email" type="email" placeholder="brent@bsa.uk" required/>
                     {/*make a seudo element saying the specifications for the password*/}
                     <Label style={{gridArea: "passlabel"}} for="password">Password</Label>
-                    <Input style={{gridArea: "passinput"}} id="password" type="password" placeholder="password" required/>
+                    <Input style={{gridArea: "passinput"}}   onChange={(e) => setPassword(e.target.value)} name="password" id="password" type="password" placeholder="password" required/>
                     <Label style={{gridArea: "rpasslabel"}} for="password">RE-Password</Label>
                     <Input style={{gridArea: "rpassinput"}} type="password" placeholder="password" required/>
                     <Agreement>
                         By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
                     </Agreement>
-                    <Button type="submit">Create</Button>
+                    <Button onClick={handleClick}>Create</Button>
                 </Form>
             </Wrapper>
             </div>
