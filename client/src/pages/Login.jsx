@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 // import Navbar from "../components/Navbar";
 import wrapperbg from "../assets/images/C15.jpg"
 import styled from "styled-components";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {login} from "../redux/apiCalls";
 import {useDispatch, useSelector} from "react-redux";
 

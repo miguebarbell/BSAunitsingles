@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import {navbarHeight, yellow} from "../components/Navbar";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {delCart} from "../redux/cartRedux";
 
 const pdfOrder = {
