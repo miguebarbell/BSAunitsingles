@@ -142,6 +142,7 @@ top: ${navbarHeight};
 `;
 
 const Cart = () => {
+    // falta considerar un verdadero chippingn price y ese anadirlo al cart
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
     const [stripeToken, setStripeToken] = useState(null)
@@ -160,7 +161,7 @@ const Cart = () => {
                 history.push("/success", {
                     data: res.data,
                     // stripeData: res.data,
-                    // products: cart,
+                    products: cart,
                 })
             } catch {}
         }
