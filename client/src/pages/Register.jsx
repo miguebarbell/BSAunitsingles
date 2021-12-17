@@ -109,6 +109,7 @@ const Register = () => {
     const dispatch = useDispatch();
     const handleClick = (e) => {
         e.preventDefault();
+        // console.log(name, lastname, email, password)
         register(dispatch, {name, lastname, email, password});
     }
 
@@ -127,7 +128,7 @@ const Register = () => {
                     <Input style={{gridArea: "lnameinput"}}  onChange={(e) => setLastname(e.target.value)} name="lastName"  id="lastname" type="text" placeholder="Lenahan" required/>
                     <Label style={{gridArea: "emaillabel"}} for="email">Email</Label>
                     <Input style={{gridArea: "emailinput"}}  onChange={(e) => setEmail(e.target.value)} name="email" id="email" type="email" placeholder="brent@bsa.uk" required/>
-                    {error && <Error>Email already taken.</Error>}
+                    {error && <Error>Email problem.</Error>}
                     {/*make a seudo element saying the specifications for the password*/}
                     <Label style={{gridArea: "passlabel"}} for="password">Password</Label>
                     <Input style={{gridArea: "passinput"}}   onChange={(e) => setPassword(e.target.value)} name="password" id="password" type="password" placeholder="password" required/>
