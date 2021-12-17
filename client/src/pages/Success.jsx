@@ -74,6 +74,7 @@ const Success = () => {
     const location = useLocation()
 	// get the billing information
 	const billingAddress = location.state.data.source;
+	console.log(location.state.data)
 	// get the cart information
 	const cart = location.state.products
 	const user = useSelector(state => state.user)

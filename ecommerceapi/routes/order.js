@@ -5,18 +5,33 @@ const router = require("express").Router()
 // Create
 
 router.post("/", verifyToken, async (req, res) => {
+    const billingAddress = req.body.billingAddress;
+    // console.log(req.body)
     const newOrder = new Order({
         userId: req.body.user.currentUser.username,
         products: req.body.products.map(product => ({...product, quantity: parseInt(product.quantity)})),
         amount: req.body.total_amount,
-        address: req.body.billingAddress,
+        operationId: billingAddress.id.toString(), //must be unique
+        card: {
+            last4: `**** **** **** ${billingAddress.last4}`,
+            name: billingAddress.name,
+            exp_month: billingAddress.exp_month,
+            exp_year: billingAddress.exp_year,
+        },
+        address: {
+            city: billingAddress.address_city,
+            country: billingAddress.address_country,
+            street1: billingAddress.address_line1,
+            street2: billingAddress.address_line2? billingAddress.address_line2 : '',
+            zipCode : billingAddress.address_zip,
+        },
     })
     try {
         const savedOrder = await newOrder.save();
         res.status(200).json(savedOrder);
 
     } catch(err) {
-        // console.log(err)
+        console.log(err)
         res.status(500).json(err)
     }
 })
