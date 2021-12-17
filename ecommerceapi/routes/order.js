@@ -4,13 +4,19 @@ const router = require("express").Router()
 
 // Create
 
-router.post("/",verifyToken, async (req, res) => {
-    const newOrder = new Order(req.body)
+router.post("/", verifyToken, async (req, res) => {
+    const newOrder = new Order({
+        userId: req.body.user.currentUser.username,
+        products: req.body.products.map(product => ({...product, quantity: parseInt(product.quantity)})),
+        amount: req.body.total_amount,
+        address: req.body.billingAddress,
+    })
     try {
         const savedOrder = await newOrder.save();
         res.status(200).json(savedOrder);
 
     } catch(err) {
+        // console.log(err)
         res.status(500).json(err)
     }
 })
@@ -63,7 +69,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 
 
 // Get monthly income
-router.get("income", verifyTokenAndAdmin, async (req, res) => {
+router.get("/income", verifyTokenAndAdmin, async (req, res) => {
     const date = new Date();
     const lastMonth = new Date(date.setMonth(date.getMonth() - 1))
     const previuosMonth = new Date().setMonth(lastMonth.getMonth() - 1)

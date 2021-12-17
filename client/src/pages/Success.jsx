@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import {navbarHeight, yellow} from "../components/Navbar";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {delCart} from "../redux/cartRedux";
+import {pushOrder} from "../redux/apiCalls";
 
 const pdfOrder = {
 
@@ -64,13 +65,9 @@ const Table = styled.table`
 `;
 
 const Success = () => {
-    // obtener los datos del carro
-    // si fue sucessfull el payment (ver cual es el campo especifico) borrar la tarjeta y desplegar el invoice
     // si no fue sucessfull no borrar el carro, y avisar en la pagina que fue erroneo el payment
     // ver la forma de convertir a pdf e imprimir
 	// push la order to the database [username, credit card, items, price per item, total price, billing info, email]
-
-
 	//clear the cart
 	const dispatch = useDispatch()
 	dispatch(delCart())
@@ -78,9 +75,15 @@ const Success = () => {
 	// get the billing information
 	const billingAddress = location.state.data.source;
 	// get the cart information
-	const cart = location.state.products;
+	const cart = location.state.products
+	const user = useSelector(state => state.user)
+	const order = {total_amount: cart.total,
+		total_products: cart.quantity,
+		user: user,
+		billingAddress: billingAddress,
+		products: cart.products.map(product => ({'id' : product._id, 'name' : product.title, 'quantity' : product.quantity }))}
+	pushOrder(order);
 
-    console.log(location);
 
 	// this is the successful try
     return (

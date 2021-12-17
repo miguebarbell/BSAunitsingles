@@ -145,6 +145,7 @@ const Cart = () => {
     // falta considerar un verdadero chippingn price y ese anadirlo al cart
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
+    const user = useSelector(state => state.user.currentUser)
     const [stripeToken, setStripeToken] = useState(null)
     const history = useHistory();
     const onToken = (token) => {
@@ -186,8 +187,9 @@ const Cart = () => {
                 <NavCart>
                     <Title>YOUR ORDER</Title>
                     <ButtonWrapper>
-                        <Button>Continue Shopping</Button>
+                        <Link to="/"><Button>Continue Shopping</Button></Link>
                         <StripeCheckout
+
                             name="BSA Unit Singles LLC."
                             image="https://bsaunitsingles.s3.amazonaws.com/cart/BSA.jpg"
                             billingAddress
@@ -195,6 +197,7 @@ const Cart = () => {
                             description={`Your total is $${cart.total}`}
                             amount={cart.total*100}
                             token={onToken}
+                            email={user? user.username : ''}
                             stripeKey={STRIPE_KEY}>
                             <Button>Checkout</Button>
                         </StripeCheckout>

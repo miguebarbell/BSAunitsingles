@@ -1,6 +1,5 @@
-
 import {loginFailure, loginStart, loginSuccess} from "./userRedux";
-import { publicRequest} from "../requestMethods";
+import {publicRequest, userRequest} from "../requestMethods";
 
 export const login = async (dispatch, user) => {
 	dispatch(loginStart())
@@ -19,4 +18,11 @@ export const register = async (dispatch, user) => {
 	} catch (e) {
 		dispatch(loginFailure())
 	}
+}
+
+export const pushOrder = async (order, user) => {
+	try {
+		await userRequest.post("api/orders", order)
+	} catch(e) {
+		console.log(e)}
 }
