@@ -87,7 +87,7 @@ const Burger = () => {
             <RightMenu>Contact</RightMenu>
             <MenuItem user={currentUser}><Link to="/register">Register</Link></MenuItem>
             <MenuItem user={currentUser}><Link to="/login">Login</Link></MenuItem>
-            <ProfileItem user={currentUser}>Hi <Link to="/profile">{currentUser.username}</Link></ProfileItem>
+            <ProfileItem user={currentUser}>Hi <Link to="/profile">{currentUser.email}</Link></ProfileItem>
             <Link to="/cart">
                 <MenuItem style={{display: 'block'}}><Badge color="secondary" badgeContent={quantity}>
                     <ShoppingCartOutlined/>Cart
