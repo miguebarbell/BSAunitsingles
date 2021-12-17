@@ -7,11 +7,11 @@ import {useState} from "react";
 import {login} from "../redux/apiCalls";
 import {useDispatch, useSelector} from "react-redux";
 
-const Error = styled.span`
+export const Error = styled.span`
 color: red;`;
 const Link = styled.a``;
 const Login = () => {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
     const { isFetching, error } = useSelector(state => state.user);
@@ -20,7 +20,7 @@ const Login = () => {
     // }, [username, password])
     const handleClick = (e) => {
         e.preventDefault();
-        login(dispatch, {username, password});
+        login(dispatch, {email, password});
     }
 
 
@@ -32,7 +32,7 @@ const Login = () => {
                     <Title>SIGN IN</Title>
                     <Form style={{display: 'flex', flexDirection: 'column'}}>
                         {/*<label for="username">Username</label>*/}
-                        <Input title="type your email" id="email" type="email" placeholder="bret@bsa.uk" required onChange={(e) => setUsername(e.target.value)}/>
+                        <Input title="type your email" id="email" type="email" placeholder="bret@bsa.uk" required onChange={(e) => setEmail(e.target.value)}/>
                         {/*<label for="password">Password</label>*/}
                         <Input title="type your password" id="password" type="password" placeholder="password" required onChange={(e) => setPassword(e.target.value)}/>
                         <Button onClick={handleClick} disabled={isFetching}>Login</Button>
