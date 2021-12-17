@@ -3,13 +3,11 @@ import Footer from "../components/Footer";
 import {yellow,  navbarHeight} from "../components/Navbar";
 import wrapperbg from "../assets/images/C15.jpg";
 import {register} from "../redux/apiCalls";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
+import {Error} from "./Login";
 
 export const changeLayout = "760px"
-
-
-
 export const Button = styled.button`
 grid-area: button;
 color: black;
@@ -22,7 +20,6 @@ border-radius: 5px;
         cursor: not-allowed;
     };
 `
-
 export const Container = styled.div`
 position: absolute;
 top: ${navbarHeight};
@@ -35,7 +32,6 @@ width: 100vw;
 background: rgba(255, 255, 255, .5) url(${props => props.bg})center no-repeat;
 background-size: cover;
 `;
-
 export const Wrapper = styled.div`
 display: flex;
 flex-direction: column;
@@ -55,18 +51,16 @@ width: 90%;
 max-width: 500px;
 }
 `;
-
 export const Title = styled.h1`
 text-align: center;
 // text-justify: inter-word;
 @media (max-width: ${changeLayout}) {
 font-size: 1.5rem;
 }`;
-
 export const Form = styled.form`
 display: grid;
 grid-template-columns: 30% 70%;
-grid-template-rows: 7;
+//grid-template-rows: 7;
 grid-gap: 0 1.25rem;
 
 grid-template-areas: 
@@ -83,7 +77,6 @@ grid-template-areas:
 // align-items: center;
 // flex-wrap: wrap;
 `;
-
 export const Input = styled.input`
 margin: 0.25rem;
 padding: 0.25rem;
@@ -98,11 +91,9 @@ grid-area: agreement;
 text-align: justify;
 text-justify: inter-word;
 `;
-
 export const Label = styled.label`
 text-align: right;
 `
-
 export const FooterWrapper = styled.div`
 display: flex;
 flex-direction: column;
@@ -120,16 +111,15 @@ const Register = () => {
         e.preventDefault();
         register(dispatch, {name, lastname, email, password});
     }
+
+    const { error } = useSelector(state => state.user);
     return (
         <Container bg={wrapperbg}>
-            {/*<Navbar/>*/}
             <div style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <Wrapper>
-
                 <Title>
                     CREATE AN ACCOUNT
                 </Title>
-
                 <Form>
                     <Label style={{gridArea: "fnamelabel"}} for="name">First Name</Label>
                     <Input style={{gridArea: "fnameinput"}} onChange={(e) => setName(e.target.value)} name="name" id="name" type="text" placeholder="Brent" required/>
@@ -137,6 +127,7 @@ const Register = () => {
                     <Input style={{gridArea: "lnameinput"}}  onChange={(e) => setLastname(e.target.value)} name="lastName"  id="lastname" type="text" placeholder="Lenahan" required/>
                     <Label style={{gridArea: "emaillabel"}} for="email">Email</Label>
                     <Input style={{gridArea: "emailinput"}}  onChange={(e) => setEmail(e.target.value)} name="email" id="email" type="email" placeholder="brent@bsa.uk" required/>
+                    {error && <Error>Email already taken.</Error>}
                     {/*make a seudo element saying the specifications for the password*/}
                     <Label style={{gridArea: "passlabel"}} for="password">Password</Label>
                     <Input style={{gridArea: "passinput"}}   onChange={(e) => setPassword(e.target.value)} name="password" id="password" type="password" placeholder="password" required/>
