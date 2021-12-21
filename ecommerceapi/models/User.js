@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
     lastName: {type: String, required: false},
     telephone:{type: String, required: false}
 
-}, {timestamp: true});
+}, {timestamps: true});
 
 module.exports = mongoose.model("User", UserSchema)
 

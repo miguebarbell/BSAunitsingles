@@ -12,6 +12,6 @@ const ProductSchema = new mongoose.Schema({
     onHand: {type: Number, default: 1, required:true}
 
 
-}, {timestamp: true});
+}, {timestamps: true});
 
 module.exports = mongoose.model("Product", ProductSchema)

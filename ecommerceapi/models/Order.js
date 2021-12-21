@@ -15,6 +15,6 @@ const OrderSchema = new mongoose.Schema({
     card: {type: Object, required:true},
     operationId: {type: String, unique: true, required:true},
     status: {type: String, default:"pending"}
-}, {timestamp: true});
+}, {timestamps: true});
 
 module.exports = mongoose.model("Order", OrderSchema)
