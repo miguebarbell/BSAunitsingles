@@ -8,6 +8,7 @@ router.post("/", verifyToken, async (req, res) => {
     const billingAddress = req.body.billingAddress;
     // console.log(req.body)
     const newOrder = new Order({
+        user_Id: req.body.user.currentUser._id,
         userId: req.body.user.currentUser.username,
         products: req.body.products.map(product => ({...product, quantity: parseInt(product.quantity)})),
         amount: req.body.total_amount,
@@ -63,9 +64,14 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 })
 
 // Get user orders
+// INPORTANT every user can gen information of EVERYUSER
 router.get("/find/:userId", verifyTokenAndAuth, async (req, res) => {
+    console.log('getting orders from')
+    // make a filter and check if the :userid is the same as the user
+    console.log(req.params.userId)
+
     try {
-        const orders = await Order.find({userId: req.params.userId});
+        const orders = await Order.find({user_Id: req.params.userId});
         res.status(200).json(orders);
     } catch(err) {
         res.status(500).json(err);
