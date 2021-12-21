@@ -20,7 +20,8 @@ export const register = async (dispatch, user) => {
 	}
 }
 
-export const pushOrder = async (order, user) => {
+export const pushOrder = async (order) => {
+	// console.log(order)
 	try {
 		await userRequest.post("api/orders", order)
 	} catch(e) {

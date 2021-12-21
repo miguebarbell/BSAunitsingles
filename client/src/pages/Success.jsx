@@ -54,7 +54,7 @@ margin-top: ${navbarHeight};
 padding: 2rem;
 `;
 const Header = styled.h1``;
-const Table = styled.table`
+export const Table = styled.table`
   width: 70vw;
   min-width: 200px;
   max-width: 1980px;
@@ -74,7 +74,7 @@ const Success = () => {
     const location = useLocation()
 	// get the billing information
 	const billingAddress = location.state.data.source;
-	console.log(location.state.data)
+	// console.log(location.state.data)
 	// get the cart information
 	const cart = location.state.products
 	const user = useSelector(state => state.user)

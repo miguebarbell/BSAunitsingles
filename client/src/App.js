@@ -9,6 +9,7 @@ import Success from "./pages/Success";
 import Navbar from "./components/Navbar";
 import {useSelector} from "react-redux";
 import Profile from "./pages/Profile"
+import Footer from "./components/Footer";
 
 // const YELLOW = '#fdcf19';
 
@@ -46,6 +47,7 @@ function App() {
             {user? <Profile/> : <Redirect to="/"/>}
           </Route>
         </Switch>
+        <Footer/>
       </Router>
   );
 }

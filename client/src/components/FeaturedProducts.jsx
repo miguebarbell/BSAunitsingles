@@ -51,7 +51,7 @@ const FeaturedProducts = () => {
 					))}
 				</Container>
 			</div>
-			<Footer/>
+			{/*<Footer/>*/}
 		</Div>
 
 	)

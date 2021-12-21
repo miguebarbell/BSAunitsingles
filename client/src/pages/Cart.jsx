@@ -150,7 +150,6 @@ const Cart = () => {
     const history = useHistory();
     const onToken = (token) => {
         setStripeToken(token);
-        // console.log(stripeToken)
     };
     useEffect(() => {
         const makeRequest = async () => {

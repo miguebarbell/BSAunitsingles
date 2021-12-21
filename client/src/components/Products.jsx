@@ -77,7 +77,7 @@ const Products = ({cat, filter, sort}) => {
             ))}
             </Container>
             </div>
-            <Footer/>
+            {/*<Footer/>*/}
         </Div>
 
     )

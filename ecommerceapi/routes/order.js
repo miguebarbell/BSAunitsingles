@@ -66,9 +66,9 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 // Get user orders
 // INPORTANT every user can gen information of EVERYUSER
 router.get("/find/:userId", verifyTokenAndAuth, async (req, res) => {
-    console.log('getting orders from')
+    // console.log('getting orders from')
     // make a filter and check if the :userid is the same as the user
-    console.log(req.params.userId)
+    // console.log(req.params.userId)
 
     try {
         const orders = await Order.find({user_Id: req.params.userId});
