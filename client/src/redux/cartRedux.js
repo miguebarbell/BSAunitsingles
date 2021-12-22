@@ -11,7 +11,7 @@ const cartSlice = createSlice({
 		addProduct: (state, action) => {
 			if (state.products.filter(el => el._id === action.payload._id).length !== 0) {
 				const index = state.products.findIndex(el => el._id === action.payload._id);
-				console.log(index)
+				// console.log(index)
 				state.products[index].quantity += action.payload.quantity
 				state.products[index].priceQty += action.payload.priceQty
 			} else {
@@ -35,15 +35,19 @@ const cartSlice = createSlice({
 			const index = state.products.findIndex(el => el._id === action.payload._id);
 			state.products[index].quantity += 1;
 			state.products[index].priceQty += action.payload.price;
+			state.products[index].priceQty = +state.products[index].priceQty.toFixed(2);
 			state.quantity += 1;
 			state.total += action.payload.price;
+			state.total = +state.total.toFixed(2);
 			},
 		lessProduct: (state, action) => {
 			const index = state.products.findIndex(el => el._id === action.payload._id);
 			state.products[index].quantity -= 1;
 			state.products[index].priceQty -= action.payload.price;
+			state.products[index].priceQty = +state.products[index].priceQty.toFixed(2);
 			state.quantity -= 1;
 			state.total -= action.payload.price;
+			state.total = +state.total.toFixed(2);
 			if (state.total < 0) state.total = 0;
 			if (state.products[index].priceQty < 0) state.products[index].priceQty = 0;
 		},

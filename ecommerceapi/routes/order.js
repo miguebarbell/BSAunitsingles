@@ -4,9 +4,9 @@ const router = require("express").Router()
 
 // Create
 
-router.post("/", verifyToken, async (req, res) => {
+router.post("/", async (req, res) => {
     const billingAddress = req.body.billingAddress;
-    // console.log(req.body)
+    console.log(req.body)
     const newOrder = new Order({
         user_Id: req.body.user.currentUser._id,
         userId: req.body.user.currentUser.username,
@@ -25,6 +25,7 @@ router.post("/", verifyToken, async (req, res) => {
             street1: billingAddress.address_line1,
             street2: billingAddress.address_line2? billingAddress.address_line2 : '',
             zipCode : billingAddress.address_zip,
+            // email: billingAddress.
         },
     })
     try {
@@ -64,7 +65,6 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 })
 
 // Get user orders
-// INPORTANT every user can gen information of EVERYUSER
 router.get("/find/:userId", verifyTokenAndAuth, async (req, res) => {
     // console.log('getting orders from')
     // make a filter and check if the :userid is the same as the user

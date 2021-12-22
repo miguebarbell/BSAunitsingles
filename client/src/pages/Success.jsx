@@ -73,6 +73,8 @@ const Success = () => {
 	dispatch(delCart())
     const location = useLocation()
 	// get the billing information
+	// console.log('operinting location state')
+	// console.log(location.state)
 	const billingAddress = location.state.data.source;
 	// console.log(location.state.data)
 	// get the cart information
@@ -105,15 +107,15 @@ const Success = () => {
 	        ))}
 		        <tr style={{backgroundColor: 'rgba(0,0,0, 0)' }}>
 			        <th></th>
-			        <th style={{backgroundColor: 'rgba(0,0,0, 0.2)' }}>Subtotal</th><th style={{backgroundColor: 'rgba(0,0,0, 0.2)' }}>{cart.total} usd</th>
+			        <th style={{backgroundColor: 'rgba(0,0,0, 0.2)' }}>Subtotal</th><th style={{backgroundColor: 'rgba(0,0,0, 0.2)' }}>$ {cart.total} usd</th>
 		        </tr>
 		        <tr style={{backgroundColor: 'white' }}>
 			        <th></th>
-			        <th>Shipping</th><th>55 usd</th>
+			        <th>Shipping</th><th>$ 55 usd</th>
 		        </tr>
 		        <tr>
 			        <th></th>
-			        <th style={{backgroundColor: 'rgba(0,0,0, 0.4)' }}>Total</th><th style={{backgroundColor: 'rgba(0,0,0, 0.4)' }}>{cart.total} usd</th>
+			        <th style={{backgroundColor: 'rgba(0,0,0, 0.4)' }}>Total</th><th style={{backgroundColor: 'rgba(0,0,0, 0.4)' }}>$ {cart.total} usd</th>
 		        </tr>
 
 	        </Table>

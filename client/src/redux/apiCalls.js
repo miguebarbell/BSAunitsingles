@@ -13,8 +13,10 @@ export const login = async (dispatch, user) => {
 
 export const register = async (dispatch, user) => {
 	try {
-		const res = await publicRequest.post("api/auth/register", user)
-		dispatch(loginSuccess(res.data))
+		// const res = await publicRequest.post("api/auth/register", user)
+		await publicRequest.post("api/auth/register", user)
+		// dispatch(loginSuccess(res.data))
+		login(dispatch, user)
 	} catch (e) {
 		dispatch(loginFailure())
 	}
@@ -23,7 +25,8 @@ export const register = async (dispatch, user) => {
 export const pushOrder = async (order) => {
 	// console.log(order)
 	try {
-		await userRequest.post("api/orders", order)
+		await publicRequest.post("api/orders", order)
+		// await userRequest.post("api/orders", order)
 	} catch(e) {
 		console.log(e)}
 }

@@ -48,7 +48,8 @@ const Header = styled.div`
     justify-content: space-around;
 `;
 const Profile = () => {
-    const user = useSelector(state => state.user.currentUser);
+    const {name, email, lastName, username, _id} = useSelector(state => state.user.currentUser);
+    console.log(name, lastName, email, username, _id);
     // console.log(user._id)
     // hacer un userRequest
     const dateHumanReadable = (date) => {
@@ -63,24 +64,27 @@ const Profile = () => {
         ${humanReadable.getHours()}:${humanReadable.getMinutes()}`
     }
     const [orders, setOrders] = useState([]);
-    useEffect(() => {
-        makeRequest()
-    }, [])
+    const cart = useSelector(state => state.cart)
     const makeRequest = async () => {
+        // console.log(user)
         try {
-            const res = await userRequest.get(`/api/orders/find/${user._id}`)
+            const res = await userRequest.get(`/api/orders/find/${_id}`)
             setOrders(res.data)
         } catch(err) {
             console.log(err)
         }
     }
+    useEffect(() => {
+        makeRequest()
+    }, []);
+
 
     const dispatch = useDispatch()
     const logout = () => dispatch(logOut());
     return (
         <Container>
             <Header>
-                <h1>Hello {user.name} {user.lastName}</h1>
+                <h1>Hello {name} {lastName}</h1>
                 <EditBtn>Edit Account</EditBtn>
             </Header>
             <h2>Orders</h2>

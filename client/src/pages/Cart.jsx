@@ -9,6 +9,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { userRequest } from "../requestMethods";
 import {Link, useHistory} from "react-router-dom";
 import {delProduct, lessProduct, moreProduct} from "../redux/cartRedux";
+import {PaymentElement} from "@stripe/react-stripe-js";
 
 // const STRIPE_KEY = process.env.REACT_APP_STRIPE_KEY;
 const STRIPE_KEY = 'pk_test_51JjmTWBN6ojyqIxPr1Xg9QGKPn7hW1EmtON0UZ1fp6BZzBY01BCTvJRAOoqeHGhsbHu1618p0wPVl3y0EBdwLVFI002Tnn3HJN'
@@ -165,8 +166,8 @@ const Cart = () => {
                 })
             } catch {}
         }
-        stripeToken && makeRequest()
-        // stripeToken && cart.total >= 1 && makeRequest()
+        // stripeToken && makeRequest()
+        stripeToken && cart.total >= 1 && makeRequest()
     }, [stripeToken, cart, history])
     const handleQuantity = (productId, type) => {
         if (type === '-') {
@@ -180,6 +181,7 @@ const Cart = () => {
     const delItem = (product) => {
         dispatch(delProduct({...product}))
     }
+    // console.log(typeof parseInt(cart.total.toFixed(2)*100))
     return (
         <Container>
             <CartWrapper>
@@ -188,13 +190,14 @@ const Cart = () => {
                     <ButtonWrapper>
                         <Link to="/"><Button>Continue Shopping</Button></Link>
                         <StripeCheckout
-
                             name="BSA Unit Singles LLC."
                             image="https://bsaunitsingles.s3.amazonaws.com/cart/BSA.jpg"
                             billingAddress
                             shippingAddress
                             description={`Your total is $${cart.total}`}
-                            amount={cart.total*100}
+                            // description={`Your total is $${cart.total.toFixed(2)}`}
+                            amount={+(cart.total.toFixed(2))*100}
+                            // amount={(cart.total.toFixed(2))*100}
                             token={onToken}
                             email={user? user.username : ''}
                             stripeKey={STRIPE_KEY}>
@@ -223,7 +226,8 @@ const Cart = () => {
                                 <DeleteOutlineIcon title="remove item" style={{color: 'red', cursor: 'pointer'}} onClick={() => delItem(product)} />
                             </ProductQty>
                             <span><b>Unit Price: ${product.price} usd</b></span>
-                            <span><b>Items Total: ${product.priceQty.toFixed(2)} usd</b></span>
+                            <span><b>Items Total: ${product.priceQty} usd</b></span>
+                            {/*<span><b>Items Total: ${product.priceQty.toFixed(2)} usd</b></span>*/}
                         </PriceDetail>
                     </Product>
 
@@ -232,16 +236,18 @@ const Cart = () => {
                 <SummaryWrapper>
                     <Summary>
                         <h1><b>Order Summary</b></h1>
-                        <Subtotal><b>SubTotal: </b>${cart.total.toFixed(2)} usd</Subtotal>
+                        <Subtotal><b>SubTotal: </b>${cart.total} usd</Subtotal>
+                        {/*<Subtotal><b>SubTotal: </b>${cart.total.toFixed(2)} usd</Subtotal>*/}
                         <Shipping><b>Estimated Shipping: </b>$55</Shipping>
                     </Summary>
                     <TotalSummary>
-                        <Total><b>Total: </b>${cart.total.toFixed(2)} usd</Total>
+                        <Total><b>Total: </b>${cart.total} usd</Total>
+                        {/*<Total><b>Total: </b>${cart.total.toFixed(2)} usd</Total>*/}
                     </TotalSummary>
                 </SummaryWrapper>
 
             </CartWrapper>
-            <Footer/>
+            {/*<Footer/>*/}
         </Container>
     )
 }
