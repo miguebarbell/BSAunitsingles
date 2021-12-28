@@ -19,7 +19,7 @@
     "mongoose": "^6.0.12",
     "nodemon": "^2.0.14",
     "react-router-dom": "^5.3.0",
-    "stripe": "^8.185.0"
+    "stripe": "^8.195.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

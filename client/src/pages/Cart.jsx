@@ -1,18 +1,20 @@
 import {useEffect, useState} from 'react'
 import styled from "styled-components";
 import {yellow, navbarHeight} from "../components/Navbar";
-import Footer from "../components/Footer";
 import { Add, Remove} from "@material-ui/icons";
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import {useDispatch, useSelector} from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
-import { userRequest } from "../requestMethods";
+import {publicRequest, userRequest} from "../requestMethods";
 import {Link, useHistory} from "react-router-dom";
 import {delProduct, lessProduct, moreProduct} from "../redux/cartRedux";
-import {PaymentElement} from "@stripe/react-stripe-js";
+import {loadStripe} from '@stripe/stripe-js';
+import CheckoutForm from "../components/CheckoutForm";
+const STRIPE_KEY = 'pk_test_51JjmTWBN6ojyqIxPr1Xg9QGKPn7hW1EmtON0UZ1fp6BZzBY01BCTvJRAOoqeHGhsbHu1618p0wPVl3y0EBdwLVFI002Tnn3HJN'
+const stripe = loadStripe(STRIPE_KEY)
+
 
 // const STRIPE_KEY = process.env.REACT_APP_STRIPE_KEY;
-const STRIPE_KEY = 'pk_test_51JjmTWBN6ojyqIxPr1Xg9QGKPn7hW1EmtON0UZ1fp6BZzBY01BCTvJRAOoqeHGhsbHu1618p0wPVl3y0EBdwLVFI002Tnn3HJN'
 
 const Container = styled.div`
 margin-top: ${navbarHeight};
@@ -142,6 +144,11 @@ position: fixed;
 top: ${navbarHeight};
 `;
 
+
+
+
+
+
 const Cart = () => {
     // falta considerar un verdadero chippingn price y ese anadirlo al cart
     const dispatch = useDispatch()
@@ -149,26 +156,26 @@ const Cart = () => {
     const user = useSelector(state => state.user.currentUser)
     const [stripeToken, setStripeToken] = useState(null)
     const history = useHistory();
-    const onToken = (token) => {
-        setStripeToken(token);
-    };
-    useEffect(() => {
-        const makeRequest = async () => {
-            try {
-                const res = await userRequest.post("/api/checkout/payment", {
-                    tokenId: stripeToken.id,
-                    amount: cart.total*100,
-                })
-                history.push("/success", {
-                    data: res.data,
-                    // stripeData: res.data,
-                    products: cart,
-                })
-            } catch {}
-        }
-        // stripeToken && makeRequest()
-        stripeToken && cart.total >= 1 && makeRequest()
-    }, [stripeToken, cart, history])
+    // const onToken = (token) => {
+    //     setStripeToken(token);
+    // };
+    // useEffect(() => {
+    //     const makeRequest = async () => {
+    //         try {
+    //             const res = await publicRequest.post("/api/checkout/payment", {
+    //                 // tokenId: stripeToken.id,
+    //                 amount: cart.total*100,
+    //             })
+    //             history.push("/success", {
+    //                 data: res.data,
+    //                 // stripeData: res.data,
+    //                 products: cart,
+    //             })
+    //         } catch {}
+    //     }
+    //     // stripeToken && makeRequest()
+    //     stripeToken && cart.total >= 1 && makeRequest()
+    // }, [stripeToken, cart, history])
     const handleQuantity = (productId, type) => {
         if (type === '-') {
             if (productId.quantity > 0) {
@@ -181,7 +188,7 @@ const Cart = () => {
     const delItem = (product) => {
         dispatch(delProduct({...product}))
     }
-    // console.log(typeof parseInt(cart.total.toFixed(2)*100))
+    const [checkoutProducts, setCheckoutproducts] = useState(false)
     return (
         <Container>
             <CartWrapper>
@@ -189,20 +196,20 @@ const Cart = () => {
                     <Title>YOUR ORDER</Title>
                     <ButtonWrapper>
                         <Link to="/"><Button>Continue Shopping</Button></Link>
-                        <StripeCheckout
-                            name="BSA Unit Singles LLC."
-                            image="https://bsaunitsingles.s3.amazonaws.com/cart/BSA.jpg"
-                            billingAddress
-                            shippingAddress
-                            description={`Your total is $${cart.total}`}
-                            // description={`Your total is $${cart.total.toFixed(2)}`}
-                            amount={+(cart.total.toFixed(2))*100}
-                            // amount={(cart.total.toFixed(2))*100}
-                            token={onToken}
-                            email={user? user.username : ''}
-                            stripeKey={STRIPE_KEY}>
-                            <Button>Checkout</Button>
-                        </StripeCheckout>
+                        {/*<StripeCheckout*/}
+                        {/*    name="BSA Unit Singles LLC."*/}
+                        {/*    image="https://bsaunitsingles.s3.amazonaws.com/cart/BSA.jpg"*/}
+                        {/*    billingAddress*/}
+                        {/*    shippingAddress*/}
+                        {/*    description={`Your total is $${cart.total}`}*/}
+                        {/*    // description={`Your total is $${cart.total.toFixed(2)}`}*/}
+                        {/*    amount={+(cart.total.toFixed(2))*100}*/}
+                        {/*    // amount={(cart.total.toFixed(2))*100}*/}
+                        {/*    token={onToken}*/}
+                        {/*    email={user? user.username : ''}*/}
+                        {/*    stripeKey={STRIPE_KEY}>*/}
+                        {/*</StripeCheckout>*/}
+                        {checkoutProducts ? <CheckoutForm/> : <Button onClick={() => setCheckoutproducts(true)}>Checkout</Button>}
 
                     </ButtonWrapper>
                 </NavCart>

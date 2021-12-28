@@ -74,8 +74,9 @@ const Success = () => {
     const location = useLocation()
 	// get the billing information
 	// console.log('operinting location state')
-	// console.log(location.state)
-	const billingAddress = location.state.data.source;
+	console.log('successss')
+	console.log(location.state)
+	const billingAddress = location.state.billingAddress;
 	// console.log(location.state.data)
 	// get the cart information
 	const cart = location.state.products
@@ -120,10 +121,10 @@ const Success = () => {
 
 	        </Table>
 	        <h2>Billing Info</h2>
-	        <div>Address: <span>{billingAddress.address_line1}, {billingAddress.address_city}, {billingAddress.address_state}, {billingAddress.address_zip}, {billingAddress.address_country}</span></div>
+	        <div>Address: <span>{billingAddress.street}, {billingAddress.city}, {billingAddress.zip}, {billingAddress.state} {billingAddress.country}</span></div>
 	        <div>Name: <span>{billingAddress.name}</span></div>
 	        <div>Email: <span>{billingAddress.email}</span></div>
-	        <div>Phone: <span>{billingAddress.phone}</span></div>
+	        <div>Phone: <span>{billingAddress.telephone}</span></div>
 	        <div>Card: <span>**** **** **** {billingAddress.last4}</span></div>
         </Container>
     )
