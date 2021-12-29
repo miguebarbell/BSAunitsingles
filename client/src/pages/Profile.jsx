@@ -5,6 +5,8 @@ import {logOut} from "../redux/userRedux";
 import {useEffect, useState} from "react";
 import {userRequest} from "../requestMethods";
 import {Table} from "./Success";
+import {getOrder} from "../redux/apiCalls";
+import {useHistory} from "react-router-dom";
 
 const Container = styled.div`
     margin-top: ${navbarHeight};
@@ -48,8 +50,9 @@ const Header = styled.div`
     justify-content: space-around;
 `;
 const Profile = () => {
-    const {name, email, lastName, username, _id} = useSelector(state => state.user.currentUser);
-    console.log(name, lastName, email, username, _id);
+    const history = useHistory();
+    const {name, email, lastName, username, _id, isAdmin} = useSelector(state => state.user.currentUser);
+    // console.log(name, lastName, email, username, _id);
     // console.log(user._id)
     // hacer un userRequest
     const dateHumanReadable = (date) => {
@@ -64,7 +67,7 @@ const Profile = () => {
         ${humanReadable.getHours()}:${humanReadable.getMinutes()}`
     }
     const [orders, setOrders] = useState([]);
-    const cart = useSelector(state => state.cart)
+    // const cart = useSelector(state => state.cart)
     const makeRequest = async () => {
         // console.log(user)
         try {
@@ -81,6 +84,23 @@ const Profile = () => {
 
     const dispatch = useDispatch()
     const logout = () => dispatch(logOut());
+    const handleClick = async (id) => {
+        // console.log(id)
+        const res = await getOrder(id, {username :username, isAdmin : isAdmin})
+        history.push("/order", {
+            // address: res.data.address,
+            // orderId: res.data._id,
+            // card: res.data.card,
+            // orderStatus: res.data.status,
+            data:{...res.data}
+
+        })
+
+        // console.log(res)
+        // return (
+        //     <OrderDetails order={res}/>
+        // )
+    }
     return (
         <Container>
             <Header>
@@ -99,10 +119,10 @@ const Profile = () => {
 
                <tr>
                    <td>{order._id}</td>
-                   <td>{order.amount} usd</td>
+                   <td>$ {order.amount.toFixed(2)} usd</td>
                    <td>{dateHumanReadable(order.createdAt)}</td>
                    <td>{order.status}</td>
-                   <button>Details</button>
+                   <button onClick={() => {handleClick(order._id)}}>Details</button>
                </tr>
             ))}
             </Table>

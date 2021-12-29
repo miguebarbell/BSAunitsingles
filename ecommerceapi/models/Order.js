@@ -8,6 +8,8 @@ const OrderSchema = new mongoose.Schema({
             id: {type: String, required:true},
             name: {type: String, required:true},
             quantity: {type: Number, default: 1},
+            price: {type: Number},
+            subtotal: {type: Number}
         }
     ],
     amount: {type: Number, required:true},

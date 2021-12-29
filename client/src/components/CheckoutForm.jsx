@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import {loadStripe} from "@stripe/stripe-js";
-import {PaymentElement, CardElement, Elements, useElements, useStripe} from "@stripe/react-stripe-js";
+import {CardElement, Elements, useElements, useStripe} from "@stripe/react-stripe-js";
 import {useState} from "react";
 import {publicRequest} from "../requestMethods";
 import {useHistory} from "react-router-dom";
@@ -16,6 +16,7 @@ display: flex;
 width: 100%;
   //justify-content: space-around;
 `;
+
 
 const Form = styled.form`
 	  position: fixed !important;
@@ -100,6 +101,8 @@ const FormRow = styled.div`
 	  //min-height: 20%;
 	`
 const PaymentForm = () => {
+
+	const [cardDetails, setCardDetails] = useState({})
 	const CARD_OPTIONS = {
 	  style: {
 		base: {
@@ -121,25 +124,8 @@ const PaymentForm = () => {
 	const stripe = useStripe();
 	const elements = useElements();
 	const [inputs, setInputs] = useState({});
-	// const [address, setAddress] = useState('')
-	// const [name, setName] = useState('')
-	// const [lastname, setLastname] = useState('')
-	// const [telephone, setTelephone] = useState('')
-	// const [email, setEmail] = useState('')
-	// const [zip, setZip] = useState('');
-	// const [country, setCountry] = useState('');
-	// const [city, setCity] = useState('');
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		// console.log(e.target[1].value)
-		// setName(e.target[1].value)
-		// setLastname(e.target[2].value)
-		// setAddress(e.target[3].value)
-		// setCity(e.target[4].value)
-		// setCountry(e.target[5].value)
-		// setZip(e.target[6].value)
-		// setTelephone(e.target[7].value)
-		// setEmail(e.target[8].value)
 		setInputs({
 			name: e.target.name.value,
 			lastname: e.target.lastname.value,
@@ -152,7 +138,6 @@ const PaymentForm = () => {
 			email: e.target.email.value,
 		})
 		// console.log(inputs)
-		console.log(elements.getElement(CardElement))
 		const {error, paymentMethod} = await stripe.createPaymentMethod({
 			type: "card",
 			card: elements.getElement(CardElement)
@@ -161,17 +146,22 @@ const PaymentForm = () => {
 		if (!error) {
 			try {
 				const {id} = paymentMethod
+				// console.log("payment Method", paymentMethod)
+				setCardDetails(paymentMethod)
+				// console.log("id", id)
+				console.log(cart.total)
 				const res = await publicRequest.post("/api/checkout/payment", {
-					amount: 1000,
+					// amount: 'este es el error',
+					amount: (+cart.total) * 100,
 					id
 				})
 				if (res.data.success) {
 					console.log("Successful payment")
-					// console.log(res.data)
+					console.log("resdata", res.data)
 					setSuccess(true)
 				}
-			} catch (e) {
-				console.log("Payment Failed ", e)
+			} catch (err) {
+				console.log("Payment Failed ", err)
 			}
 		} else {
 			console.log(error.message)
@@ -200,11 +190,9 @@ const PaymentForm = () => {
 					<InputContainer>
 						<Input
 						       id="name"
-						       // onChange={(e) => setName(e.target.value)}
 						       placeholder="Name" type="text" required/>
 						<Input
 							id="lastname"
-							// onChange={(e) => setLastname(e.target.value)}
 							placeholder="Lastname" type="text" required/>
 					</InputContainer>
 					<InputContainer>
@@ -243,6 +231,7 @@ const PaymentForm = () => {
 				history.push("/success", {
 					billingAddress: inputs,
 					products: cart,
+					card: cardDetails
 					// card: res.data
 				})
 			}

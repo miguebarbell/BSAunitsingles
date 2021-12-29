@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import {useSelector} from "react-redux";
 import Profile from "./pages/Profile"
 import Footer from "./components/Footer";
+import OrderDetails from "./pages/OrderDetails";
 
 // const YELLOW = '#fdcf19';
 
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route path="/profile">
             {user? <Profile/> : <Redirect to="/"/>}
+          </Route>
+          <Route path="/order">
+            <OrderDetails/>
           </Route>
         </Switch>
         <Footer/>

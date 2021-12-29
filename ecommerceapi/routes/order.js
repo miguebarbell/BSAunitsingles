@@ -6,26 +6,31 @@ const router = require("express").Router()
 
 router.post("/", async (req, res) => {
     const billingAddress = req.body.billingAddress;
+    const card = req.body.card;
+    const user = req.body.user.currentUser;
     console.log(req.body)
     const newOrder = new Order({
-        user_Id: req.body.user.currentUser._id,
-        userId: req.body.user.currentUser.username,
+        user_Id: user._id,
+        userId: user.username? user.username : 'Not Logged',
         products: req.body.products.map(product => ({...product, quantity: parseInt(product.quantity)})),
         amount: req.body.total_amount,
-        operationId: billingAddress.id.toString(), //must be unique
+
+        operationId: card.id, //must be unique
         card: {
-            last4: `**** **** **** ${billingAddress.last4}`,
+            last4: `**** **** **** ${card.card.last4}`,
             name: billingAddress.name,
-            exp_month: billingAddress.exp_month,
-            exp_year: billingAddress.exp_year,
+            exp_month: card.card.exp_month,
+            exp_year: card.card.exp_year,
         },
         address: {
-            city: billingAddress.address_city,
-            country: billingAddress.address_country,
-            street1: billingAddress.address_line1,
-            street2: billingAddress.address_line2? billingAddress.address_line2 : '',
-            zipCode : billingAddress.address_zip,
-            // email: billingAddress.
+            city: billingAddress.city,
+            state: billingAddress.state,
+            country: billingAddress.country,
+            street1: billingAddress.street,
+            // street2: billingAddress.address_line2? billingAddress.address_line2 : '',
+            zipCode : billingAddress.zip,
+            email: billingAddress.email,
+            telephone: billingAddress.telephone,
         },
     })
     try {
@@ -88,7 +93,6 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
     }
 })
 
-
 // Get monthly income
 router.get("/income", verifyTokenAndAdmin, async (req, res) => {
     const date = new Date();
@@ -108,5 +112,20 @@ router.get("/income", verifyTokenAndAdmin, async (req, res) => {
     }
 })
 
+// Get Specific order
+router.post("/get/:orderId", verifyToken, async (req, res) => {
+    try {
+        const order = await Order.findById(req.params.orderId)
+        // console.log(order)
+        if (req.body.username === order.userId || req.body.isAdmin) {
+            res.status(200).json(order)
+        } else {
+            res.status(403).json("Not Allowed")
+        }
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
 
 module.exports = router;

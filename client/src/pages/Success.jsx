@@ -49,11 +49,11 @@ margin: [0, 5, 0, 15]
 };
 
 
-const Container = styled.div`
+export const Container = styled.div`
 margin-top: ${navbarHeight};
 padding: 2rem;
 `;
-const Header = styled.h1``;
+export const Header = styled.h1``;
 export const Table = styled.table`
   width: 70vw;
   min-width: 200px;
@@ -74,18 +74,28 @@ const Success = () => {
     const location = useLocation()
 	// get the billing information
 	// console.log('operinting location state')
-	console.log('successss')
-	console.log(location.state)
+	// console.log('successss')
+	// console.log(location.state)
 	const billingAddress = location.state.billingAddress;
 	// console.log(location.state.data)
 	// get the cart information
 	const cart = location.state.products
+	const card = location.state.card
+	// console.log("PRINTING IT", location.state)
 	const user = useSelector(state => state.user)
 	const order = {total_amount: cart.total,
 		total_products: cart.quantity,
 		user: user,
 		billingAddress: billingAddress,
-		products: cart.products.map(product => ({'id' : product._id, 'name' : product.title, 'quantity' : product.quantity }))}
+		card: card,
+		// cartResume: cart
+		products: cart.products.map(product => ({
+			'id' : product._id,
+			'name' : product.title,
+			'quantity' : product.quantity,
+			'price' : product.price,
+			'subtotal' : product.priceQty
+		}))}
 	pushOrder(order);
 
 
@@ -125,7 +135,7 @@ const Success = () => {
 	        <div>Name: <span>{billingAddress.name}</span></div>
 	        <div>Email: <span>{billingAddress.email}</span></div>
 	        <div>Phone: <span>{billingAddress.telephone}</span></div>
-	        <div>Card: <span>**** **** **** {billingAddress.last4}</span></div>
+	        <div>Card: <span>**** **** **** {card.card.last4}</span></div>
         </Container>
     )
 };

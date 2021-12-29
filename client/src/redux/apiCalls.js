@@ -30,3 +30,14 @@ export const pushOrder = async (order) => {
 	} catch(e) {
 		console.log(e)}
 }
+
+export const getOrder = async (id, user) => {
+	try {
+		// console.log(user)
+		const res = await userRequest.post(`api/orders/get/${id}`, user)
+		return res
+		// console.log(res)
+	} catch (e) {
+		console.log(e)
+	}
+}
