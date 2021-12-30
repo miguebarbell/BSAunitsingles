@@ -50,12 +50,12 @@ const Slide = styled.div`
   align-items: end;
 `
 const Title = styled.h1`
-color: black;
-  font-size: 2rem;
-  max-width: 70%;
-  padding: 2rem;
-  //background-color: white;
-  
+    background-color: rgba(255,255,255, 0.3);
+    color: black;
+    font-size: 2rem;
+    max-width: 70%;
+    padding: 2rem;
+    border-radius: 5px;
 `
 
 const Slider = () => {const [slideIndex, setSlideIndex] = useState(0)

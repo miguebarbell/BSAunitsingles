@@ -10,7 +10,7 @@ const Div = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100vw;
-  height: calc(100vh - ${navbarHeight});
+  //height: calc(100vh - ${navbarHeight});
   background-color: black;
   color: white;
 `

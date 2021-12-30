@@ -1,6 +1,6 @@
 import styled from "styled-components"
 // import { popularProducts } from "../data"
-import Product from "./Product";
+import Product, {FeaturedProduct} from "./Product";
 import { Name } from "./Categories"
 // import Footer from "./Footer";
 import {useEffect, useState} from "react";
@@ -12,7 +12,7 @@ const Div = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100vw;
-  height: calc(100vh - ${navbarHeight});
+  //height: calc(100vh - ${navbarHeight});
   background-color: black;
   color: white;
 `
@@ -47,11 +47,10 @@ const FeaturedProducts = () => {
 				<Name>Featured</Name>
 				<Container>
 					{products.map(item => (
-						<Product item={item} key={item._id}/>
+						<FeaturedProduct item={item} key={item._id}/>
 					))}
 				</Container>
 			</div>
-			{/*<Footer/>*/}
 		</Div>
 
 	)
