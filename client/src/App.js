@@ -11,8 +11,7 @@ import {useSelector} from "react-redux";
 import Profile from "./pages/Profile"
 import Footer from "./components/Footer";
 import OrderDetails from "./pages/OrderDetails";
-
-// const YELLOW = '#fdcf19';
+import Admin from "./pages/Admin";
 
 function App() {
 
@@ -36,6 +35,9 @@ function App() {
           </Route>
           <Route path="/success">
             <Success/>
+          </Route>
+          <Route path="/peter">
+            <Admin/>
           </Route>
 
           <Route path="/login">
