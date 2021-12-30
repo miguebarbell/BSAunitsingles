@@ -39,7 +39,6 @@ function App() {
           <Route path="/peter">
             <Admin/>
           </Route>
-
           <Route path="/login">
             {user ? <Redirect to="/"/> : <Login/>}
           </Route>

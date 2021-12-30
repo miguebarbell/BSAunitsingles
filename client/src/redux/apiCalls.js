@@ -34,10 +34,25 @@ export const pushOrder = async (order) => {
 export const getOrder = async (id, user) => {
 	try {
 		// console.log(user)
-		const res = await userRequest.post(`api/orders/get/${id}`, user)
-		return res
+		return await userRequest.post(`api/orders/get/${id}`, user)
 		// console.log(res)
 	} catch (e) {
 		console.log(e)
+	}
+}
+
+export const getOrders = async () => {
+	try {
+		return await userRequest.get("api/orders/")
+	} catch (err) {
+		console.log(err)
+	}
+}
+
+export const getProducts = async () => {
+	try {
+		return await publicRequest.get("api/products/")
+	} catch (err) {
+		console.log(err)
 	}
 }
