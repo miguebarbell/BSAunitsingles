@@ -18,7 +18,7 @@ import {navbarHeight, yellow} from "../components/Navbar";
 
 const Container = styled.div`
 margin-top: ${navbarHeight};
-min-height: calc(100vh - ${navbarHeight});
+//min-height: calc(100vh - ${navbarHeight});
 display: flex;
 flex-direction: column;
 justify-content: space-between;
@@ -55,6 +55,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 width: 90vw;
+    //min-height: 500px;
 `;
 const Product = styled.div`
 display: flex;
@@ -62,6 +63,7 @@ border-bottom: 1px solid grey;
 width: 100%;
 align-items: center;
 padding: 1rem 0;
+    min-height: 200px;
 div {
 // margin: 1rem 0;
 }
@@ -91,6 +93,7 @@ justify-content: space-around;
 align-items: center;
 `;
 const Image = styled.img`
+    max-height: 300px;
 object-fit: cover;
 padding: 0.25rem;
 border-radius: 10px;
@@ -183,7 +186,7 @@ const Cart = () => {
     const delItem = (product) => {
         dispatch(delProduct({...product}))
     }
-    const [checkoutProducts, setCheckoutproducts] = useState(false)
+    const [checkoutProducts, setCheckoutProducts] = useState(false)
     return (
         <Container>
             <CartWrapper>
@@ -204,7 +207,7 @@ const Cart = () => {
                         {/*    email={user? user.username : ''}*/}
                         {/*    stripeKey={STRIPE_KEY}>*/}
                         {/*</StripeCheckout>*/}
-                        {checkoutProducts ? <CheckoutForm/> : <Button onClick={() => setCheckoutproducts(true)}>Checkout</Button>}
+                        {checkoutProducts ? <CheckoutForm/> : <Button onClick={() => setCheckoutProducts(true)}>Checkout</Button>}
 
                     </ButtonWrapper>
                 </NavCart>
