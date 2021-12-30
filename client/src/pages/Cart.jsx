@@ -1,15 +1,15 @@
 import {useState} from 'react'
 import styled from "styled-components";
-import {yellow, navbarHeight} from "../components/Navbar";
 import { Add, Remove} from "@material-ui/icons";
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import {useDispatch, useSelector} from "react-redux";
 // import StripeCheckout from "react-stripe-checkout";
 // import {publicRequest, userRequest} from "../requestMethods";
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {delProduct, lessProduct, moreProduct} from "../redux/cartRedux";
 // import {loadStripe} from '@stripe/stripe-js';
 import CheckoutForm from "../components/CheckoutForm";
+import {navbarHeight, yellow} from "../components/Navbar";
 // const STRIPE_KEY = 'pk_test_51JjmTWBN6ojyqIxPr1Xg9QGKPn7hW1EmtON0UZ1fp6BZzBY01BCTvJRAOoqeHGhsbHu1618p0wPVl3y0EBdwLVFI002Tnn3HJN'
 // const stripe = loadStripe(STRIPE_KEY)
 

@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import Announcement, {announcementHeight} from "../components/Announcement";
-import {navbarHeight, yellow} from "../components/Navbar";
 // import Products from "../components/Products";
 import { Add, Remove } from "@material-ui/icons";
 import {useLocation} from "react-router-dom";
@@ -9,6 +8,7 @@ import { publicRequest} from "../requestMethods"
 import FeaturedProducts from "../components/FeaturedProducts";
 import {addProduct} from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import {navbarHeight, yellow} from "../components/Navbar";
 
 const Wrapper = styled.div`
   margin-top: calc(${navbarHeight} + ${announcementHeight} + 20px);

@@ -1,15 +1,27 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from "styled-components";
 import {Search, ShoppingCartOutlined} from "@material-ui/icons";
 import {Badge} from "@material-ui/core";
-import  LOGO_BSA  from "../assets/images/BSA.png";
-import  LOGO_BIRK  from "../assets/images/BSA_Birk.png";
+import LOGO_BSA from "../assets/images/BSA.png";
+import LOGO_BIRK from "../assets/images/BSA_Birk.png";
 import {Link} from "react-router-dom";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
+import {getProducts} from "../redux/apiCalls";
 
-export const navbarHeight = '50px';
-export const yellow = '#fdcf19';
 export const layoutChange = '1000px';
+export const yellow = '#fdcf19';
+export const navbarHeight = '50px';
+
+const SearchBarInput = styled.input`
+    border: none;
+    background-color: ${yellow};
+    height: 100%;
+    width: 100%;
+    font-size: 1rem;
+    &:focus {
+        outline: none;
+    };
+`;
 const StyledBurger = styled.div`
   z-index: 7;
   @media (max-width: ${layoutChange}) {
@@ -60,7 +72,7 @@ const StyledBurger = styled.div`
     display: flex;
   }
   
-`
+`;
 const ProfileItem = styled.div`
     display: ${props => (props.user !== false) ? 'block' : 'none'};
     transition: all 0.3s ease;
@@ -98,7 +110,7 @@ const Burger = () => {
         </Menu>
         </>
     )
-}
+};
 const Container = styled.div`
   background-color: ${yellow};
   width: 100vw;
@@ -120,7 +132,7 @@ const Container = styled.div`
       }
     }
   }
-`
+`;
 const Logos = styled.div`
   max-width: 20%;
   display: flex;
@@ -129,7 +141,7 @@ const Logos = styled.div`
   height: calc(${navbarHeight}*.85);
   top: 0;
   left: 0;
-`
+`;
 const SearchContainer = styled.div`
     border: 0.5px solid black;
     min-width: 30%;
@@ -141,17 +153,57 @@ const SearchContainer = styled.div`
     margin-left: 100px;
     width: 40%;
   }
-`
-const Input = styled.input`
-  border: none;
-  background-color: ${yellow};
-  height: 100%;
-  width: 100%;
-  font-size: 1rem;
-  &:focus { 
-    outline: none;
+`;
+const SearchResults = styled.div`
+    background-color: ${yellow};
+    position: absolute;
+`;
+const Input = ({placeholder}) => {
+    const [allProducts, setAllProducts] = useState([])
+    // const [results, setResults] = useState([])
+    const [filtered, setFiltered] = useState([])
+    const searchResults = async () => {
+        try {
+            const res = await getProducts()
+            setAllProducts(res.data);
+        } catch (err) {
+            console.log(err)
+        }
+        console.log(allProducts)
     };
-`
+    useEffect(() => {
+        searchResults()
+    }, [])
+    const handleInput = (e) => {
+        const searchWord = e.target.value;
+        console.log(filtered)
+        if (searchWord === '') {
+            setFiltered([])
+        } else {
+            setFiltered(allProducts.filter(product => product.title.toLowerCase().includes(searchWord.toLowerCase())))
+        }
+    }
+    return (
+        <div>
+        <SearchBarInput
+            placeholder={placeholder}
+            onChange={handleInput}
+        />
+            {filtered.length > 0 && (
+                <SearchResults>
+                    {filtered.slice(0,15).map(item => {
+                        return (
+                            <a href={`product/${item._id}`}>
+                                <p>{item.title}</p>
+                            </a>
+                        )
+                    })}
+                </SearchResults>
+                )}
+
+        </div>
+    )
+}
 const Menu = styled.div`
     a:link {
         color: inherit;
@@ -236,8 +288,8 @@ const Navbar = () => {
                 </Logos>
             </Link>
             <SearchContainer>
-                <Input style={{fontSize:"1.3rem", padding:"0 0.25rem"}}/>
-                <Search/>
+                <Input placeholder="Find a product..." style={{fontSize:"1.3rem", padding:"0 0.25rem"}}/>
+                <Search />
             </SearchContainer>
             <Burger/>
         </Container>

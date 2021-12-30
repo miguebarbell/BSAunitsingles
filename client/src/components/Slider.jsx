@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
 import { useState } from "react";
 import { sliderItems } from "../data"
-import { navbarHeight} from "./Navbar";
 import { announcementHeight} from "./Announcement";
+import {navbarHeight} from "./Navbar";
 
 const Container = styled.div`
 width: 100vw;

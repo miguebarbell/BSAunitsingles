@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { navbarHeight } from "../components/Navbar";
 import Announcement, { announcementHeight} from "../components/Announcement";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 // import { navbarHeight } from "../components/Navbar";
 // import { announcementHeight } from "../components/Announcement";
 import Products from "../components/Products";
 import {useLocation} from "react-router-dom";
 import {useState} from "react";
+import {navbarHeight} from "../components/Navbar";
 
 const Container = styled.div`
 `

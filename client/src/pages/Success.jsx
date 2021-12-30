@@ -1,52 +1,52 @@
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
-import {navbarHeight, yellow} from "../components/Navbar";
 import {useDispatch, useSelector} from "react-redux";
 import {delCart} from "../redux/cartRedux";
 import {pushOrder} from "../redux/apiCalls";
+import {navbarHeight, yellow} from "../components/Navbar";
 
-const pdfOrder = {
-
-	content: [
-// title
-		{ text: 'Thanks for ordering', style: 'header' },
-	],
-// items
-	table: {
-		body: [
-//header row
-			['SKU', 'Item', 'Price'],
-			['34-0990', 'Cable 8 inches', '15.99']
-		]
-				 },
-// summary
-	styles: {
-
-/*
-    font: string: name of the font
-    fontSize: number: size of the font in pt
-    fontFeatures: string[]: array of advanced typographic features supported in TTF fonts (supported features depend on font file)
-    lineHeight: number: the line height (default: 1)
-    bold: boolean: whether to use bold text (default: false)
-    italics: boolean: whether to use italic text (default: false)
-    alignment: string: (‘left’ or ‘center’ or ‘right’ or ‘justify’) the alignment of the text
-    characterSpacing: number: size of the letter spacing in pt
-    color: string: the color of the text (color name e.g., ‘blue’ or hexadecimal color e.g., ‘#ff5500’)
-    background: string the background color of the text
-    markerColor: string: the color of the bullets in a buletted list
-    decoration: string: the text decoration to apply (‘underline’ or ‘lineThrough’ or ‘overline’)
-    decorationStyle: string: the style of the text decoration (‘dashed’ or ‘dotted’ or ‘double’ or ‘wavy’)
-    decorationColor: string: the color of the text decoration, see color
-		*/
-		header: {
-		fontSize: 20,
-		bold: true,
-				},
-tableItems: {
-margin: [0, 5, 0, 15]
-						},
-}
-};
+// const pdfOrder = {
+//
+// 	content: [
+// // title
+// 		{ text: 'Thanks for ordering', style: 'header' },
+// 	],
+// // items
+// 	table: {
+// 		body: [
+// //header row
+// 			['SKU', 'Item', 'Price'],
+// 			['34-0990', 'Cable 8 inches', '15.99']
+// 		]
+// 				 },
+// // summary
+// 	styles: {
+//
+// /*
+//     font: string: name of the font
+//     fontSize: number: size of the font in pt
+//     fontFeatures: string[]: array of advanced typographic features supported in TTF fonts (supported features depend on font file)
+//     lineHeight: number: the line height (default: 1)
+//     bold: boolean: whether to use bold text (default: false)
+//     italics: boolean: whether to use italic text (default: false)
+//     alignment: string: (‘left’ or ‘center’ or ‘right’ or ‘justify’) the alignment of the text
+//     characterSpacing: number: size of the letter spacing in pt
+//     color: string: the color of the text (color name e.g., ‘blue’ or hexadecimal color e.g., ‘#ff5500’)
+//     background: string the background color of the text
+//     markerColor: string: the color of the bullets in a buletted list
+//     decoration: string: the text decoration to apply (‘underline’ or ‘lineThrough’ or ‘overline’)
+//     decorationStyle: string: the style of the text decoration (‘dashed’ or ‘dotted’ or ‘double’ or ‘wavy’)
+//     decorationColor: string: the color of the text decoration, see color
+// 		*/
+// 		header: {
+// 		fontSize: 20,
+// 		bold: true,
+// 				},
+// tableItems: {
+// margin: [0, 5, 0, 15]
+// 						},
+// }
+// };
 
 
 export const Container = styled.div`

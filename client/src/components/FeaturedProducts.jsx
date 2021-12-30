@@ -2,10 +2,10 @@ import styled from "styled-components"
 // import { popularProducts } from "../data"
 import Product from "./Product";
 import { Name } from "./Categories"
-import Footer from "./Footer";
-import { navbarHeight} from "./Navbar";
+// import Footer from "./Footer";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {navbarHeight} from "./Navbar";
 
 const Div = styled.div`
   display: flex;

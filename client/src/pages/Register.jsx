@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Footer from "../components/Footer";
-import {yellow,  navbarHeight} from "../components/Navbar";
 import wrapperbg from "../assets/images/C15.jpg";
 import {register} from "../redux/apiCalls";
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
 import {Error} from "./Login";
+import {navbarHeight, yellow} from "../components/Navbar";
 
 export const changeLayout = "760px"
 export const Button = styled.button`

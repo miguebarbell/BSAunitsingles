@@ -1,9 +1,9 @@
 import styled from "styled-components"
-import {navbarHeight, yellow} from "../components/Navbar";
 import {useSelector} from "react-redux";
 import {Redirect} from "react-router-dom";
-import {getOrder, getOrders} from "../redux/apiCalls";
+import {getOrders} from "../redux/apiCalls";
 import {useEffect, useState} from "react";
+import {navbarHeight} from "../components/Navbar";
 
 const Container = styled.div`
   margin-top: ${navbarHeight};
@@ -28,19 +28,19 @@ border: 1px solid black;
   padding: 1rem;
   border-radius: 5px;
 `;
-const Button = styled.button`
-  font-weight: bold;
-  background-color: ${yellow};
-  color: red;
-  border: 0;
-  padding: 0.25rem;
-  border-radius: 3px;
-  cursor: pointer;
-  &:hover {
-    color: ${yellow};
-    background-color: red;
-  }
-`;
+// const Button = styled.button`
+//   font-weight: bold;
+//   background-color: ${yellow};
+//   color: red;
+//   border: 0;
+//   padding: 0.25rem;
+//   border-radius: 3px;
+//   cursor: pointer;
+//   &:hover {
+//     color: ${yellow};
+//     background-color: red;
+//   }
+// `;
 
 
 const Stats = () => {

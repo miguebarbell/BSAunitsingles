@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { navbarHeight, layoutChange } from "./Navbar";
+import {layoutChange, navbarHeight} from "./Navbar";
 
 
 export const announcementHeight = '1.2rem';

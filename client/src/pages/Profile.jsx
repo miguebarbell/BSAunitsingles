@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {navbarHeight, yellow} from "../components/Navbar";
 import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../redux/userRedux";
 import {useEffect, useState} from "react";
@@ -7,6 +6,7 @@ import {userRequest} from "../requestMethods";
 import {Table} from "./Success";
 import {getOrder} from "../redux/apiCalls";
 import {useHistory} from "react-router-dom";
+import {navbarHeight, yellow} from "../components/Navbar";
 
 const Container = styled.div`
     margin-top: ${navbarHeight};
@@ -42,7 +42,7 @@ const EditBtn = styled.button`
         color: dodgerblue;
     }
 `;
-const DetailsButton = styled.button``;
+// const DetailsButton = styled.button``;
 const Header = styled.div`
     padding-top: 5%;
     display: flex;
@@ -51,7 +51,7 @@ const Header = styled.div`
 `;
 const Profile = () => {
     const history = useHistory();
-    const {name, email, lastName, username, _id, isAdmin} = useSelector(state => state.user.currentUser);
+    const {name, lastName, username, _id, isAdmin} = useSelector(state => state.user.currentUser);
     // console.log(name, lastName, email, username, _id);
     // console.log(user._id)
     // hacer un userRequest
