@@ -18,6 +18,7 @@ const SearchBarInput = styled.input`
     height: 100%;
     width: 100%;
     font-size: 1rem;
+    padding-left: 0.25rem;
     &:focus {
         outline: none;
     };
@@ -157,6 +158,16 @@ const SearchContainer = styled.div`
 const SearchResults = styled.div`
     background-color: ${yellow};
     position: absolute;
+    padding: 0.25rem 0;
+    color: black;
+    * {
+        color: black;
+        text-decoration: none;
+        padding: 0.125rem 0;
+        &:hover {
+            color: red;
+        }
+    }
 `;
 const Input = ({placeholder}) => {
     const [allProducts, setAllProducts] = useState([])
@@ -173,7 +184,7 @@ const Input = ({placeholder}) => {
     };
     useEffect(() => {
         searchResults()
-    }, [])
+    },[])
     const handleInput = (e) => {
         const searchWord = e.target.value;
         console.log(filtered)
