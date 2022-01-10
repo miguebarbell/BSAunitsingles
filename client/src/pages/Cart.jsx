@@ -23,6 +23,7 @@ display: flex;
 flex-direction: column;
 justify-content: space-between;
 align-items: center;
+  background-color: white;
 `;
 const Title = styled.h1``;
 const CartWrapper = styled.div`

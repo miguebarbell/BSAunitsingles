@@ -4,6 +4,7 @@ import CategoryItem from "./CategoryItem";
 
 const Container = styled.div`
 padding: 1rem;
+  background-color: white;
 `
 const CategoryContainer = styled.div`
   display: flex;

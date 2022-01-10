@@ -172,12 +172,11 @@ const SearchResults = styled.div`
 `;
 const Input = ({placeholder}) => {
     const [allProducts, setAllProducts] = useState([])
-    // const [results, setResults] = useState([])
+    const [getTheProducts, setGetTheProducts] = useState(false)
     const [filtered, setFiltered] = useState([])
     const searchResults = async () => {
         try {
             const res = await getProducts()
-            // TODO: the server must be send the minimal data to work
             setAllProducts(res.data);
         } catch (err) {
             console.log(err)
@@ -186,8 +185,10 @@ const Input = ({placeholder}) => {
     };
     useEffect(() => {
         searchResults()
-    },[])
+    },[searchResults])
     const handleInput = (e) => {
+        setGetTheProducts(true)
+        console.log(getTheProducts)
         const searchWord = e.target.value;
         // console.log(filtered)
         if (searchWord === '') {

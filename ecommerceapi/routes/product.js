@@ -73,7 +73,8 @@ router.get("/", async (req, res) => {
                 return {
                     'title': item.title,
                     'desc': item.desc,
-                    'sku': item.sku
+                    'sku': item.sku,
+                    '_id': item._id
                 }
             })
         }

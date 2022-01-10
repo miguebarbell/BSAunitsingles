@@ -1,8 +1,6 @@
 import styled from "styled-components"
-// import { popularProducts } from "../data"
 import Product, {FeaturedProduct} from "./Product";
 import { Name } from "./Categories"
-// import Footer from "./Footer";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {navbarHeight} from "./Navbar";

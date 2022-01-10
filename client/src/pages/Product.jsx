@@ -11,9 +11,9 @@ import { useDispatch } from "react-redux";
 import {navbarHeight, yellow} from "../components/Navbar";
 
 const Wrapper = styled.div`
-  margin-top: calc(${navbarHeight} + ${announcementHeight} + 20px);
+  margin-top: calc(${navbarHeight} + ${announcementHeight});
   display: flex;
-  padding: 1rem;
+  padding: 2rem 1rem;
   align-items: center;
   width: 90vw;
   justify-content: center;
@@ -76,7 +76,9 @@ display: flex;
 const Amount = styled.span`
   font-weight: bold;
 padding: 0 0.5rem;`
-const Container = styled.div``
+const Container = styled.div`
+background-color: white;
+`
 const Product = () => {
     const location = useLocation();
     const id = location.pathname.split('/')[2]

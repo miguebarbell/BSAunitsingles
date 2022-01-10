@@ -3,14 +3,14 @@ import {Link} from "react-router-dom";
 // import { Container, Image } from "./CategoryItem"
 const Title = styled.h3`
     color: black;
-    font-size: 1.5rem;
+    font-size: 1rem;
   // text-align-last: justify;
     padding: 0 0.5vh;
     text-align: center;
 `
 const Price = styled.span`
     color: black;
-font-size:1.5rem;
+font-size:1rem;
 font-weight: bold; 
 `
 const Container = styled.div`

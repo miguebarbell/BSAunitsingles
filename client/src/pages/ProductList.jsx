@@ -9,6 +9,8 @@ import {useState} from "react";
 import {navbarHeight} from "../components/Navbar";
 
 const Container = styled.div`
+    background-color: white;
+    margin-top: calc(${navbarHeight} + ${announcementHeight});
 `
 // const Title = styled.h1`
 //   margin-top: calc(${navbarHeight} + ${announcementHeight} + 20px);
@@ -16,7 +18,8 @@ const Container = styled.div`
 // `
 const FilterContainer = styled.div`
   //margin-top: calc(${navbarHeight} + ${announcementHeight});
-  margin-top: calc(${navbarHeight} + ${announcementHeight} + 20px);
+  margin-top: calc(${navbarHeight} + ${announcementHeight});
+  padding-top: 20px;
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
