@@ -7,6 +7,7 @@ import LOGO_BIRK from "../assets/images/BSA_Birk.png";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {getProducts} from "../redux/apiCalls";
+import Fuse from "fuse.js";
 
 export const layoutChange = '1000px';
 export const yellow = '#fdcf19';
@@ -176,23 +177,37 @@ const Input = ({placeholder}) => {
     const searchResults = async () => {
         try {
             const res = await getProducts()
+            // TODO: the server must be send the minimal data to work
             setAllProducts(res.data);
         } catch (err) {
             console.log(err)
         }
-        console.log(allProducts)
+        // console.log(allProducts)
     };
     useEffect(() => {
         searchResults()
     },[])
     const handleInput = (e) => {
         const searchWord = e.target.value;
-        console.log(filtered)
+        // console.log(filtered)
         if (searchWord === '') {
             setFiltered([])
         } else {
-            setFiltered(allProducts.filter(product => product.title.toLowerCase().includes(searchWord.toLowerCase())))
-        }
+            // return an array with all the title
+            // setFiltered(allProducts.filter(product => product.title.toLowerCase().includes(searchWord.toLowerCase())))
+
+            // fuze search
+            const options = {
+                  includeScore: false,
+      // Search in `author` and in `tags` array
+                  keys: ['title', 'desc', 'sku']
+    }
+
+            const fuse = new Fuse(allProducts, options)
+            setFiltered(fuse.search(searchWord.toLowerCase()).map(item => item.item))
+            console.log(filtered)
+
+            }
     }
     return (
         <div>
