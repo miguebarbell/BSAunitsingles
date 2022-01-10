@@ -67,8 +67,8 @@ router.get("/", async (req, res) => {
                 }})
         } else {
             // get all products
+            console.log("All the products")
             products = await Product.find();
-
             products = products.map(item => {
                 return {
                     'title': item.title,

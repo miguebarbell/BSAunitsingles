@@ -79,7 +79,7 @@ const Profile = () => {
     }
     useEffect(() => {
         makeRequest()
-    }, []);
+    }, [makeRequest]);
 
 
     const dispatch = useDispatch()

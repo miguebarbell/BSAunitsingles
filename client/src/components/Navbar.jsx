@@ -170,67 +170,6 @@ const SearchResults = styled.div`
         }
     }
 `;
-const Input = ({placeholder}) => {
-    const [allProducts, setAllProducts] = useState([])
-    const [getTheProducts, setGetTheProducts] = useState(false)
-    const [filtered, setFiltered] = useState([])
-    const searchResults = async () => {
-        try {
-            const res = await getProducts()
-            setAllProducts(res.data);
-        } catch (err) {
-            console.log(err)
-        }
-        // console.log(allProducts)
-    };
-    useEffect(() => {
-        searchResults()
-    },[searchResults])
-    const handleInput = (e) => {
-        setGetTheProducts(true)
-        console.log(getTheProducts)
-        const searchWord = e.target.value;
-        // console.log(filtered)
-        if (searchWord === '') {
-            setFiltered([])
-        } else {
-            // return an array with all the title
-            // setFiltered(allProducts.filter(product => product.title.toLowerCase().includes(searchWord.toLowerCase())))
-
-            // fuze search
-            const options = {
-                  includeScore: false,
-      // Search in `author` and in `tags` array
-                  keys: ['title', 'desc', 'sku']
-    }
-
-            const fuse = new Fuse(allProducts, options)
-            setFiltered(fuse.search(searchWord.toLowerCase()).map(item => item.item))
-            console.log(filtered)
-
-            }
-    }
-    return (
-        <div>
-        <SearchBarInput
-            placeholder={placeholder}
-            onChange={handleInput}
-        />
-            {filtered.length > 0 && (
-                <SearchResults>
-                    {filtered.slice(0,15).map(item => {
-                        return (
-                            <a href={`product/${item._id}`}>
-                                <p>{item.title}</p>
-                            </a>
-                        )
-                    })}
-                </SearchResults>
-                )}
-
-        </div>
-    )
-}
 const Menu = styled.div`
     a:link {
         color: inherit;
@@ -306,6 +245,77 @@ const RightMenu = styled.div`
   }
 `
 const Navbar = () => {
+    const [allProducts, setAllProducts] = useState([])
+    const searchResults = async () => {
+        // console.log('accessing to search result')
+        try {
+            // console.log("products" + allProducts)
+            const res = await getProducts()
+            setAllProducts(res.data);
+            // console.log("products" + allProducts)
+        } catch (err) {
+            console.log(err)
+        }
+    };
+    useEffect(() => {
+        searchResults()
+    },[])
+    const Input = ({placeholder}) => {
+        const [filtered, setFiltered] = useState([])
+        // const [getTheProducts, setGetTheProducts] = useState(false)
+        const clearInput = () => {
+            setFiltered([])
+
+        }
+        const handleInput = (e) => {
+            const searchWord = e.target.value;
+            // console.log(filtered)
+            if (searchWord === '') {
+                setFiltered([])
+            } else {
+                // fuze search
+                const options = {
+                    keys: [
+                        {
+                            name: 'title',
+                            weight: 0.4
+                        }, {
+                            name: 'desc',
+                            weight: 0.3
+                        }, {
+                            name: 'sku',
+                            weight: 0.3
+                    }]
+                }
+                const fuse = new Fuse(allProducts, options)
+                setFiltered(fuse.search(searchWord.toLowerCase()).map(item => item.item))
+                console.log(filtered)
+            }
+        }
+        return (
+            <div>
+                <SearchBarInput
+                    placeholder={placeholder}
+                    onChange={handleInput}
+                />
+                {filtered.length > 0 && (
+                    <SearchResults>
+                        {filtered.slice(0,15).map(item => {
+                            return (
+                                <Link key={item._id} to={`/product/${item._id}`} onClick={clearInput}>
+                                    <p>{item.title}</p>
+                                </Link>
+                            )
+                        })}
+                    </SearchResults>
+                )}
+
+            </div>
+        )
+    }
+    const search = () => {
+        console.log('future search page')
+    }
     return (
         <Container>
             <Link to="/">
@@ -315,8 +325,9 @@ const Navbar = () => {
                 </Logos>
             </Link>
             <SearchContainer>
-                <Input placeholder="Find a product..." style={{fontSize:"1.3rem", padding:"0 0.25rem"}}/>
-                <Search />
+                <Input onClick={()=>searchResults} placeholder="Find a product..." style={{fontSize:"1.3rem", padding:"0 0.25rem"}}/>
+
+                <Search onClick={search} style={{cursor: "pointer"}}/>
             </SearchContainer>
             <Burger/>
         </Container>

@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Product, {FeaturedProduct} from "./Product";
+import {FeaturedProduct} from "./Product";
 import { Name } from "./Categories"
 import {useEffect, useState} from "react";
 import axios from "axios";
