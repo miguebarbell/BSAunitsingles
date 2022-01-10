@@ -72,9 +72,7 @@ div {
 const ProductDetail = styled.div`
 display: flex;
 max-height: 300px;
-// background-color: red;
 width: 70vw;
-height: 30vh;
     * {
         text-decoration: none;
         a {
@@ -218,7 +216,6 @@ const Cart = () => {
                     <Product key={product._id}>
                         <ProductDetail>
                                   <Link to={`/product/${product._id}`}><Image src={product.img} alt={product.title}/></Link>
-                           
                                   <Details>
                                   <ProductName><b>Item:</b> <Link to={`/product/${product._id}`}>{product.title}</Link></ProductName>
                                   <ProductSKU><b>SKU:</b> <Link to={`/product/${product._id}`}>{product.sku}</Link></ProductSKU>
