@@ -40,8 +40,8 @@ const Blur  = styled.div`
   background-color: rgb(0,0,0,.4);
   position: absolute;
   left: 0;
-  width: 20vh;
-  height: 20vh;
+  width: 100%;
+  height: 100%;
   max-height: 500px;
   border-radius: 3%;
   color: white;
