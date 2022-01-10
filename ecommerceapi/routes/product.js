@@ -68,6 +68,14 @@ router.get("/", async (req, res) => {
         } else {
             // get all products
             products = await Product.find();
+
+            products = products.map(item => {
+                return {
+                    'title': item.title,
+                    'desc': item.desc,
+                    'sku': item.sku
+                }
+            })
         }
 
         res.status(200).json(products)
