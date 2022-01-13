@@ -1,0 +1,58 @@
+### REGISTER
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "email" : "test@bsa.nh",
+  "password": "admin",
+  "name": "martes",
+  "lastName": "de database"
+}
+
+<> 2022-01-12T081815.200.json
+<> 2022-01-12T081750.400.html
+<> 2022-01-12T081717.400.html
+
+
+
+### LOGIN
+POST http://localhost:5000/api/auth/login/
+Content-Type: application/json
+Connection: keep-alive
+
+{
+  "email": "test@bsa.nh",
+  "password": "admin"
+}
+
+<> 2022-01-12T082225.200.json
+<> 2022-01-12T082145.401.json
+<> 2022-01-11T181109.401.json
+<> 2022-01-11T180935.401.json
+<> 2022-01-11T180747.401.json
+<> 2022-01-11T180316.401.json
+<> 2022-01-11T180100.401.json
+<> 2022-01-11T180002.401.json
+<> 2022-01-11T175904.401.json
+
+### Add a product
+POST http://localhost:5000/api/products/
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVkNTE3OTQwY2UwNWE2MTZiNGFkOCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MTk5OTI0OSwiZXhwIjoxNjQyMjU4NDQ5fQ.YiLYOjqKTQ1CJwinzYk3AU9_zcwHQBidah7UOWtvbX4
+Content-Type: application/json
+
+{
+  "title": "Motorcycle",
+  "desc": "This is my favorite, I don't want to sell it",
+  "img": "https://www.motorcycle.com/blog/wp-content/uploads/2020/01/012220-2020-Triumph-Tiger-1200-Desert-Edition-LHS.jpg",
+  "categories": ["Moto"],
+  "sku": "MOTO-TIGER",
+  "model": ["Triumph", "Tiger"],
+  "price": 16000,
+  "inStock": true,
+  "onHand": 2
+}
+
+<> 2022-01-12T083731.400.html
+<> 2022-01-12T083615.400.html
+<> 2022-01-12T083505.400.html
+<> 2022-01-12T083041.400.html
