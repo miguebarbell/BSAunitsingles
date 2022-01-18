@@ -1,3 +1,13 @@
+# curl -H "Accept: application/json" -H $TOKEN -X POST http://localhost:5000/api/products/ -d $DATA
+POST http://localhost:5000/api/products/
+Accept: application/json
+$TOKEN:
+Content-Type: application/x-www-form-urlencoded
+
+$DATA
+
+###
+
 ### REGISTER
 POST http://localhost:5000/api/auth/register
 Content-Type: application/json
@@ -37,20 +47,35 @@ Connection: keep-alive
 
 ### Add a product
 POST http://localhost:5000/api/products/
-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVkNTE3OTQwY2UwNWE2MTZiNGFkOCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MTk5OTI0OSwiZXhwIjoxNjQyMjU4NDQ5fQ.YiLYOjqKTQ1CJwinzYk3AU9_zcwHQBidah7UOWtvbX4
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVkNTE3OTQwY2UwNWE2MTZiNGFkOCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MjUyMTE3NywiZXhwIjoxNjQyNzgwMzc3fQ.TckAQUrj4PYABF9gMRHtz1xbIN30z6oqdtGzOid26AY
 Content-Type: application/json
 
-{
-  "title": "Motorcycle",
-  "desc": "This is my favorite, I don't want to sell it",
-  "img": "https://www.motorcycle.com/blog/wp-content/uploads/2020/01/012220-2020-Triumph-Tiger-1200-Desert-Edition-LHS.jpg",
-  "categories": ["Moto"],
-  "sku": "MOTO-TIGER",
-  "model": ["Triumph", "Tiger"],
-  "price": 16000,
-  "inStock": true,
-  "onHand": 2
-}
+[
+  {
+    "title": "Motorcyclesssss",
+    "desc": "This is my favorite, I don't want to sell itsdf",
+    "img": "https://www.motorcycle.com/blog/wp-content/uploads/2020/01/012220-2020-Triumph-Tiger-1200-Desert-Edition-LHS.jpg",
+    "categories": ["Moto"],
+    "sku": "MOTO-TIGERRR",
+    "model": ["Triumph", "Tiger"],
+    "price": 16000,
+    "inStock": true,
+    "onHand": 2
+  },
+  {
+    "title": "Motorcyclesss",
+    "desc": "This is my favorite, I don't want to sell it...",
+    "img": "https://www.motorcycle.com/blog/wp-content/uploads/2020/01/012220-2020-Triumph-Tiger-1200-Desert-Edition-LHS.jpg",
+    "categories": ["Moto"],
+    "sku": "MOTO-TIGERAAAAA",
+    "model": ["Triumph", "Tiger"],
+    "price": 16000,
+    "inStock": true,
+    "onHand": 2
+  }
+]
+
+
 
 <> 2022-01-12T083731.400.html
 <> 2022-01-12T083615.400.html

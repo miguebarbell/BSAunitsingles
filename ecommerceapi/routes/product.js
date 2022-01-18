@@ -5,15 +5,24 @@ const router = require("express").Router()
 // Create
 
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
+    console.log(req.body)
     const newProduct = new Product(req.body)
     try {
         const savedProduct = await newProduct.save();
+        console.log("added item")
         res.status(200).json(savedProduct);
 
     } catch(err) {
         res.status(500).json(err)
     }
 })
+
+// Bulk create
+
+router.post("/bulk", verifyTokenAndAdmin, async (req, res) => {
+    console.log("req.body")
+})
+
 
 // Update
 
