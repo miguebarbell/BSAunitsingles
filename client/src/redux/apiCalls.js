@@ -56,3 +56,14 @@ export const getProducts = async () => {
 		console.log(err)
 	}
 }
+
+export const findProduct = async (query) => {
+	console.log("findProduct")
+	console.log(query)
+	try {
+		console.log("trying")
+		return await publicRequest.get(`/api/products/search/${query}`)
+	} catch (err) {
+		console.log(err)
+	}
+}

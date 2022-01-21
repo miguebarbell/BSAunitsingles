@@ -12,6 +12,7 @@ import Profile from "./pages/Profile"
 import Footer from "./components/Footer";
 import OrderDetails from "./pages/OrderDetails";
 import Admin from "./pages/Admin";
+import SearchResults from "./pages/SearchResults";
 
 function App() {
 
@@ -50,6 +51,9 @@ function App() {
           </Route>
           <Route path="/order">
             <OrderDetails/>
+          </Route>
+          <Route path="/search/:query">
+            <SearchResults/>
           </Route>
         </Switch>
         <Footer/>

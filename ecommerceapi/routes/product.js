@@ -17,13 +17,6 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
     }
 })
 
-// Bulk create
-
-router.post("/bulk", verifyTokenAndAdmin, async (req, res) => {
-    console.log("req.body")
-})
-
-
 // Update
 
 router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
@@ -58,6 +51,19 @@ router.get("/find/:id", async (req, res) => {
     } catch(err) {
         res.status(500).json(err);
     }
+})
+
+// Search a product
+router.get("/search/:query", async (req, res) => {
+    // const allProducts = await Product.find()
+    try {
+
+        console.log(req.params)
+    } catch (e) {
+        console.log(e)
+
+    }
+    res.status(200).json("Flow connected")
 })
 
 // Get all products
