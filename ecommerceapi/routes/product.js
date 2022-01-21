@@ -1,6 +1,7 @@
-const Product = require("../models/Product")
-const { verifyToken, verifyTokenAndAuth, verifyTokenAndAdmin} = require("./verifyToken")
-const router = require("express").Router()
+const Product = require("../models/Product");
+const { verifyToken, verifyTokenAndAuth, verifyTokenAndAdmin} = require("./verifyToken");
+const router = require("express").Router();
+const Fuse = require("fuse.js");
 
 // Create
 
@@ -57,13 +58,28 @@ router.get("/find/:id", async (req, res) => {
 router.get("/search/:query", async (req, res) => {
     // const allProducts = await Product.find()
     try {
-
-        console.log(req.params)
+        const allProducts = await Product.find();
+        const options = {
+            keys: [
+                {
+                    name: 'title',
+                    weight: 0.4
+                }, {
+                    name: 'desc',
+                    weight: 0.3
+                }, {
+                    name: 'sku',
+                    weight: 0.3
+                }]
+        }
+        const fuse = new Fuse(allProducts, options)
+        const response = fuse.search(req.params.query.toLowerCase());
+        res.status(200).json(response)
     } catch (e) {
         console.log(e)
 
     }
-    res.status(200).json("Flow connected")
+        res.status(500).json("Error in request.")
 })
 
 // Get all products
