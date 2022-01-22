@@ -33,9 +33,7 @@ export const pushOrder = async (order) => {
 
 export const getOrder = async (id, user) => {
 	try {
-		// console.log(user)
 		return await userRequest.post(`api/orders/get/${id}`, user)
-		// console.log(res)
 	} catch (e) {
 		console.log(e)
 	}
@@ -58,10 +56,7 @@ export const getProducts = async () => {
 }
 
 export const findProduct = async (query) => {
-	console.log("findProduct")
-	console.log(query)
 	try {
-		console.log("trying")
 		return await publicRequest.get(`/api/products/search/${query}`)
 	} catch (err) {
 		console.log(err)

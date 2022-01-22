@@ -1,45 +1,91 @@
 import styled from "styled-components";
 import {Container} from "./Success";
-import {useLocation} from "react-router-dom";
-import Fuse from "fuse.js";
+import {Link, useLocation} from "react-router-dom";
 import {findProduct} from "../redux/apiCalls";
+import {useEffect, useState} from "react";
+import {yellow} from "../components/Navbar"
+
+// TODO: visualizacion de las imagenes
+const Tr = styled.tr`
+   background-color: ${({onhand}) => (onhand === 0) ? "rgba(250, 0,0,0.2)" : "rgba(0,0,0,0.1)"};
+`
+const GridResults = styled.table`
+  * {
+    text-align: start;
+    padding: 0.125rem;
+    text-decoration: none;
+  }
+  th {
+    background-color: ${yellow};
+  }
+  tr:hover {
+    background-color: ${yellow};
+  }
+  a {
+    color: black;
+    &:visited {
+      color: purple;
+    }
+    &:hover {
+      font-weight: bold;
+    }
+  }
+`
 
 
+const Image = styled.img`
+  position: fixed;
+`
 const SearchResults = () => {
     const location = useLocation();
-    // console.log(location.pathname)
+    const [products, setProduct] = useState([])
     const query = location.pathname.split('/').slice(2,location.pathname.split('/').length)
-    // console.log(query)
-    const Results = async (query) => {
-        // console.log(query)
-        const options = {
-            keys: [
-                {
-                    name: 'title',
-                    weight: 0.4
-                }, {
-                    name: 'desc',
-                    weight: 0.3
-                }, {
-                    name: 'sku',
-                    weight: 0.3
-                }]
-        }
-        const res = await findProduct(query)
-        // const fuse = new Fuse(res.data, options)
-        // const results = fuse.search(query.join('/').toLowerCase()).map(item => item.item)
-        console.log(res)
-    }
-    Results(query.join('/'))
+    useEffect(() => {
+        const getProducts = async (query) => {
+            try {
+                const res = await findProduct(query)
+                const sorted = res.data.sort((a, b) => {
+                    if (a.item.onHand === 0 && b.item.onHand > 0) {
+                        return 1
+                    } else if (b.item.onHand === 0 && a.item.onHand > 0) {
+                        return -1
+                    } else {
+                        return 0
+                    }
+                })
+                console.log(sorted)
+                setProduct(sorted)
 
+            } catch (err) {
+                console.error(err)
+            }
+        }
+        getProducts(query.join('/'))
+    }, [products])
+    // console.log(products)
     return (
         <Container style={{backgroundColor:"white"}}>
-            <h1>Showing search results for: <strong>{query.join('/')}</strong></h1>
-
+            <h1>Showing {products.length} search results for: <strong>{query.join('/')}</strong></h1>
+            <GridResults>
+                <tr>
+                    <th>#</th>
+                    <th>SKU</th>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>On hand</th>
+                </tr>
+                {products.map((item, index) => (
+                    <Tr onhand={item.item.onHand}>
+                        <td><Link to={`/product/${item.item._id}`}>{index}</Link></td>
+                        <td><Link to={`/product/${item.item._id}`}>{item.item.sku}</Link></td>
+                        <td><Link to={`/product/${item.item._id}`}>{item.item.title}</Link></td>
+                        <td><Link to={`/product/${item.item._id}`}>{item.item.price}</Link></td>
+                        <td><Link to={`/product/${item.item._id}`}>{item.item.onHand}</Link></td>
+                    </Tr>
+                ))}
+            </GridResults>
         </Container>
-
     )
-
 }
 
-export default SearchResults
+export default SearchResults;

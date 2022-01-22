@@ -4,7 +4,7 @@ import {Search, ShoppingCartOutlined} from "@material-ui/icons";
 import {Badge} from "@material-ui/core";
 import LOGO_BSA from "../assets/images/BSA.png";
 import LOGO_BIRK from "../assets/images/BSA_Birk.png";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {getProducts} from "../redux/apiCalls";
 import Fuse from "fuse.js";
@@ -144,7 +144,7 @@ const Logos = styled.div`
   top: 0;
   left: 0;
 `;
-const SearchContainer = styled.div`
+const SearchContainer = styled.form`
     border: 0.5px solid black;
     min-width: 30%;
     display: flex;
@@ -245,6 +245,8 @@ const RightMenu = styled.div`
   }
 `
 const Navbar = () => {
+    const history = useHistory();
+    // const navigate = useNavigate();
     const [allProducts, setAllProducts] = useState([])
     const searchResults = async () => {
         // console.log('accessing to search result')
@@ -265,9 +267,15 @@ const Navbar = () => {
         // const [getTheProducts, setGetTheProducts] = useState(false)
         const clearInput = () => {
             setFiltered([])
-
         }
+
+        // let showResults = false
+        const [showResults, setShowResults] = useState(true)
+        let timeouts = window.setTimeout(()=>{}, 1)
         const handleInput = (e) => {
+            while (timeouts--)  window.clearTimeout(timeouts)
+            window.setTimeout(()=>{setShowResults(false)}, 4000)
+            setShowResults(true)
             const searchWord = e.target.value;
             // console.log(filtered)
             if (searchWord === '') {
@@ -289,21 +297,22 @@ const Navbar = () => {
                 }
                 const fuse = new Fuse(allProducts, options)
                 setFiltered(fuse.search(searchWord.toLowerCase()).map(item => item.item))
-                console.log(filtered)
+                // console.log(filtered)
             }
         }
+
         return (
             <div>
                 <SearchBarInput
                     placeholder={placeholder}
                     onChange={handleInput}
                 />
-                {filtered.length > 0 && (
+                {filtered.length > 0 && showResults && (
                     <SearchResults>
-                        {filtered.slice(0,15).map(item => {
+                        {filtered.slice(0,25).map(item => {
                             return (
                                 <Link key={item._id} to={`/product/${item._id}`} onClick={clearInput}>
-                                    <p>{item.title}</p>
+                                    <p>{item.sku} - {item.title}</p>
                                 </Link>
                             )
                         })}
@@ -313,8 +322,12 @@ const Navbar = () => {
             </div>
         )
     }
-    const search = () => {
-        console.log('future search page')
+    const search = (e) => {
+        e.preventDefault()
+        // console.log('future search page')
+        const query = e.target[0].value
+        // document.getElement.placeholder = "Search other product..."
+        history.push(`/search/${query}`)
     }
     return (
         <Container>
@@ -324,10 +337,9 @@ const Navbar = () => {
                     <img src={LOGO_BSA} alt="O" className="bsa-logo"/>
                 </Logos>
             </Link>
-            <SearchContainer>
-                <Input onClick={()=>searchResults} placeholder="Find a product..." style={{fontSize:"1.3rem", padding:"0 0.25rem"}}/>
-
-                <Search onClick={search} style={{cursor: "pointer"}}/>
+            <SearchContainer onSubmit={search}>
+                    <Input onClick={()=>searchResults} placeholder="Find a product..." style={{fontSize:"1.3rem", padding:"0 0.25rem"}}/>
+                    <Search onClick={search} style={{cursor: "pointer"}}/>
             </SearchContainer>
             <Burger/>
         </Container>

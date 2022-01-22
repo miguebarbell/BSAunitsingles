@@ -59,6 +59,7 @@ router.get("/search/:query", async (req, res) => {
     // const allProducts = await Product.find()
     try {
         const allProducts = await Product.find();
+        // const allProducts = await Product.find();
         const options = {
             keys: [
                 {
@@ -74,12 +75,12 @@ router.get("/search/:query", async (req, res) => {
         }
         const fuse = new Fuse(allProducts, options)
         const response = fuse.search(req.params.query.toLowerCase());
-        res.status(200).json(response)
+        return res.status(200).json(response)
     } catch (e) {
-        console.log(e)
-
+        return res.status(500).json("error in request")
+        // console.log(e)
     }
-        res.status(500).json("Error in request.")
+        // return res.status(500).json("Error in request.")
 })
 
 // Get all products
@@ -99,7 +100,7 @@ router.get("/", async (req, res) => {
         } else {
             // get all products
             console.log("All the products")
-            products = await Product.find();
+            products = await Product.find().sort({onHand: 1});
             products = products.map(item => {
                 return {
                     'title': item.title,
@@ -110,11 +111,10 @@ router.get("/", async (req, res) => {
             })
         }
 
-        res.status(200).json(products)
+        return res.status(200).json(products)
     } catch(err) {
-        res.status(500).json(err);
+        return res.status(500).json(err);
     }
 })
-
 
 module.exports = router;
