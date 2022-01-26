@@ -11,7 +11,6 @@ const Letter = styled.span`
   position: relative;
   display: inline-block;
   font-size: 40px;
-  //color: #fff;
   text-transform: uppercase;
   animation: ${Animation} 2s infinite;
   animation-delay: calc(.2s * ${(props) => props.delay})
@@ -34,8 +33,6 @@ const Body = styled.div`
 `
 
 const Loading = (text) => {
-    console.log("loading component")
-    console.log(text.text)
     return (
         <Body>
             <Wait>
