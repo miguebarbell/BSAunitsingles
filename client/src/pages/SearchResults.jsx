@@ -4,8 +4,10 @@ import {Link, useLocation} from "react-router-dom";
 import {findProduct} from "../redux/apiCalls";
 import {useEffect, useState} from "react";
 import {yellow} from "../components/Navbar"
+import Loading from "../components/Wait";
 
 // TODO: visualizacion de las imagenes
+
 const Tr = styled.tr`
    background-color: ${({onhand}) => (onhand === 0) ? "rgba(250, 0,0,0.2)" : "rgba(0,0,0,0.1)"};
 `
@@ -65,15 +67,29 @@ const SearchResults = () => {
     // console.log(products)
     return (
         <Container style={{backgroundColor:"white"}}>
-            <h1>Showing {products.length} search results for: <strong>{query.join('/')}</strong></h1>
+            {((products.length === 0 && (
+                <Loading text="loading..."/>
+            )) || (products.length > 0 && (
+                <h1>Showing {products.length} search results for: <strong>{query.join('/')}</strong></h1>
+            )))}
             <GridResults>
-                <tr>
+
+                {(products.length > 0 && (
+                                   <tr>
                     <th>#</th>
                     <th>SKU</th>
                     <th>Item</th>
                     <th>Price</th>
                     <th>On hand</th>
                 </tr>
+                ) )}
+                {/*<tr>*/}
+                {/*    <th>#</th>*/}
+                {/*    <th>SKU</th>*/}
+                {/*    <th>Item</th>*/}
+                {/*    <th>Price</th>*/}
+                {/*    <th>On hand</th>*/}
+                {/*</tr>*/}
                 {products.map((item, index) => (
                     <Tr onhand={item.item.onHand}>
                         <td><Link to={`/product/${item.item._id}`}>{index}</Link></td>
