@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
-const itemSize = '10vw'
+const itemSize = '10vw';
+const minHeight = '100px';
 export const Container = styled.div`
   padding: 1rem;
   //border: 1px solid black;
@@ -9,14 +10,18 @@ export const Container = styled.div`
   //margin: 1rem;
   position: relative;
   height: ${itemSize};
-  margin: 0.5rem;  
+  min-height: ${minHeight};
+  margin: 0.5rem;
   transition: all 0.5s ease-in-out;
   cursor: pointer;
+
   &:hover {
     transform: scale(1.1);
   }
 `
 export const Image = styled.img`
+  min-height: ${minHeight};
+  min-width: ${minHeight};
   height: ${itemSize};
   width: ${itemSize};
   z-index: 1;
@@ -27,10 +32,10 @@ const Title = styled.h1`
   font-size: 1rem;
   position: absolute;
   z-index: 2;
-  background-image: linear-gradient(0deg, transparent, rgba(250,250,250,0.4), white 60%);
+  background-image: linear-gradient(0deg, transparent, rgba(250, 250, 250, 0.4), white 60%);
   width: 100%;
   padding: 0.25rem;
-  text-transform:capitalize;
+  text-transform: capitalize;
 `
 
 

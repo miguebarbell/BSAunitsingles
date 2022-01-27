@@ -9,51 +9,127 @@ import {useHistory} from "react-router-dom";
 import {navbarHeight, yellow} from "../components/Navbar";
 
 const Container = styled.div`
-    margin-top: ${navbarHeight};
-    width: 100vw;
-    min-width: 200px;
-    max-width: 1980px;
-    display: flex;
-    //justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-height: 100vh;
-    
+  margin-top: ${navbarHeight};
+  width: 100vw;
+  min-width: 200px;
+  max-width: 1980px;
+  display: flex;
+  //justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: white;
+
 `;
+const NoContainer = styled.div`
+  padding: 3rem;
+`
 const LogoutBtn = styled.button`
-    font-weight: bold;
-    border-radius: 5px;
-background-color: red;
-    border: 0;
-    padding: 0.25rem 0.5rem;
-    &:hover {
-        background-color: ${yellow};
-        color: red;
-    }
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: red;
+  border: 0;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${yellow};
+    color: red;
+  }
 `;
 const EditBtn = styled.button`
-    font-weight: bold;
-    border-radius: 5px;
-    background-color: dodgerblue;
-    border: 0;
-    padding: 0.25rem 0.5rem;
-    &:hover {
-        background-color: ${yellow};
-        color: dodgerblue;
-    }
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: dodgerblue;
+  border: 0;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${yellow};
+    color: dodgerblue;
+  }
 `;
 // const DetailsButton = styled.button``;
 const Header = styled.div`
-    padding-top: 5%;
-    display: flex;
-    width: 70vw;
-    justify-content: space-around;
+  padding-top: 5%;
+  display: flex;
+  width: 70vw;
+  justify-content: space-around;
 `;
+
+const TrHeader = styled.tr`
+  @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+
+
+    display: block;
+  }
+`;
+const TrBody = styled.tr`
+  @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+
+
+    display: block;
+  }
+`;
+
+const Th = styled.th`
+  @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+
+
+    display: block;
+  }`
+
+const Td = styled.td`
+  @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+
+
+    display: block;
+  }`
+
+const Tbody = styled.tbody`
+  @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+
+
+    display: block;
+
+    td:before {
+      font-weight: bold;
+    }
+
+    td:nth-child(1):before {
+      content: "ID: ";
+    }
+
+    td:nth-child(2):before {
+      content: "Price: ";
+    }
+
+    td:nth-child(3):before {
+      content: "Date: ";
+    }
+
+    td:nth-child(4):before {
+      content: "Status: ";
+    }
+  }
+`
+const Thead = styled.thead`
+  @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+
+
+    display: block;
+    position: absolute;
+    top: -9999999px;
+    left: -9999999px;
+  }
+`
+
 const Profile = () => {
     const history = useHistory();
     const {name, lastName, username, _id, isAdmin} = useSelector(state => state.user.currentUser);
-    // console.log(name, lastName, email, username, _id);
-    // console.log(user._id)
+    // console.log(name, lastName, username, _id);
+    // console.log(username._id)
     // hacer un userRequest
     const dateHumanReadable = (date) => {
         // console.log(date)
@@ -67,13 +143,15 @@ const Profile = () => {
         ${humanReadable.getHours()}:${humanReadable.getMinutes()}`
     }
     const [orders, setOrders] = useState([]);
+    // console.log(orders)
     // const cart = useSelector(state => state.cart)
     const makeRequest = async () => {
         // console.log(user)
         try {
-            const res = await userRequest.get(`orders/find/${_id}`)
+            const res = await userRequest.get(`api/orders/find/${_id}`)
+
             setOrders(res.data)
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -86,13 +164,13 @@ const Profile = () => {
     const logout = () => dispatch(logOut());
     const handleClick = async (id) => {
         // console.log(id)
-        const res = await getOrder(id, {username :username, isAdmin : isAdmin})
+        const res = await getOrder(id, {username: username, isAdmin: isAdmin})
         history.push("/order", {
             // address: res.data.address,
             // orderId: res.data._id,
             // card: res.data.card,
             // orderStatus: res.data.status,
-            data:{...res.data}
+            data: {...res.data}
 
         })
 
@@ -105,27 +183,45 @@ const Profile = () => {
         <Container>
             <Header>
                 <h1>Hello {name} {lastName}</h1>
-                <EditBtn>Edit Account</EditBtn>
+                {/*<EditBtn>Edit Account</EditBtn>*/}
             </Header>
-            <h2>Orders</h2>
-            <Table>
-                <tr>
-                    <th>ID</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                </tr>
-            {orders.map(order => (
+            {orders.length > 0 && (
+                <>
+                    <h2>Orders</h2>
+                    <Table role="table">
+                        <Thead role="rowgroup">
+                            <TrHeader role="row">
+                                <Th role="columnheader">ID</Th>
+                                <Th role="columnheader">Amount</Th>
+                                <Th role="columnheader">Date</Th>
+                                <Th role="columnheader">Status</Th>
+                            </TrHeader>
+                        </Thead>
+                        <Tbody role="rowgroup">
+                            {orders.map((order, index) => (
 
-               <tr>
-                   <td>{order._id}</td>
-                   <td>$ {order.amount.toFixed(2)} usd</td>
-                   <td>{dateHumanReadable(order.createdAt)}</td>
-                   <td>{order.status}</td>
-                   <button onClick={() => {handleClick(order._id)}}>Details</button>
-               </tr>
-            ))}
-            </Table>
+                                <TrBody key={index} role="row">
+                                    <Td role="cell">{order._id}</Td>
+                                    <Td role="cell">$ {order.amount.toFixed(2)} usd</Td>
+                                    <Td role="cell">{dateHumanReadable(order.createdAt)}</Td>
+                                    <Td role="cell">{order.status}</Td>
+                                    <Td role="cell">
+                                        <button onClick={() => {
+                                            handleClick(order._id)
+                                        }}>Details
+                                        </button>
+                                    </Td>
+                                </TrBody>
+                            ))}
+                        </Tbody>
+                    </Table>
+                </>
+            ) || (
+                <NoContainer>
+                    <h1>You don't have any order yet...</h1>
+
+                </NoContainer>
+            )}
             <LogoutBtn onClick={() => logout()}>LOG OUT</LogoutBtn>
         </Container>
     )

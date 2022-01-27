@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
-import { useState } from "react";
-import { sliderItems } from "../data"
-import { announcementHeight} from "./Announcement";
+import {ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
+import {useState} from "react";
+import {sliderItems} from "../data"
+import {announcementHeight} from "./Announcement";
 import {navbarHeight} from "./Navbar";
 
 const Container = styled.div`
-width: 100vw;
+  width: 100vw;
   top: calc(${announcementHeight} + ${navbarHeight});
   height: calc(100vh - ${announcementHeight} - ${navbarHeight});
   display: flex;
@@ -14,7 +14,7 @@ width: 100vw;
   overflow: hidden;
 `
 const Arrow = styled.div`
-display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
@@ -30,12 +30,12 @@ display: flex;
   z-index: 2;
 `
 const Wrapper = styled.div`
-height: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   transition: all 1.5s ease;
   transform: translateX(${props => props.slideIndex * -100}vw);
-  
+
 `
 
 const Slide = styled.div`
@@ -43,42 +43,43 @@ const Slide = styled.div`
   //align-items: center;
   height: 100%;
   width: 100vw;
-  background-image: url(${props => props.bg});
-  background-repeat: no-repeat;
+  background: url(${props => props.bg}) no-repeat center;
+  //background-repeat: no-repeat;
   background-size: cover;
   justify-content: flex-end;
   align-items: end;
 `
 const Title = styled.h1`
-    background-color: rgba(255,255,255, 0.3);
-    color: black;
-    font-size: 2rem;
-    max-width: 70%;
-    padding: 2rem;
-    border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: black;
+  font-size: 2rem;
+  max-width: 70%;
+  padding: 2rem;
+  border-radius: 5px;
 `
 
-const Slider = () => {const [slideIndex, setSlideIndex] = useState(0)
-const handleClick = (direction) => {
-    if(direction === "left"){
-        setSlideIndex(slideIndex > 0 ? slideIndex - 1 : sliderItems.length -1 )
-    } else {
-        setSlideIndex(slideIndex < sliderItems.length -1 ? slideIndex + 1 : 0)
+const Slider = () => {
+    const [slideIndex, setSlideIndex] = useState(0)
+    const handleClick = (direction) => {
+        if (direction === "left") {
+            setSlideIndex(slideIndex > 0 ? slideIndex - 1 : sliderItems.length - 1)
+        } else {
+            setSlideIndex(slideIndex < sliderItems.length - 1 ? slideIndex + 1 : 0)
+        }
     }
-}
     return (
         <Container>
-            <Arrow direction="left" onClick={()=>handleClick('left')}>
+            <Arrow direction="left" onClick={() => handleClick('left')}>
                 <ArrowLeftOutlined/>
             </Arrow>
             <Wrapper slideIndex={slideIndex}>
-                {sliderItems.map((item)=> (
+                {sliderItems.map((item) => (
                     <Slide bg={item.image} key={item.id}>
-                    <Title>{item.title}</Title>
-                </Slide>
+                        <Title>{item.title}</Title>
+                    </Slide>
                 ))}
             </Wrapper>
-            <Arrow direction="right" onClick={()=>handleClick('left')}>
+            <Arrow direction="right" onClick={() => handleClick('left')}>
                 <ArrowRightOutlined/>
             </Arrow>
         </Container>

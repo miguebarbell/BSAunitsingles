@@ -59,6 +59,9 @@ export const Table = styled.table`
   width: 70vw;
   min-width: 200px;
   max-width: 1980px;
+  padding: 3rem;
+  align-items: center;
+
 
   * {
     text-align: start;

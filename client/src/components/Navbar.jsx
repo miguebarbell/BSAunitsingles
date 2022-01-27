@@ -13,16 +13,19 @@ export const layoutChange = '1000px';
 export const yellow = '#fdcf19';
 export const navbarHeight = '50px';
 
+const MailTo = 'mailto:miguel@debloat.us?&subject=You%20are%20what%20we%20need.%20&body=Hi,%20I%20visited%20your%20projects%20have%20all%20the%20functionalities%20that%20we%20need,%20please%20give%20me%20more%20contact%20details.%20Thanks!';
 const SearchBarInput = styled.input`
-    border: none;
-    background-color: ${yellow};
-    height: 100%;
-    width: 100%;
-    font-size: 1rem;
-    padding-left: 0.25rem;
-    &:focus {
-        outline: none;
-    };
+  border: none;
+  background-color: ${yellow};
+  height: 100%;
+  width: 100%;
+  font-size: 1rem;
+  padding-left: 0.25rem;
+
+  &:focus {
+    outline: none;
+  }
+;
 `;
 const StyledBurger = styled.div`
   z-index: 7;
@@ -36,33 +39,40 @@ const StyledBurger = styled.div`
   position: fixed;
   top: 5px;
   right: 5px;
-  width: calc(${navbarHeight}*.85);
-  height: calc(${navbarHeight}*.85);
+  width: calc(${navbarHeight} * .85);
+  height: calc(${navbarHeight} * .85);
   padding: 2px;
   border: ${({open}) => open ? 'none' : '1px solid black'};
   border-radius: ${({open}) => open ? '50%' : '4px'};
   cursor: pointer;
   transition: all 0.5s linear;
+
   &:hover {
-    background-color: ${({open}) => open? 'transparent' : 'rgba(0, 0, 0, 0.3)'};
+    background-color: ${({open}) => open ? 'transparent' : 'rgba(0, 0, 0, 0.3)'};
+
     div {
       background-color: ${({open}) => open ? 'red' : 'black'};
     }
   }
+
   div {
     background-color: black;
     width: 100%;
     height: 15%;
     transform-origin: 5px;
     transition: all 0.5s linear;
+
     &:hover {
     }
+
     &:nth-child(1) {
       transform: ${({open}) => open ? 'rotate(45deg)' : 'rotate(0)'};
     }
+
     &:nth-child(3) {
       transform: ${({open}) => open ? 'rotate(-45deg)' : 'rotate(0)'};
     }
+
     &:nth-child(2) {
       display: ${({open}) => open ? 'none' : 'block'};
       transform: ${({open}) => open ? 'rotate(-45deg)' : 'rotate(0)'};
@@ -73,43 +83,45 @@ const StyledBurger = styled.div`
   @media (max-width: ${layoutChange}) {
     display: flex;
   }
-  
+
 `;
 const ProfileItem = styled.div`
-    display: ${props => (props.user !== false) ? 'block' : 'none'};
-    transition: all 0.3s ease;
-    * {
-        text-decoration: none;
-    }
-    &:hover {
-        color: red;
-    }
+  display: ${props => (props.user !== false) ? 'block' : 'none'};
+  transition: all 0.3s ease;
+
+  * {
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: red;
+  }
 `;
 const Burger = () => {
-    const { currentUser } = useSelector(state => state.user);
+    const {currentUser} = useSelector(state => state.user);
     const [open, setOpen] = useState(false)
     const quantity = useSelector(state => state.cart.quantity)
     return (
         <>
-        <StyledBurger open={open} onClick={() => setOpen(!open)}>
-            <div/>
-            <div/>
-            <div/>
-        </StyledBurger>
-        <Menu open={open}>
-            <RightMenu>Categories</RightMenu>
-            <RightMenu>Contact</RightMenu>
-            <MenuItem user={currentUser}><Link to="/register">Register</Link></MenuItem>
-            <MenuItem user={currentUser}><Link to="/login">Login</Link></MenuItem>
-            <ProfileItem user={currentUser}>Hi <Link to="/profile">{currentUser.name}</Link></ProfileItem>
-            <Link to="/cart">
-                <MenuItem style={{display: 'block'}}><Badge color="secondary" badgeContent={quantity}>
-                    <ShoppingCartOutlined/>Cart
-                </Badge></MenuItem>
-            </Link>
+            <StyledBurger open={open} onClick={() => setOpen(!open)}>
+                <div/>
+                <div/>
+                <div/>
+            </StyledBurger>
+            <Menu open={open}>
+                <RightMenu onClick={() => window.location = "/#categories"}>Categories</RightMenu>
+                <RightMenu onClick={() => window.location = {MailTo}}>Contact</RightMenu>
+                <MenuItem user={currentUser}><Link to="/register">Register</Link></MenuItem>
+                <MenuItem user={currentUser}><Link to="/login">Login</Link></MenuItem>
+                <ProfileItem user={currentUser}>Hi <Link to="/profile">{currentUser.name}</Link></ProfileItem>
+                <Link to="/cart">
+                    <MenuItem style={{display: 'block'}}><Badge color="secondary" badgeContent={quantity}>
+                        <ShoppingCartOutlined/>Cart
+                    </Badge></MenuItem>
+                </Link>
 
 
-        </Menu>
+            </Menu>
         </>
     )
 };
@@ -128,9 +140,10 @@ const Container = styled.div`
   @media (max-width: ${layoutChange}) {
     &:nth-child(2) {
     }
+
     @media (max-width: 620px) {
-    .birk {
-          display: none;
+      .birk {
+        display: none;
       }
     }
   }
@@ -140,40 +153,43 @@ const Logos = styled.div`
   display: flex;
   cursor: pointer;
   position: fixed;
-  height: calc(${navbarHeight}*.85);
+  height: calc(${navbarHeight} * .85);
   top: 0;
   left: 0;
 `;
 const SearchContainer = styled.form`
-    border: 0.5px solid black;
-    min-width: 30%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 200px;
+  border: 0.5px solid black;
+  min-width: 30%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 200px;
   @media (max-width: ${layoutChange}) {
-    margin-left: 100px;
+    margin -left: 100px;
     width: 40%;
   }
 `;
 const SearchResults = styled.div`
-    background-color: ${yellow};
-    position: absolute;
-    padding: 0.25rem 0;
+  background-color: ${yellow};
+  position: absolute;
+  padding: 0.25rem 0;
+  color: black;
+
+  * {
     color: black;
-    * {
-        color: black;
-        text-decoration: none;
-        padding: 0.125rem 0;
-        &:hover {
-            color: red;
-        }
+    text-decoration: none;
+    padding: 0.125rem 0;
+
+    &:hover {
+      color: red;
     }
+  }
 `;
 const Menu = styled.div`
-    a:link {
-        color: inherit;
-    }
+  a:link {
+    color: inherit;
+  }
+
   display: flex;
   align-items: center;
   // justify-content: flex-end;
@@ -199,47 +215,51 @@ const MenuItem = styled.div`
   padding: 0 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+
   &:hover {
-  color: red;
-  // outline: solid red 1px;
-  // &:before {
-  // content: '>';
-  // position: absolute;
-  // transform: translateX(-100%);
-  // }
-  // &:after {
-  // content: '<';
-  // }
-  }            
-    //a:visited { color: black; };
+    color: red;
+    // outline: solid red 1px;
+    // &:before {
+    // content: '>';
+    // position: absolute;
+    // transform: translateX(-100%);
+    // }
+    // &:after {
+    // content: '<';
+    // }
+  }
+
+  //a:visited {color: black;};
+  //a:link {
+  //    color: inherit;
+  //}
+  * {
+    text-decoration: none;
     //a:link {
     //    color: inherit;
     //}
-    * {
-        text-decoration: none;
-        //a:link {
-        //    color: inherit;
-        //}
-        }
+  }
 `
 const RightMenu = styled.div`
   display: none;
   cursor: pointer;
   transition: all 0.3s ease;
+
   &:hover {
-  color: red;
-  // outline: solid red 1px;
-  // &:before {
-  // content: '>';
-  // position: absolute;
-  // transform: translateX(-100%);
-  // }
-  // &:after {
-  // content: '<';
-  // position: absolute;
-  // transform: translateX(100%);
-  // }
+    color: red;
+    // outline: solid red 1px;
+    // &:before {
+    // content: '>';
+    // position: absolute;
+    // transform: translateX(-100%);
+    // }
+    // &:after {
+    // content: '<';
+    // position: absolute;
+    // transform: translateX(100%);
+    // }
   }
+
   @media (max-width: ${layoutChange}) {
     display: flex;
   }
@@ -261,7 +281,7 @@ const Navbar = () => {
     };
     useEffect(() => {
         searchResults()
-    },[])
+    }, [])
     const Input = ({placeholder}) => {
         const [filtered, setFiltered] = useState([])
         // const [getTheProducts, setGetTheProducts] = useState(false)
@@ -271,10 +291,13 @@ const Navbar = () => {
 
         // let showResults = false
         const [showResults, setShowResults] = useState(true)
-        let timeouts = window.setTimeout(()=>{}, 1)
+        let timeouts = window.setTimeout(() => {
+        }, 1)
         const handleInput = (e) => {
-            while (timeouts--)  window.clearTimeout(timeouts)
-            window.setTimeout(()=>{setShowResults(false)}, 4000)
+            while (timeouts--) window.clearTimeout(timeouts)
+            window.setTimeout(() => {
+                setShowResults(false)
+            }, 4000)
             setShowResults(true)
             const searchWord = e.target.value;
             // console.log(filtered)
@@ -293,7 +316,7 @@ const Navbar = () => {
                         }, {
                             name: 'sku',
                             weight: 0.3
-                    }]
+                        }]
                 }
                 const fuse = new Fuse(allProducts, options)
                 setFiltered(fuse.search(searchWord.toLowerCase()).map(item => item.item))
@@ -309,7 +332,7 @@ const Navbar = () => {
                 />
                 {filtered.length > 0 && showResults && (
                     <SearchResults>
-                        {filtered.slice(0,25).map(item => {
+                        {filtered.slice(0, 25).map(item => {
                             return (
                                 <Link key={item._id} to={`/product/${item._id}`} onClick={clearInput}>
                                     <p>{item.sku} - {item.title}</p>
@@ -338,8 +361,9 @@ const Navbar = () => {
                 </Logos>
             </Link>
             <SearchContainer onSubmit={search}>
-                    <Input onClick={()=>searchResults} placeholder="Find a product..." style={{fontSize:"1.3rem", padding:"0 0.25rem"}}/>
-                    <Search onClick={search} style={{cursor: "pointer"}}/>
+                <Input onClick={() => searchResults} placeholder="Find a product..."
+                       style={{fontSize: "1.3rem", padding: "0 0.25rem"}}/>
+                <Search onClick={search} style={{cursor: "pointer"}}/>
             </SearchContainer>
             <Burger/>
         </Container>

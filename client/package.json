@@ -42,7 +42,7 @@
     "build": "react-scripts build",
     "test": "xo --fix",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync ./build s3://bsaclient"
+    "deploy": "react-scripts build && aws s3 sync ./build s3://bsaclient"
   },
   "husky": {
     "hooks": {
