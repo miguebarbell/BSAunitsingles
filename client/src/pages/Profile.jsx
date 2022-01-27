@@ -71,7 +71,7 @@ const Profile = () => {
     const makeRequest = async () => {
         // console.log(user)
         try {
-            const res = await userRequest.get(`/api/orders/find/${_id}`)
+            const res = await userRequest.get(`orders/find/${_id}`)
             setOrders(res.data)
         } catch(err) {
             console.log(err)

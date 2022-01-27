@@ -150,7 +150,7 @@ const PaymentForm = () => {
 				setCardDetails(paymentMethod)
 				// console.log("id", id)
 				console.log(cart.total)
-				const res = await publicRequest.post("/api/checkout/payment", {
+				const res = await publicRequest.post("checkout/payment", {
 					// amount: 'este es el error',
 					amount: (+cart.total) * 100,
 					id
