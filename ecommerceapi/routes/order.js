@@ -1,5 +1,5 @@
 const Order = require("../models/Order")
-const { verifyToken, verifyTokenAndAuth, verifyTokenAndAdmin} = require("./verifyToken")
+const {verifyToken, verifyTokenAndAuth, verifyTokenAndAdmin} = require("./verifyToken")
 const router = require("express").Router()
 
 // Create
@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     console.log(req.body)
     const newOrder = new Order({
         user_Id: user._id,
-        userId: user.username? user.username : 'Not Logged',
+        userId: user.username ? user.username : 'Not Logged',
         products: req.body.products.map(product => ({...product, quantity: parseInt(product.quantity)})),
         amount: req.body.total_amount,
 
@@ -28,18 +28,18 @@ router.post("/", async (req, res) => {
             country: billingAddress.country,
             street1: billingAddress.street,
             // street2: billingAddress.address_line2? billingAddress.address_line2 : '',
-            zipCode : billingAddress.zip,
+            zipCode: billingAddress.zip,
             email: billingAddress.email,
             telephone: billingAddress.telephone,
         },
     })
     try {
         const savedOrder = await newOrder.save();
-        res.status(200).json(savedOrder);
+        return res.status(200).json(savedOrder);
 
-    } catch(err) {
+    } catch (err) {
         console.log(err)
-        res.status(500).json(err)
+        return res.status(500).json(err)
     }
 })
 
@@ -49,12 +49,13 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
     try {
         const updatedOrder = await Order.findByIdAndUpdate(
             req.params.id, {
-                $set: req.body,},
-            { new: true }
+                $set: req.body,
+            },
+            {new: true}
         )
-        res.status(200).json(updatedOrder);
-    } catch(err) {
-        res.status(500).json(err)
+        return res.status(200).json(updatedOrder);
+    } catch (err) {
+        return res.status(500).json(err)
     }
 })
 
@@ -63,9 +64,9 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     try {
         await Order.findByIdAndDelete(req.params.id);
-        res.status(200).json("Order has been deleted.")
-    } catch(err) {
-        res.status(500).json(err);
+        return res.status(200).json("Order has been deleted.")
+    } catch (err) {
+        return res.status(500).json(err);
     }
 })
 
@@ -77,9 +78,9 @@ router.get("/find/:userId", verifyTokenAndAuth, async (req, res) => {
 
     try {
         const orders = await Order.find({user_Id: req.params.userId});
-        res.status(200).json(orders);
-    } catch(err) {
-        res.status(500).json(err);
+        return res.status(200).json(orders);
+    } catch (err) {
+        return res.status(500).json(err);
     }
 })
 
@@ -87,9 +88,9 @@ router.get("/find/:userId", verifyTokenAndAuth, async (req, res) => {
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
     try {
         const orders = await Order.find()
-        res.status(200).json(orders)
-    } catch(err) {
-        res.status(500).json(err)
+        return res.status(200).json(orders)
+    } catch (err) {
+        return res.status(500).json(err)
     }
 })
 
@@ -100,15 +101,23 @@ router.get("/income", verifyTokenAndAdmin, async (req, res) => {
     const previuosMonth = new Date().setMonth(lastMonth.getMonth() - 1)
     try {
         const income = await Order.aggregate([
-            { $match: { createdAt: { $gte: previuosMonth }}},
-            { $project: {month: { $month: "$createdAt"},
-                sales: "$amount",},},
-            { $group: { _id:"$month",
-                total:{$sum: "$sales"},},},
+            {$match: {createdAt: {$gte: previuosMonth}}},
+            {
+                $project: {
+                    month: {$month: "$createdAt"},
+                    sales: "$amount",
+                },
+            },
+            {
+                $group: {
+                    _id: "$month",
+                    total: {$sum: "$sales"},
+                },
+            },
         ])
-        res.status(200).json(income)
-    } catch(err) {
-        res.status(500).json(err);
+        return res.status(200).json(income)
+    } catch (err) {
+        return res.status(500).json(err);
     }
 })
 
@@ -118,13 +127,13 @@ router.post("/get/:orderId", verifyToken, async (req, res) => {
         const order = await Order.findById(req.params.orderId)
         // console.log(order)
         if (req.body.username === order.userId || req.body.isAdmin) {
-            res.status(200).json(order)
+            return res.status(200).json(order)
         } else {
-            res.status(403).json("Not Allowed")
+            return res.status(403).json("Not Allowed")
         }
 
     } catch (err) {
-        res.status(500).json(err);
+        return res.status(500).json(err);
     }
 })
 

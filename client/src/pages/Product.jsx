@@ -1,13 +1,13 @@
 import styled from "styled-components"
 import Announcement, {announcementHeight} from "../components/Announcement";
 // import Products from "../components/Products";
-import { Add, Remove } from "@material-ui/icons";
+import {Add, Remove} from "@material-ui/icons";
 import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
-import { publicRequest} from "../requestMethods"
+import {publicRequest} from "../requestMethods"
 import FeaturedProducts from "../components/FeaturedProducts";
 import {addProduct} from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import {navbarHeight, yellow} from "../components/Navbar";
 
 const Wrapper = styled.div`
@@ -21,15 +21,15 @@ const Wrapper = styled.div`
 const ImgContainer = styled.div``
 const Image = styled.img`
   border-radius: 10px;
- max-height: 500px;
- height: 30vh;
- width: 30vh; 
+  max-height: 500px;
+  height: 30vh;
+  width: 30vh;
   object-fit: cover;
   box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
-  
+
 `
 const Title = styled.h1`
-font-weight: 200;
+  font-weight: 200;
 `
 const Sku = styled.h5`
 
@@ -62,22 +62,24 @@ const AddContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   padding: 2rem;
-  
+
 `
 const AmountContainer = styled.div`
-display: flex;
-.addrem {
+  display: flex;
+
+  .addrem {
     cursor: pointer;
+
     &:hover {
-        color: red;
+      color: red;
     }
-}
+  }
 `
 const Amount = styled.span`
   font-weight: bold;
-padding: 0 0.5rem;`
+  padding: 0 0.5rem;`
 const Container = styled.div`
-background-color: white;
+  background-color: white;
 `
 const Product = () => {
     const location = useLocation();
@@ -89,7 +91,7 @@ const Product = () => {
     useEffect(() => {
         const getProduct = async () => {
             try {
-                const res = await publicRequest.get(`products/find/${id}`)
+                const res = await publicRequest.get(`api/products/find/${id}`)
                 setProduct(res.data);
                 // console.log(res.data);
             } catch (e) {
@@ -105,11 +107,13 @@ const Product = () => {
     const handleQuantity = (type) => {
         if (type === "-") {
             quantity > 1 && setQuantity(quantity - 1)
-        } else { quantity <= product.onHand && setQuantity(quantity + 1) }
+        } else {
+            quantity <= product.onHand && setQuantity(quantity + 1)
+        }
     }
     const handleAdd = () => {
         // console.log(quantity)
-        dispatch(addProduct({...product, quantity, priceQty:product.price*quantity}));
+        dispatch(addProduct({...product, quantity, priceQty: product.price * quantity}));
     };
 
     return (
@@ -131,7 +135,7 @@ const Product = () => {
                         <AmountContainer>
                             <Remove onClick={() => handleQuantity("-")} className="addrem"/>
                             <Amount>{quantity}</Amount>
-                            <Add onClick={() => handleQuantity("+")} className="addrem" />
+                            <Add onClick={() => handleQuantity("+")} className="addrem"/>
                         </AmountContainer>
                         <Button onClick={handleAdd}>ADD TO CART</Button>
                     </AddContainer>

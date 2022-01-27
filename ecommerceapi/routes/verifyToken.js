@@ -20,22 +20,22 @@ const verifyToken = (req, res, next) => {
 const verifyTokenAndAuth = (req, res, next) => {
     // console.log(req)
     verifyToken(req, res, () => {
-        if(req.user.id === req.params.userId || req.user.isAdmin) {
+        if (req.user.id === req.params.userId || req.user.isAdmin) {
             next();
         } else {
-            res.status(403).json("Not Allowed.")
+            return res.status(403).json("Not Allowed.")
         }
     });
 }
 
 const verifyTokenAndAdmin = (req, res, next) => {
     verifyToken(req, res, () => {
-        if(req.user.isAdmin) {
+        if (req.user.isAdmin) {
             next();
         } else {
-            res.status(403).json("Not Allowed.")
+            return res.status(403).json("Not Allowed.")
         }
     })
 }
 
-module.exports = { verifyToken, verifyTokenAndAuth, verifyTokenAndAdmin };
+module.exports = {verifyToken, verifyTokenAndAuth, verifyTokenAndAdmin};

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {delCart} from "../redux/cartRedux";
 import {pushOrder} from "../redux/apiCalls";
@@ -50,15 +50,17 @@ import {navbarHeight, yellow} from "../components/Navbar";
 
 
 export const Container = styled.div`
-margin-top: ${navbarHeight};
-padding: 2rem;
+  margin-top: ${navbarHeight};
+  background-color: white;
+  padding: 2rem;
 `;
 export const Header = styled.h1``;
 export const Table = styled.table`
   width: 70vw;
   min-width: 200px;
   max-width: 1980px;
-  *{
+
+  * {
     text-align: start;
     padding: 0.125rem;
   }
@@ -67,75 +69,81 @@ export const Table = styled.table`
 const Success = () => {
     // si no fue sucessfull no borrar el carro, y avisar en la pagina que fue erroneo el payment
     // ver la forma de convertir a pdf e imprimir
-	// push la order to the database [username, credit card, items, price per item, total price, billing info, email]
-	//clear the cart
-	const dispatch = useDispatch()
-	dispatch(delCart())
+    // push la order to the database [username, credit card, items, price per item, total price, billing info, email]
+    //clear the cart
+    const dispatch = useDispatch()
+    dispatch(delCart())
     const location = useLocation()
-	// get the billing information
-	// console.log('operinting location state')
-	// console.log('successss')
-	// console.log(location.state)
-	const billingAddress = location.state.billingAddress;
-	// console.log(location.state.data)
-	// get the cart information
-	const cart = location.state.products
-	const card = location.state.card
-	// console.log("PRINTING IT", location.state)
-	const user = useSelector(state => state.user)
-	const order = {total_amount: cart.total,
-		total_products: cart.quantity,
-		user: user,
-		billingAddress: billingAddress,
-		card: card,
-		// cartResume: cart
-		products: cart.products.map(product => ({
-			'id' : product._id,
-			'name' : product.title,
-			'quantity' : product.quantity,
-			'price' : product.price,
-			'subtotal' : product.priceQty
-		}))}
-	pushOrder(order);
+    // get the billing information
+    // console.log('operinting location state')
+    // console.log('successss')
+    // console.log(location.state)
+    const billingAddress = location.state.billingAddress;
+    // console.log(location.state.data)
+    // get the cart information
+    const cart = location.state.products
+    const card = location.state.card
+    // console.log("PRINTING IT", location.state)
+    const user = useSelector(state => state.user)
+    const order = {
+        total_amount: cart.total,
+        total_products: cart.quantity,
+        user: user,
+        billingAddress: billingAddress,
+        card: card,
+        // cartResume: cart
+        products: cart.products.map(product => ({
+            'id': product._id,
+            'name': product.title,
+            'quantity': product.quantity,
+            'price': product.price,
+            'subtotal': product.priceQty
+        }))
+    }
+    pushOrder(order);
 
 
-	// this is the successful try
+    // this is the successful try
     return (
         <Container>
-	        <Header>Thanks for your order.</Header>
-	        <Table>
-		        <tr style={{backgroundColor: `${yellow}`}}>
-			        <th>Item</th>
-			        <th>Quantity</th>
-			        <th>Price</th>
-		        </tr>
-	        {cart.products.map(item => (
-				<tr>
-					<td>{item.title}</td>
-					<td>{item.quantity}</td>
-					<td>${item.price} usd</td>
-				</tr>
-	        ))}
-		        <tr style={{backgroundColor: 'rgba(0,0,0, 0)' }}>
-			        <th></th>
-			        <th style={{backgroundColor: 'rgba(0,0,0, 0.2)' }}>Subtotal</th><th style={{backgroundColor: 'rgba(0,0,0, 0.2)' }}>$ {cart.total} usd</th>
-		        </tr>
-		        <tr style={{backgroundColor: 'white' }}>
-			        <th></th>
-			        <th>Shipping</th><th>$ 55 usd</th>
-		        </tr>
-		        <tr>
-			        <th></th>
-			        <th style={{backgroundColor: 'rgba(0,0,0, 0.4)' }}>Total</th><th style={{backgroundColor: 'rgba(0,0,0, 0.4)' }}>$ {cart.total} usd</th>
-		        </tr>
+            <Header>Thanks for your order.</Header>
+            <Table>
+                <tr style={{backgroundColor: `${yellow}`}}>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                {cart.products.map(item => (
+                    <tr>
+                        <td>{item.title}</td>
+                        <td>{item.quantity}</td>
+                        <td>${item.price} usd</td>
+                    </tr>
+                ))}
+                <tr style={{backgroundColor: 'rgba(0,0,0, 0)'}}>
+                    <th></th>
+                    <th style={{backgroundColor: 'rgba(0,0,0, 0.2)'}}>Subtotal</th>
+                    <th style={{backgroundColor: 'rgba(0,0,0, 0.2)'}}>$ {cart.total} usd</th>
+                </tr>
+                <tr style={{backgroundColor: 'white'}}>
+                    <th></th>
+                    <th>Shipping</th>
+                    <th>$ 55 usd</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th style={{backgroundColor: 'rgba(0,0,0, 0.4)'}}>Total</th>
+                    <th style={{backgroundColor: 'rgba(0,0,0, 0.4)'}}>$ {cart.total} usd</th>
+                </tr>
 
-	        </Table>
-	        <h2>Billing Info</h2>
-	        <div>Address: <span>{billingAddress.street}, {billingAddress.city}, {billingAddress.zip}, {billingAddress.state} {billingAddress.country}</span></div>
-	        <div>Name: <span>{billingAddress.name}</span></div>
-	        <div>Email: <span>{billingAddress.email}</span></div>
-	        <div>Phone: <span>{billingAddress.telephone}</span></div>
-	        <div>Card: <span>**** **** **** {card.card.last4}</span></div>
+            </Table>
+            <h2>Billing Info</h2>
+            <div>Address: <span>{billingAddress.street}, {billingAddress.city}, {billingAddress.zip}, {billingAddress.state} {billingAddress.country}</span>
+            </div>
+            <div>Name: <span>{billingAddress.name}</span></div>
+            <div>Email: <span>{billingAddress.email}</span></div>
+            <div>Phone: <span>{billingAddress.telephone}</span></div>
+            <div>Card: <span>**** **** **** {card.card.last4}</span></div>
         </Container>
     )
 };
