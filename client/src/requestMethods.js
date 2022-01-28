@@ -4,8 +4,8 @@ import axios from 'axios';
 // to heroku
 
 // const BASE_URL = "http://bsaserver.herokuapp.com:5000";
-// const BASE_URL = "https://bsaserver.herokuapp.com/api/";
-const BASE_URL = (process.env.NODE_URL === 'production' ? "http://localhost:5000/" : "https://bsaserver.herokuapp.com/")
+const BASE_URL = "https://bsaserver.herokuapp.com/";
+// const BASE_URL = (process.env.NODE_URL !== 'production' ? "http://localhost:5000/api" : "https://bsaserver.herokuapp.com/")
 // if (process.env.NODE_ENV !== 'production') {
 // 	const BASE_URL = "http://localhost:5000/api/";
 // }
