@@ -101,6 +101,10 @@ const Burger = () => {
     const {currentUser} = useSelector(state => state.user);
     const [open, setOpen] = useState(false)
     const quantity = useSelector(state => state.cart.quantity)
+    const regularLink = (link) => {
+        window.location = link
+        setOpen(!open)
+    }
     return (
         <>
             <StyledBurger open={open} onClick={() => setOpen(!open)}>
@@ -109,13 +113,16 @@ const Burger = () => {
                 <div/>
             </StyledBurger>
             <Menu open={open}>
-                <RightMenu onClick={() => window.location = "/#categories"}>Categories</RightMenu>
-                <RightMenu onClick={() => window.location = {MailTo}}>Contact</RightMenu>
-                <MenuItem user={currentUser}><Link to="/register">Register</Link></MenuItem>
-                <MenuItem user={currentUser}><Link to="/login">Login</Link></MenuItem>
-                <ProfileItem user={currentUser}>Hi <Link to="/profile">{currentUser.name}</Link></ProfileItem>
+                <RightMenu onClick={() => regularLink("/#categories")}>Categories</RightMenu>
+                <RightMenu onClick={() => regularLink({MailTo})}>Contact</RightMenu>
+                <MenuItem onClick={() => setOpen(!open)} user={currentUser}><Link
+                    to="/register">Register</Link></MenuItem>
+                <MenuItem onClick={() => setOpen(!open)} user={currentUser}><Link to="/login">Login</Link></MenuItem>
+                <ProfileItem onClick={() => setOpen(!open)} user={currentUser}>Hi <Link
+                    to="/profile">{currentUser.name}</Link></ProfileItem>
                 <Link to="/cart">
-                    <MenuItem style={{display: 'block'}}><Badge color="secondary" badgeContent={quantity}>
+                    <MenuItem onClick={() => setOpen(!open)} style={{display: 'block'}}><Badge color="secondary"
+                                                                                               badgeContent={quantity}>
                         <ShoppingCartOutlined/>Cart
                     </Badge></MenuItem>
                 </Link>
