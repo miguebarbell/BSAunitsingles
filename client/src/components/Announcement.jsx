@@ -23,7 +23,7 @@ const Container = styled.div`
 const Announcement = () => {
     return (
         <Container>
-            Use card number 4242-4242-4242-4242 2/23 666
+            Use card number <strong> &nbsp;4242-4242-4242-4242 &nbsp;</strong> 2/23 666
         </Container>
     )
 }
