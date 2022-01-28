@@ -23,7 +23,7 @@ const Container = styled.div`
 const Announcement = () => {
     return (
         <Container>
-            Next motorcycle meeting will be in my barn, free beer.
+            Use card number 4242-4242-4242-4242 2/23 666
         </Container>
     )
 }
