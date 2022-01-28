@@ -165,7 +165,7 @@ const SearchContainer = styled.form`
   align-items: center;
   margin-left: 200px;
   @media (max-width: ${layoutChange}) {
-    margin -left: 100px;
+    margin-left: 100px;
     width: 40%;
   }
 `;
