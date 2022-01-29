@@ -53,6 +53,14 @@ export const Container = styled.div`
   margin-top: ${navbarHeight};
   background-color: white;
   padding: 2rem;
+  @media screen and (max-width: 1300px) {
+    table {
+      width: 95vw;
+      @media screen and (max-width: 720px) {
+        padding: 3rem 1rem;
+      }
+    }
+  }
 `;
 export const Header = styled.h1``;
 export const Table = styled.table`
