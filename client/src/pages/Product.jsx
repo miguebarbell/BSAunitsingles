@@ -18,14 +18,26 @@ const Wrapper = styled.div`
   width: 90vw;
   justify-content: center;
 `
-const ImgContainer = styled.div``
+const ImgContainer = styled.div`
+  ${({lock}) => lock ? "left: 0;" : ""};
+  ${({lock}) => lock ? "top: 0;" : ""};
+  position: ${({lock}) => lock ? "fixed" : "relative"};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${({lock}) => lock ? "z-index: 10;" : ""};
+  ${({lock}) => lock ? "width: 100vw;" : ""};
+  ${({lock}) => lock ? "height: 100vh;" : ""};
+  background-color: rgba(0, 0, 0, 0.5)
+`
 const Image = styled.img`
   border-radius: 10px;
-  max-height: 500px;
-  height: 30vh;
-  width: 30vh;
+  ${({lock}) => lock ? "" : "max-height: 500px;"}
+  ${({lock}) => lock ? "max-height: 80vh;" : "height: 30vh;"}
+  ${({lock}) => lock ? "max-width:80vw" : "width: 30vh;"}
   object-fit: cover;
   box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+  cursor: pointer;
 
 `
 const Title = styled.h1`
@@ -80,12 +92,19 @@ const Amount = styled.span`
   padding: 0 0.5rem;`
 const Container = styled.div`
   background-color: white;
+
+  * {
+    //margin: 0;
+    //padding: 0;
+    //box-sizing: border-box;
+  }
 `
 const Product = () => {
     const location = useLocation();
     const id = location.pathname.split('/')[2]
     const [product, setProduct] = useState(0)
     const [quantity, setQuantity] = useState(1)
+    const [preview, setPreview] = useState(false)
     const dispatch = useDispatch()
     // console.log('loading product id: ' + id)
     useEffect(() => {
@@ -121,8 +140,8 @@ const Product = () => {
             <Announcement/>
             {/*<Navbar/>*/}
             <Wrapper>
-                <ImgContainer>
-                    <Image src={product.img}/>
+                <ImgContainer lock={preview}>
+                    <Image src={product.img} onClick={() => setPreview(!preview)} lock={preview}/>
                 </ImgContainer>
                 <InfoContainer>
                     <Title>{product.title}</Title>
