@@ -12,7 +12,7 @@ const Container = styled.div`
   margin-top: ${navbarHeight};
   width: 100vw;
   min-width: 200px;
-  max-width: 1980px;
+  //max-width: 1980px;
   display: flex;
   //justify-content: center;
   align-items: center;
