@@ -35,7 +35,7 @@ const FeaturedProducts = () => {
                 // const res = await axios.get('http://bsaserver.herokuapp.com:5000/api/products?category=featured');
                 const res = await publicRequest.get("api/products?category=featured");
                 setProducts(res.data)
-                console.log(res.data)
+                // console.log(res.data)
             } catch (e) {
                 // console.log(e);
             }

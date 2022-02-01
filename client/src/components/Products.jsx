@@ -35,9 +35,9 @@ const Products = ({cat, filter, sort}) => {
                 // const res = await axios.get( cat ? `http://bsaserver.herokuapp.com:5000/api/products?category=${cat}` : 'http://localhost:5000/api/products?category=featured');
                 const res = await publicRequest.get(cat ? `api/products?category=${cat}` : 'api/products?category=featured');
                 setProducts(res.data)
-                console.log(res.data)
+                // console.log(res.data)
             } catch (e) {
-                console.log(e);
+                // console.log(e);
             }
         }
         getProducts();
