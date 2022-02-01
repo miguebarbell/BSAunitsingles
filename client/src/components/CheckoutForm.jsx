@@ -89,9 +89,22 @@ const Fieldset = styled.fieldset`
   border-radius: 4px;
   min-width: 40%;
   min-height: 20%;
-
-
 `;
+
+const Button = styled.button`
+  border: 2px solid ${yellow};
+  background-color: ${yellow};
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover {
+    background-color: black;
+    color: ${yellow};
+  }
+`;
+
 const FormRow = styled.div`
   color: black;
   background-color: white;
@@ -230,7 +243,7 @@ const PaymentForm = () => {
                             <CardElement options={CARD_OPTIONS}/>
                         </FormRow>
                     </Fieldset>
-                    <button>PAY</button>
+                    <Button>PAY</Button>
                 </Form> :
                 history.push("/success", {
                     billingAddress: inputs,
