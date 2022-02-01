@@ -10,6 +10,7 @@ import {delProduct, lessProduct, moreProduct} from "../redux/cartRedux";
 // import {loadStripe} from '@stripe/stripe-js';
 import CheckoutForm from "../components/CheckoutForm";
 import {navbarHeight, yellow} from "../components/Navbar";
+import Announcement from "../components/Announcement";
 // const STRIPE_KEY = 'pk_test_51JjmTWBN6ojyqIxPr1Xg9QGKPn7hW1EmtON0UZ1fp6BZzBY01BCTvJRAOoqeHGhsbHu1618p0wPVl3y0EBdwLVFI002Tnn3HJN'
 // const stripe = loadStripe(STRIPE_KEY)
 
@@ -151,6 +152,7 @@ const NavCart = styled.div`
   background-color: white;
   position: fixed;
   top: ${navbarHeight};
+  margin-top: 2rem;
 `;
 
 const Cart = () => {
@@ -195,6 +197,7 @@ const Cart = () => {
     const [checkoutProducts, setCheckoutProducts] = useState(false)
     return (
         <Container>
+            <Announcement/>
             <CartWrapper>
                 <NavCart>
                     <Title>YOUR ORDER</Title>
