@@ -67,6 +67,7 @@ const Slider = () => {
             setSlideIndex(slideIndex < sliderItems.length - 1 ? slideIndex + 1 : 0)
         }
     }
+    setInterval(handleClick, 5000, "right")
     return (
         <Container>
             <Arrow direction="left" onClick={() => handleClick('left')}>
@@ -79,7 +80,7 @@ const Slider = () => {
                     </Slide>
                 ))}
             </Wrapper>
-            <Arrow direction="right" onClick={() => handleClick('left')}>
+            <Arrow direction="right" onClick={() => handleClick('right')}>
                 <ArrowRightOutlined/>
             </Arrow>
         </Container>
