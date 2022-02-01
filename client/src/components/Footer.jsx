@@ -75,12 +75,12 @@ const Footer = () => {
                 <Logo>Contact</Logo>
                 <ContactItem>
                     <MailOutlined style={{marginRight: '5px', height: '1.3rem'}}/>
-                    <a href="mailto:peter@bsaunitsingles.com" style={{textDecoration: 'none', color: 'black'}}>
-                        <span>peter@bsaunitsingles.com</span></a>
+                    <a href="mailto:bsaunitsingles@debloat.us" style={{textDecoration: 'none', color: 'black'}}>
+                        <span>bsaunitsingles@debloat.us</span></a>
                 </ContactItem>
                 <ContactItem>
                     <Phone style={{marginRight: '5px', height: '1.3rem'}}/>
-                    <span>(603) 532-7300</span>
+                    <span>(603) 532-XXXX</span>
                 </ContactItem>
 
                 <ContactItem>
