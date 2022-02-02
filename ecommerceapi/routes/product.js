@@ -6,11 +6,11 @@ const Fuse = require("fuse.js");
 // Create
 
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const newProduct = new Product(req.body)
     try {
         const savedProduct = await newProduct.save();
-        console.log("added item")
+        // console.log("added item")
         return res.status(200).json(savedProduct);
 
     } catch (err) {
