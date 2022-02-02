@@ -57,8 +57,8 @@ const ProductList = () => {
                 <Filter>
                     <FilterText>Motorcycle Model: </FilterText>
                     <Select name="model" onChange={handleFilters}>
-                        <Option disabled selected> Models</Option>
-                        <Option value="All">All</Option>
+                        <Option selected value="All">All Models</Option>
+                        <Option value="Fits All">Fits all</Option>
                         <Option value="C15">C15</Option>
                         {/*<Option>C15 Star</Option>*/}
                         {/*<Option>C15T Trials</Option>*/}
