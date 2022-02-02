@@ -3,7 +3,7 @@ import {ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
 import {useState} from "react";
 import {sliderItems} from "../data"
 import {announcementHeight} from "./Announcement";
-import {navbarHeight} from "./Navbar";
+import {navbarHeight, yellow} from "./Navbar";
 
 const Container = styled.div`
   width: 100vw;
@@ -18,7 +18,7 @@ const Arrow = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: white;
+  background-color: transparent;
   height: 30px;
   width: 30px;
   position: absolute;
@@ -26,8 +26,14 @@ const Arrow = styled.div`
   left: ${props => props.direction === "left" && "10px"};
   right: ${props => props.direction === "right" && "10px"};
   cursor: pointer;
-  opacity: .5;
+  backdrop-filter: blur(5px);
+  //opacity: .5;
   z-index: 2;
+
+  &:hover {
+    color: black;
+    background-color: ${yellow};
+  }
 `
 const Wrapper = styled.div`
   height: 100%;
@@ -50,12 +56,16 @@ const Slide = styled.div`
   align-items: end;
 `
 const Title = styled.h1`
-  background-color: rgba(255, 255, 255, 0.3);
+  //background-color: rgba(255, 255, 255, 0.15);
+  background-color: ${yellow};
+  opacity: 0.55;
+  backdrop-filter: blur(45px);
   color: black;
   font-size: 2rem;
   max-width: 70%;
   padding: 2rem;
   border-radius: 5px;
+  margin: 1rem;
 `
 
 const Slider = () => {
@@ -71,7 +81,7 @@ const Slider = () => {
     return (
         <Container>
             <Arrow direction="left" onClick={() => handleClick('left')}>
-                <ArrowLeftOutlined/>
+                <ArrowLeftOutlined fontSize="large"/>
             </Arrow>
             <Wrapper slideIndex={slideIndex}>
                 {sliderItems.map((item) => (
@@ -81,7 +91,7 @@ const Slider = () => {
                 ))}
             </Wrapper>
             <Arrow direction="right" onClick={() => handleClick('right')}>
-                <ArrowRightOutlined/>
+                <ArrowRightOutlined fontSize="large"/>
             </Arrow>
         </Container>
     )
