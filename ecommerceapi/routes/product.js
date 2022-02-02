@@ -45,6 +45,16 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     }
 })
 
+// Delete All the products
+router.delete("all", verifyTokenAndAdmin, async (req, res) => {
+    try {
+        await Product.deleteMany({})
+        return res.status(200).json("Database cleared.")
+    } catch (err) {
+        return res.status(500).json(err)
+    }
+})
+
 // Get product
 router.get("/find/:id", async (req, res) => {
     try {
