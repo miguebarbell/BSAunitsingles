@@ -102,7 +102,7 @@ const Container = styled.div`
 const Product = () => {
     const location = useLocation();
     const id = location.pathname.split('/')[2]
-    const [product, setProduct] = useState(0)
+    const [product, setProduct] = useState({})
     const [quantity, setQuantity] = useState(1)
     const [preview, setPreview] = useState(false)
     const dispatch = useDispatch()
@@ -134,6 +134,21 @@ const Product = () => {
         // console.log(quantity)
         dispatch(addProduct({...product, quantity, priceQty: product.price * quantity}));
     };
+    const getModels = () => {
+        try {
+
+            if (product.model[0] === product.model[1]) {
+                return product.model[0]
+            } else if (product.model[0] === "Fits All" || product.model[1] === "Fits All") {
+                return "Fits All"
+            } else {
+                return `${product.model[0]} - ${product.model[1]}`
+            }
+        } catch (e) {
+           console.error(e)
+        }
+    }
+
 
     return (
         <Container>
@@ -146,7 +161,10 @@ const Product = () => {
                 <InfoContainer>
                     <Title>{product.title}</Title>
                     <Sku>SKU: {product.sku}</Sku>
-                    <Desc>{product.desc}
+                    <Desc>
+                        <p>Fits on: {getModels()}</p>
+                        <p>Weight: {product.weight === 0 ? 0.1 : product.weight} lbs</p>
+                        <p>{product.desc}</p>
                     </Desc>
                     <Price>$ {product.price}</Price>
                     {/*<Price>$ {product.price.toFixed(2)}</Price>*/}

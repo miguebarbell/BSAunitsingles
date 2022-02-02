@@ -57,7 +57,7 @@ const ProductList = () => {
                 <Filter>
                     <FilterText>Motorcycle Model: </FilterText>
                     <Select name="model" onChange={handleFilters}>
-                        <Option selected value="All">All Models</Option>
+                        <Option defaultValue value="All">All Models</Option>
                         <Option value="Fits All">Fits all</Option>
                         <Option value="C15">C15</Option>
                         {/*<Option>C15 Star</Option>*/}
@@ -99,7 +99,7 @@ const ProductList = () => {
                 </Filter>
                 <Filter><FilterText>Sort: </FilterText>
                     <Select onChange={(e) => setSort(e.target.value)}>
-                        <Option value="newest" selected>Newest</Option>
+                        <Option defaultValue value="newest" >Newest</Option>
                         <Option value="asc">Price (asc)</Option>
                         <Option value="desc">Price (desc)</Option>
                     </Select>
