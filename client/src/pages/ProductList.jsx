@@ -46,7 +46,7 @@ const ProductList = () => {
         const value = e.target.value;
         setFilter({
             ...filter,
-            [e.target.name]: value.toLowerCase(),
+            [e.target.name]: value,
         });
     }
     return (
@@ -58,8 +58,8 @@ const ProductList = () => {
                     <FilterText>Motorcycle Model: </FilterText>
                     <Select name="model" onChange={handleFilters}>
                         <Option disabled selected> Models</Option>
-                        <Option value="all">All</Option>
-                        <Option>C15</Option>
+                        <Option value="All">All</Option>
+                        <Option value="C15">C15</Option>
                         {/*<Option>C15 Star</Option>*/}
                         {/*<Option>C15T Trials</Option>*/}
                         {/*<Option>C15S Scrambler</Option>*/}
@@ -67,7 +67,7 @@ const ProductList = () => {
                         {/*<Option>C15 Pastoral</Option>*/}
                         {/*<Option>C15 Starfire</Option>*/}
                         {/*<Option>C15 Roadster</Option>*/}
-                        <Option>B40</Option>
+                        <Option value="B40">B40</Option>
                         {/*<Option>B40 Star</Option>*/}
                         {/*<Option>B40SS Sport Star</Option>*/}
                         {/*<Option>B40 Enduro Star</Option>*/}
@@ -79,20 +79,20 @@ const ProductList = () => {
                         {/*<Option>B44 Victor</Option>*/}
                         {/*<Option>B44 Victor Special</Option>*/}
                         {/*<Option>B44 Roadster</Option>*/}
-                        <Option>C25</Option>
+                        <Option value="C25">C25</Option>
                         {/*<Option>C25 Barracuda</Option>*/}
-                        <Option>B25</Option>
+                        <Option value="B25">B25</Option>
                         {/*<Option>B25 Starfire</Option>*/}
                         {/*<Option>B25 Fleetstar</Option>*/}
-                        <Option>B44</Option>
+                        <Option value="B44">B44</Option>
                         {/*<Option>B44 Shooting Star</Option>*/}
                         {/*<Option>B25T</Option>*/}
                         {/*<Option>B25SS</Option>*/}
                         {/*<Option>B50SS</Option>*/}
                         {/*<Option>B50T Trail</Option>*/}
                         {/*<Option>B50MX</Option>*/}
-                        <Option>B50</Option>
-                        <Option>TR25</Option>
+                        <Option value="B50">B50</Option>
+                        <Option value="TR25">TR25</Option>
                         {/*<Option>TR25W Trophy</Option>*/}
                         {/*<Option>T25T</Option>*/}
                     </Select>
