@@ -22,16 +22,24 @@ URL=http://localhost:5000/api/products/
 #$URL
 
 #for i in {0..4777}; do
+
+# CLEAR DB
+curl -H "Content-Type: application/json" \
+-H "token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVkNTE3OTQwY2UwNWE2MTZiNGFkOCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MzgxODE4NSwiZXhwIjoxNjQ0MDc3Mzg1fQ.reR5NZXMkpNULcRAgpJSW35XvwZ5uAAfK7J9mP17HmI" \
+-X DELETE \
+http://localhost:5000/api/products && \
+echo "database cleared"
+
 declare -i array_length
-array_length=$(jq 'length' /home/t800/Projects/bsaunitsingles/next_pushed.json)
-for i in {0..4777}; do
+array_length=$(jq 'length' /home/t800/Projects/bsaunitsingles/last_pushed.json)
+for i in {0..4790}; do
 #for i in {0..$(jq 'length' /home/t800/Projects/bsaunitsingles/next_pushed.json)}; do
-  echo "pushing item $i"
-  curl -H "token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVkNTE3OTQwY2UwNWE2MTZiNGFkOCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MjUyMTE3NywiZXhwIjoxNjQyNzgwMzc3fQ.TckAQUrj4PYABF9gMRHtz1xbIN30z6oqdtGzOid26AY" \
+  echo "pushing item $i of 4790"
+  curl -s -o /dev/null -H "token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVkNTE3OTQwY2UwNWE2MTZiNGFkOCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MzgxODE4NSwiZXhwIjoxNjQ0MDc3Mzg1fQ.reR5NZXMkpNULcRAgpJSW35XvwZ5uAAfK7J9mP17HmI" \
   -H "Content-Type: application/json" \
   -X POST \
   http://localhost:5000/api/products \
-  -d "$(jq '.['$i']' /home/t800/Projects/bsaunitsingles/next_pushed.json)"
-  sleep 1
+  -d "$(jq '.['$i']' /home/t800/Projects/bsaunitsingles/weight_pushed.json)"
+  #sleep 1
 #  break
 done
