@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 // import StripeCheckout from "react-stripe-checkout";
 // import {publicRequest, userRequest} from "../requestMethods";
 import {Link} from "react-router-dom";
-import {delProduct, lessProduct, moreProduct} from "../redux/cartRedux";
+import {delProduct, lessProduct, moreProduct, setShipping} from "../redux/cartRedux";
 // import {loadStripe} from '@stripe/stripe-js';
 import CheckoutForm from "../components/CheckoutForm";
 import {navbarHeight, yellow} from "../components/Navbar";
@@ -148,17 +148,18 @@ const NavCart = styled.div`
   flex-direction: column;
   align-items: center;
   width: 90vw;
-  height: 12vh;
+  height: 16vh;
   background-color: white;
   position: fixed;
   top: ${navbarHeight};
-  margin-top: 2rem;
+  padding-top: 2rem;
 `;
 
 const Cart = () => {
     // falta considerar un verdadero chippingn price y ese anadirlo al cart
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
+    // console.log(cart)
     // const user = useSelector(state => state.user.currentUser)
     // const [stripeToken, setStripeToken] = useState(null)
     // const history = useHistory();
@@ -195,6 +196,12 @@ const Cart = () => {
         dispatch(delProduct({...product}))
     }
     const [checkoutProducts, setCheckoutProducts] = useState(false)
+    const calculateShipping = (weight) => {
+        dispatch(setShipping({shipping: weight * 50}))
+        return +weight * 50
+    }
+
+    const shipping = calculateShipping(cart.weight)
     return (
         <Container>
             <Announcement/>
@@ -223,7 +230,6 @@ const Cart = () => {
                 </NavCart>
                 <Info>
                     {cart.products.map(product => (
-
                         <Product key={product._id}>
                             <ProductDetail>
                                 <Link to={`/product/${product._id}`}><Image src={product.img}
@@ -259,10 +265,11 @@ const Cart = () => {
                             <h1><b>Order Summary</b></h1>
                             <Subtotal><b>SubTotal: </b>${cart.total} usd</Subtotal>
                             {/*<Subtotal><b>SubTotal: </b>${cart.total.toFixed(2)} usd</Subtotal>*/}
-                            <Shipping><b>Estimated Shipping: </b>$55</Shipping>
+                            <p><b>Estimated Weight: </b>{cart.weight} lbs.</p>
+                            <Shipping><b>Estimated Shipping: </b>${shipping} usd</Shipping>
                         </Summary>
                         <TotalSummary>
-                            <Total><b>Total: </b>${cart.total} usd</Total>
+                            <Total><b>Total: </b>${cart.total + shipping} usd</Total>
                             {/*<Total><b>Total: </b>${cart.total.toFixed(2)} usd</Total>*/}
                         </TotalSummary>
                     </SummaryWrapper>
