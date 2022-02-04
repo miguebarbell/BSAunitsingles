@@ -166,10 +166,10 @@ const PaymentForm = () => {
                     // console.log("payment Method", paymentMethod)
                     setCardDetails(paymentMethod)
                     // console.log("id", id)
-                    console.log(cart.total)
+                    // console.log(cart.total)
                     const res = await publicRequest.post("api/checkout/payment", {
                         // amount: 'este es el error',
-                        amount: (+cart.total) * 100,
+                        amount: (+cart.total + +cart.shipping) * 100,
                         id
                     })
                     if (res.data.success) {

@@ -13,6 +13,7 @@ const OrderSchema = new mongoose.Schema({
         }
     ],
     amount: {type: Number, required:true},
+    shipping : {type: Number, required:true},
     address: {type: Object, required:true},
     card: {type: Object, required:true},
     operationId: {type: String, unique: true, required:true},
