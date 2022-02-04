@@ -73,8 +73,8 @@ const Products = ({cat, filter, sort}) => {
             <div>
                 <Name>{cat}</Name>
                 <Container>
-                    {filteredProducts.map(item => (
-                        <Product item={item} key={item._id}/>
+                    {filteredProducts.map((item, index) => (
+                        <Product item={item} key={index}/>
                     ))}
                 </Container>
             </div>
