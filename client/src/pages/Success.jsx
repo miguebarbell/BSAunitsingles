@@ -100,6 +100,7 @@ const Success = () => {
         total_amount: cart.total,
         total_products: cart.quantity,
         user: user,
+        shipping: cart.shipping,
         billingAddress: billingAddress,
         card: card,
         // cartResume: cart
@@ -111,6 +112,7 @@ const Success = () => {
             'subtotal': product.priceQty
         }))
     }
+    // console.log(order);
     pushOrder(order);
 
 
@@ -139,12 +141,12 @@ const Success = () => {
                 <tr style={{backgroundColor: 'white'}}>
                     <th></th>
                     <th>Shipping</th>
-                    <th>$ 55 usd</th>
+                    <th>$ {cart.shipping} usd</th>
                 </tr>
                 <tr>
                     <th></th>
                     <th style={{backgroundColor: 'rgba(0,0,0, 0.4)'}}>Total</th>
-                    <th style={{backgroundColor: 'rgba(0,0,0, 0.4)'}}>$ {cart.total} usd</th>
+                    <th style={{backgroundColor: 'rgba(0,0,0, 0.4)'}}>$ {cart.total + cart.shipping} usd</th>
                 </tr>
 
             </Table>
