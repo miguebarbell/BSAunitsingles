@@ -46,7 +46,8 @@ const Title = styled.h1`
 const Sku = styled.h5`
 
 `
-const Desc = styled.p`
+const Desc = styled.div`
+  max-width: 700px;
   padding: 1rem 0;
 `
 const Price = styled.h4``
