@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {sliderItems} from "../data"
 import {announcementHeight} from "./Announcement";
 import {navbarHeight, yellow} from "./Navbar";
@@ -77,7 +77,10 @@ const Slider = () => {
             setSlideIndex(slideIndex < sliderItems.length - 1 ? slideIndex + 1 : 0)
         }
     }
-    setInterval(handleClick, 5000, "right")
+    useEffect(() => {
+        const interval = setInterval(handleClick, 5000, "right")
+        return () => clearInterval(interval)
+    })
     return (
         <Container>
             <Arrow direction="left" onClick={() => handleClick('left')}>
