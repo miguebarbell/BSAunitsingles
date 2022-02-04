@@ -68,6 +68,7 @@ router.get("/find/:id", async (req, res) => {
 // Search a product
 router.get("/search/:query", async (req, res) => {
     // const allProducts = await Product.find()
+    // console.log(`Searching for ${req.params.query}`)
     try {
         const allProducts = await Product.find();
         // const allProducts = await Product.find();
@@ -96,6 +97,7 @@ router.get("/search/:query", async (req, res) => {
 
 // Get all products
 router.get("/", async (req, res) => {
+    console.log("getting all products")
     const queryNew = req.query.new
     const queryCategory = req.query.category;
     try {
