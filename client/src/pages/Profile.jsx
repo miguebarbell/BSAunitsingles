@@ -124,6 +124,18 @@ const Thead = styled.thead`
     left: -9999999px;
   }
 `
+const Button = styled.button`
+  cursor: pointer;
+  background-color: ${yellow};
+  color: black;
+  border: 1px solid ${yellow};
+  font-weight: bold;
+  padding: 0.125rem 0.25rem;
+  &:hover {
+    color: ${yellow};
+    background-color: black;
+  }
+`
 
 const Profile = () => {
     const history = useHistory();
@@ -146,10 +158,9 @@ const Profile = () => {
     // console.log(orders)
     // const cart = useSelector(state => state.cart)
     const makeRequest = async () => {
-        // console.log(user)
+        console.log(_id)
         try {
             const res = await userRequest.get(`api/orders/find/${_id}`)
-
             setOrders(res.data)
         } catch (err) {
             console.log(err)
@@ -179,6 +190,7 @@ const Profile = () => {
         //     <OrderDetails order={res}/>
         // )
     }
+    // console.log(orders)
     return (
         <Container>
             <Header>
@@ -202,14 +214,14 @@ const Profile = () => {
 
                                 <TrBody key={index} role="row">
                                     <Td role="cell">{order._id}</Td>
-                                    <Td role="cell">$ {order.amount.toFixed(2)} usd</Td>
+                                    <Td role="cell">$ {(order.amount + order.shipping).toFixed(2)} usd</Td>
                                     <Td role="cell">{dateHumanReadable(order.createdAt)}</Td>
                                     <Td role="cell">{order.status}</Td>
                                     <Td role="cell">
-                                        <button onClick={() => {
+                                        <Button onClick={() => {
                                             handleClick(order._id)
                                         }}>Details
-                                        </button>
+                                        </Button>
                                     </Td>
                                 </TrBody>
                             ))}
