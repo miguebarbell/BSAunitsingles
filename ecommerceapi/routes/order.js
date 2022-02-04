@@ -8,13 +8,13 @@ router.post("/", async (req, res) => {
     const billingAddress = req.body.billingAddress;
     const card = req.body.card;
     const user = req.body.user.currentUser;
-    console.log(req.body)
+    // console.log(req.body)
     const newOrder = new Order({
         user_Id: user._id,
         userId: user.username ? user.username : 'Not Logged',
         products: req.body.products.map(product => ({...product, quantity: parseInt(product.quantity)})),
         amount: req.body.total_amount,
-
+        shipping: req.body.shipping,
         operationId: card.id, //must be unique
         card: {
             last4: `**** **** **** ${card.card.last4}`,
@@ -129,7 +129,7 @@ router.post("/get/:orderId", verifyToken, async (req, res) => {
         if (req.body.username === order.userId || req.body.isAdmin) {
             return res.status(200).json(order)
         } else {
-            return res.status(403).json("Not Allowed")
+            return res.status(403).json("Not Allowed to get this order")
         }
 
     } catch (err) {
