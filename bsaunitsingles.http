@@ -13,7 +13,7 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-  "email" : "test@bsa.nh",
+  "email": "test@bsa.nh",
   "password": "admin",
   "name": "martes",
   "lastName": "de database"
@@ -26,8 +26,8 @@ Content-Type: application/json
 
 
 ### LOGIN
-#POST http://localhost:5000/api/auth/login/
-POST http://bsaserver.herokuapp.com:5000/api/auth/login/
+POST http://localhost:5000/api/auth/login/
+#POST http://bsaserver.herokuapp.com:5000/api/auth/login/
 Content-Type: application/json
 Connection: keep-alive
 
@@ -56,9 +56,14 @@ Content-Type: application/json
     "title": "Motorcyclesssss",
     "desc": "This is my favorite, I don't want to sell itsdf",
     "img": "https://www.motorcycle.com/blog/wp-content/uploads/2020/01/012220-2020-Triumph-Tiger-1200-Desert-Edition-LHS.jpg",
-    "categories": ["Moto"],
+    "categories": [
+      "Moto"
+    ],
     "sku": "MOTO-TIGERRR",
-    "model": ["Triumph", "Tiger"],
+    "model": [
+      "Triumph",
+      "Tiger"
+    ],
     "price": 16000,
     "inStock": true,
     "onHand": 2
@@ -67,9 +72,14 @@ Content-Type: application/json
     "title": "Motorcyclesss",
     "desc": "This is my favorite, I don't want to sell it...",
     "img": "https://www.motorcycle.com/blog/wp-content/uploads/2020/01/012220-2020-Triumph-Tiger-1200-Desert-Edition-LHS.jpg",
-    "categories": ["Moto"],
+    "categories": [
+      "Moto"
+    ],
     "sku": "MOTO-TIGERAAAAA",
-    "model": ["Triumph", "Tiger"],
+    "model": [
+      "Triumph",
+      "Tiger"
+    ],
     "price": 16000,
     "inStock": true,
     "onHand": 2
