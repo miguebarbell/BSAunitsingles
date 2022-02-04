@@ -177,7 +177,7 @@ const SearchResults = () => {
                         return 0
                     }
                 })
-                console.log(sorted)
+                // console.log(sorted)
                 setProduct(sorted)
 
             } catch (err) {
@@ -186,7 +186,7 @@ const SearchResults = () => {
         }
         getProducts(query.join('/'))
     }, [products])
-    console.log(products)
+    // console.log(products)
     return (
         <Container style={{backgroundColor: "white"}}>
             {((products.length === 0 && (
