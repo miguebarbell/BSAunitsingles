@@ -39,12 +39,12 @@ const OrderDetails = () => {
                 <tr style={{backgroundColor: 'white' }}>
                     <th></th>
                     <th></th>
-                    <th>Shipping</th><th>$ 55.00 usd</th>
+                    <th>Shipping</th><th>$ {location.state.data.shipping.toFixed(2)}</th>
                 </tr>
                 <tr>
                     <th></th>
                     <th></th>
-                    <th style={{backgroundColor: 'rgba(0,0,0, 0.4)' }}>Total</th><th style={{backgroundColor: 'rgba(0,0,0, 0.4)' }}>$ {location.state.data.amount.toFixed(2)} usd</th>
+                    <th style={{backgroundColor: 'rgba(0,0,0, 0.4)' }}>Total</th><th style={{backgroundColor: 'rgba(0,0,0, 0.4)' }}>$ {(location.state.data.amount + location.state.data.shipping).toFixed(2)} usd</th>
                 </tr>
 
             </Table>
